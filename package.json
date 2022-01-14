@@ -1,0 +1,30 @@
+{
+  "name": "color-toolkit",
+  "version": "1.0.0",
+  "description": "A modern, fully fledged color toolkit",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node-dev --respawn --transpile-only server.ts",
+    "test": "jest --config ./jest.config.ts"
+  },
+  "keywords": [
+    "color",
+    "colour",
+    "css",
+    "typescript"
+  ],
+  "author": "Bobby Plunkett",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^27.4.0",
+    "@typescript-eslint/eslint-plugin": "^5.9.1",
+    "eslint": "^8.6.0",
+    "eslint-plugin-jest": "^25.3.4",
+    "jest": "^27.4.7",
+    "prettier": "^2.5.1",
+    "ts-jest": "^27.1.2",
+    "ts-node-dev": "^1.1.8",
+    "typedoc": "^0.22.10",
+    "typescript": "^4.5.4"
+  }
+}
