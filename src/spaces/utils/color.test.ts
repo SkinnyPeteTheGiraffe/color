@@ -11,8 +11,8 @@ describe('model color utils', function () {
             convertRgbToHsl({ red: 0, green: 221, blue: 255, alpha: 1 })
         ).toMatchObject({
             hue: 188,
-            saturation: 1,
-            lightness: 0.5,
+            saturation: 100,
+            lightness: 50,
         });
     });
 

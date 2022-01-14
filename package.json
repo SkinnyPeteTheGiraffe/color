@@ -6,7 +6,9 @@
   "scripts": {
     "start": "ts-node-dev --respawn --transpile-only server.ts",
     "lint": "eslint \"src/**/*.ts\"",
-    "test": "jest --config ./jest.config.ts"
+    "test": "jest --config ./jest.config.ts",
+    "docs:build": "typedoc",
+    "docs:watch": "typedoc --watch"
   },
   "keywords": [
     "color",

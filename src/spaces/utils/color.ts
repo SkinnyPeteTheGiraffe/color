@@ -1,15 +1,7 @@
 import { HSLColorSpace } from '../hsl';
 import { RGBAColorSpace } from '../rgba';
 import { HWBColorSpace } from '../hwb/types/hwb.space';
-
-const hueToRgb = (p: number, q: number, t: number) => {
-    if (t < 0) t += 1;
-    if (t > 1) t -= 1;
-    if (t < 1 / 6) return p + (q - p) * 6 * t;
-    if (t < 1 / 2) return q;
-    if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
-    return p;
-};
+import { HSVColorSpace } from '../hsv';
 
 const rgbToHue = (space: RGBAColorSpace, defaultHue = 0) => {
     const value = rgbMax(space);
@@ -98,8 +90,8 @@ export const convertRgbToHsl = ({
     saturation = delta == 0 ? 0 : delta / (1 - Math.abs(2 * lightness - 1));
 
     // Multiply l and s by 100
-    saturation = Math.round((saturation + Number.EPSILON) * 100) / 100;
-    lightness = Math.round((lightness + Number.EPSILON) * 100) / 100;
+    saturation = Math.round((saturation + Number.EPSILON) * 100);
+    lightness = Math.round((lightness + Number.EPSILON) * 100);
     return {
         hue,
         saturation,
@@ -192,4 +184,75 @@ export const convertHwbToRgb = ({
     rgb.green = calculateAppliedValue(rgb.green);
     rgb.blue = calculateAppliedValue(rgb.blue);
     return rgb;
+};
+
+export const convertHslToHwb = (space: HSLColorSpace) => {
+    return convertHsvToHwb(convertHslToHsv(space));
+};
+
+export const convertHwbToHsl = (space: HWBColorSpace) => {
+    return convertHsvToHsl(convertHwbToHsv(space));
+};
+
+export const convertHslToHsv = ({
+    hue,
+    saturation,
+    lightness,
+}: HSLColorSpace): HSVColorSpace => {
+    const root =
+        (saturation * (lightness < 50 ? lightness : 100 - lightness)) / 100;
+    const adjustedSaturation =
+        root === 0 ? 0 : ((2 * root) / (lightness + root)) * 100;
+    const value = lightness + root;
+
+    return {
+        hue,
+        saturation: adjustedSaturation,
+        value,
+    };
+};
+
+export const convertHsvToHsl = ({
+    hue,
+    saturation,
+    value,
+}: HSVColorSpace): HSLColorSpace => {
+    const hslL = ((200 - saturation) * value) / 100;
+
+    return {
+        hue,
+        saturation:
+            hslL === 0 || hslL === 200
+                ? 0
+                : ((saturation * value) /
+                      100 /
+                      (hslL <= 100 ? hslL : 200 - hslL)) *
+                  100,
+        lightness: (hslL * 5) / 10,
+    };
+};
+
+export const convertHsvToHwb = ({
+    hue,
+    saturation,
+    value,
+}: HSVColorSpace): HWBColorSpace => {
+    return {
+        hue,
+        whiteness: ((100 - saturation) * value) / 100,
+        blackness: 100 - value,
+    };
+};
+
+export const convertHwbToHsv = ({
+    hue,
+    whiteness,
+    blackness,
+}: HWBColorSpace): HSVColorSpace => {
+    return {
+        hue,
+        saturation:
+            blackness === 100 ? 0 : 100 - (whiteness / (100 - blackness)) * 100,
+        value: 100 - blackness,
+    };
 };
