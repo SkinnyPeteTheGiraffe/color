@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node-dev --respawn --transpile-only server.ts",
+    "build": "tsc",
     "lint": "eslint \"src/**/*.ts\"",
     "test": "jest --config ./jest.config.ts",
     "docs:build": "typedoc",
