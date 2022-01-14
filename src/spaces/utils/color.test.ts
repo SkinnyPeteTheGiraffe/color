@@ -1,4 +1,9 @@
-import { convertHslToRgb, convertRgbToHsl, convertRgbToHwb } from './color';
+import {
+    convertHslToRgb,
+    convertHwbToRgb,
+    convertRgbToHsl,
+    convertRgbToHwb,
+} from './color';
 
 describe('model color utils', function () {
     it('should convert rgba to hsl successfully', () => {
@@ -30,5 +35,15 @@ describe('model color utils', function () {
             whiteness: 22,
             blackness: 0,
         });
+    });
+
+    it('should convert hwb to rgb successfully', () => {
+        expect(
+            convertHwbToRgb({
+                hue: 199,
+                whiteness: 22,
+                blackness: 0,
+            })
+        ).toMatchObject({ red: 56, green: 192, blue: 255, alpha: 1 });
     });
 });

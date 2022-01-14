@@ -121,31 +121,28 @@ export const convertHslToRgb = ({
     saturation,
     lightness,
 }: HSLColorSpace): RGBAColorSpace => {
-    hue /= 360; // reduce from 0-360 to 0-1
-    let red: number;
-    let green: number;
-    let blue: number;
+    hue %= 360;
 
-    if (saturation === 0) {
-        // achromatic
-        red = lightness;
-        green = lightness;
-        blue = lightness;
-    } else {
-        const q =
-            lightness < 0.5
-                ? lightness * (1 + saturation)
-                : lightness + saturation - lightness * saturation;
-        const p = 2 * lightness - q;
-        red = hueToRgb(p, q, hue + 1 / 3);
-        green = hueToRgb(p, q, hue);
-        blue = hueToRgb(p, q, hue - 1 / 3);
+    if (hue < 0) {
+        hue += 360;
     }
 
+    if (saturation > 1) saturation /= 100;
+    if (lightness > 1) lightness /= 100;
+
+    const calculateChannel = (n: number): number => {
+        const k = (n + hue / 30) % 12;
+        const a = saturation * Math.min(lightness, 1 - lightness);
+        return lightness - a * Math.max(-1, Math.min(k - 3, 9 - k, 1));
+    };
+
     return {
-        red: Math.min(Math.floor(red * 256), 255),
-        green: Math.min(Math.floor(green * 256), 255),
-        blue: Math.min(Math.floor(blue * 256), 255),
+        red: Math.min(Math.max(Math.floor(calculateChannel(0) * 256), 0), 255),
+        green: Math.min(
+            Math.max(Math.floor(calculateChannel(8) * 256), 0),
+            255
+        ),
+        blue: Math.min(Math.max(Math.floor(calculateChannel(4) * 256), 0), 255),
         alpha: 1,
     };
 };
@@ -166,4 +163,33 @@ export const convertRgbToHwb = (space: RGBAColorSpace): HWBColorSpace => {
         whiteness,
         blackness,
     };
+};
+
+export const convertHwbToRgb = ({
+    hue,
+    whiteness,
+    blackness,
+}: HWBColorSpace): RGBAColorSpace => {
+    whiteness /= 100;
+    blackness /= 100;
+    if (whiteness + blackness >= 1) {
+        const gray = whiteness / (whiteness + blackness);
+        return {
+            red: gray,
+            green: gray,
+            blue: gray,
+            alpha: 1,
+        };
+    }
+    const rgb = convertHslToRgb({ hue, saturation: 100, lightness: 50 });
+    const calculateAppliedValue = (value: number) => {
+        value /= 255;
+        value *= 1 - whiteness - blackness;
+        value += whiteness;
+        return Math.min(Math.max(Math.floor(value * 256), 0), 255);
+    };
+    rgb.red = calculateAppliedValue(rgb.red);
+    rgb.green = calculateAppliedValue(rgb.green);
+    rgb.blue = calculateAppliedValue(rgb.blue);
+    return rgb;
 };

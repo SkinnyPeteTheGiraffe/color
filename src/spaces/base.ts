@@ -5,6 +5,8 @@ export interface BaseSpace<T> {
 
     lighten(ratio: number): BaseSpace<T>;
     darken(ratio: number): BaseSpace<T>;
+    whiten(ratio: number): BaseSpace<T>;
+    blacken(ratio: number): BaseSpace<T>;
     saturate(ratio: number): BaseSpace<T>;
     desaturate(ratio: number): BaseSpace<T>;
     rotate(degrees: number): BaseSpace<T>;
@@ -12,6 +14,7 @@ export interface BaseSpace<T> {
     fill(ratio: number): BaseSpace<T>;
     mix(color: T, weight?: number): BaseSpace<T>;
     clone(): BaseSpace<T>;
+    grayscale(): BaseSpace<T>;
     color(color: keyof T): number;
 
     setColor(color: keyof T, value: number): BaseSpace<T>;

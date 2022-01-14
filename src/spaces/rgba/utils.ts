@@ -27,13 +27,16 @@ export const convertHexToRgb = (hex: string): RGBAColorSpace => {
                 alpha: 1,
             };
         }
-        const [r, g, b] = cleaned.match(/[\da-f]{2}/gi);
-        return {
-            red: parseInt(r, 16),
-            green: parseInt(g, 16),
-            blue: parseInt(b, 16),
-            alpha: 1,
-        };
+        const matched = cleaned.match(/[\da-f]{2}/gi);
+        if (matched) {
+            const [r, g, b] = matched;
+            return {
+                red: parseInt(r, 16),
+                green: parseInt(g, 16),
+                blue: parseInt(b, 16),
+                alpha: 1,
+            };
+        }
     }
 
     return {

@@ -5,6 +5,7 @@
     "noImplicitReturns": true,
     "esModuleInterop": true,
     "outDir": "dist",
+    "strict": true,
     "sourceMap": true,
     "target": "ES2021",
     "declaration": true,

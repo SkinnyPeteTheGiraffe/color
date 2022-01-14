@@ -1,7 +1,12 @@
 import { BaseSpace, ModelType } from '../base';
 import { RGBAColorSpace } from './types';
 import { normalizePercent } from '../../common';
-import { convertHslToRgb, convertRgbToHsl } from '../utils';
+import {
+    convertHslToRgb,
+    convertHwbToRgb,
+    convertRgbToHsl,
+    convertRgbToHwb,
+} from '../utils';
 import { HSLColorSpace } from '../hsl';
 
 /**
@@ -60,7 +65,11 @@ export class RGBA implements BaseSpace<RGBAColorSpace> {
     }
 
     public setColor(color: keyof RGBAColorSpace, value: number): RGBA {
-        this.space[color] = Math.floor(Math.min(Math.max(value, 0), 255));
+        if (color !== 'alpha') {
+            this.space[color] = Math.floor(Math.min(Math.max(value, 0), 255));
+        } else {
+            this.space[color] = Math.min(Math.max(value, 0), 1);
+        }
         return this;
     }
 
@@ -95,6 +104,34 @@ export class RGBA implements BaseSpace<RGBAColorSpace> {
      */
     public darken(ratio: number): RGBA {
         return this.adjustRelativeValue('lightness', ratio, false);
+    }
+
+    public whiten(ratio: number): RGBA {
+        const hwb = convertRgbToHwb(this.space);
+        const value = hwb.whiteness * normalizePercent(ratio);
+        hwb.whiteness += value;
+        const rgb = convertHwbToRgb(hwb);
+        this.applySpace(rgb);
+        return this;
+    }
+
+    public blacken(ratio: number): RGBA {
+        const hwb = convertRgbToHwb(this.space);
+        const value = hwb.blackness * normalizePercent(ratio);
+        hwb.blackness += value;
+        const rgb = convertHwbToRgb(hwb);
+        this.applySpace(rgb);
+        return this;
+    }
+
+    public grayscale() {
+        const y = Math.floor(
+            this.red() * 0.299 + this.green() * 0.587 + this.blue() * 0.114
+        );
+        this.space.red = y;
+        this.space.green = y;
+        this.space.blue = y;
+        return this;
     }
 
     /**
