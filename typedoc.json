@@ -1,7 +1,11 @@
 {
   "$schema": "https://typedoc.org/schema.json",
+  "name": "n-color",
   "entryPoints": ["./src"],
   "sort": ["source-order"],
   "excludePrivate": true,
-  "media": "media"
+  "media": "media",
+  "theme": "default",
+  "darkHighlightTheme": "dark-plus",
+  "customCss": "./docs-style.css"
 }

@@ -2,7 +2,7 @@ import { BaseSpace, ModelType } from '../base';
 import { RGBAColorSpace } from './types';
 import { normalizePercent } from '../../common';
 import { convertHwbToRgb, convertRgbToHsl, convertRgbToHwb } from '../utils';
-import { HSL } from '../hsl/hsl';
+import { HSLSpace } from '../hsl/hsl';
 
 /**
  * RGBA wrapper which provides mutations and accessor functions for
@@ -10,7 +10,7 @@ import { HSL } from '../hsl/hsl';
  *
  * @public
  */
-export class RGBA implements BaseSpace<RGBAColorSpace> {
+export class RGBASpace implements BaseSpace<RGBAColorSpace> {
     public type: ModelType;
     private readonly space: RGBAColorSpace;
 
@@ -85,7 +85,7 @@ export class RGBA implements BaseSpace<RGBAColorSpace> {
      * @param color the name of the channel from the current color space to set new value
      * @param value the value for the specified color channel
      */
-    public setColor(color: keyof RGBAColorSpace, value: number): RGBA {
+    public setColor(color: keyof RGBAColorSpace, value: number): RGBASpace {
         if (color !== 'alpha') {
             this.space[color] = Math.floor(Math.min(Math.max(value, 0), 255));
         } else {
@@ -94,8 +94,8 @@ export class RGBA implements BaseSpace<RGBAColorSpace> {
         return this;
     }
 
-    public clone(): RGBA {
-        return new RGBA({ ...this.space });
+    public clone(): RGBASpace {
+        return new RGBASpace({ ...this.space });
     }
 
     /**
@@ -121,7 +121,7 @@ export class RGBA implements BaseSpace<RGBAColorSpace> {
      * @param {number} ratio percentage to lighten the color by as a value between [0,1], or (1,100]
      *
      */
-    public lighten(ratio: number): RGBA {
+    public lighten(ratio: number): RGBASpace {
         const rotated = this.toHSL().lighten(ratio).toRGBA();
         this.applySpace(rotated.space);
         return this;
@@ -150,7 +150,7 @@ export class RGBA implements BaseSpace<RGBAColorSpace> {
      * ```
      * @param {number} ratio percentage to darken the color by as a value between [0,1], or (1,100]
      */
-    public darken(ratio: number): RGBA {
+    public darken(ratio: number): RGBASpace {
         const rotated = this.toHSL().darken(ratio).toRGBA();
         this.applySpace(rotated.space);
         return this;
@@ -162,7 +162,7 @@ export class RGBA implements BaseSpace<RGBAColorSpace> {
      *
      * @param {number} ratio value between 0 - 1 or 1 - 100 representing a relative percent in which to whiten the color
      */
-    public whiten(ratio: number): RGBA {
+    public whiten(ratio: number): RGBASpace {
         const hwb = convertRgbToHwb(this.space);
         const value = hwb.whiteness * normalizePercent(ratio);
         hwb.whiteness += value;
@@ -177,7 +177,7 @@ export class RGBA implements BaseSpace<RGBAColorSpace> {
      *
      * @param {number} ratio value between 0 - 1 or 1 - 100 representing a relative percent in which to blacken the color
      */
-    public blacken(ratio: number): RGBA {
+    public blacken(ratio: number): RGBASpace {
         const hwb = convertRgbToHwb(this.space);
         const value = hwb.blackness * normalizePercent(ratio);
         hwb.blackness += value;
@@ -206,7 +206,7 @@ export class RGBA implements BaseSpace<RGBAColorSpace> {
      *
      * @param {number} ratio the relative ratio to saturate the color
      */
-    public saturate(ratio: number): RGBA {
+    public saturate(ratio: number): RGBASpace {
         const rotated = this.toHSL().saturate(ratio).toRGBA();
         this.applySpace(rotated.space);
         return this;
@@ -219,31 +219,31 @@ export class RGBA implements BaseSpace<RGBAColorSpace> {
      *
      * @param {number} ratio the relative ratio to saturate the color
      */
-    public desaturate(ratio: number): RGBA {
+    public desaturate(ratio: number): RGBASpace {
         const rotated = this.toHSL().desaturate(ratio).toRGBA();
         this.applySpace(rotated.space);
         return this;
     }
 
-    public fade(ratio: number): RGBA {
+    public fade(ratio: number): RGBASpace {
         ratio = normalizePercent(ratio);
         this.space.alpha -= this.alpha() * ratio;
         return this;
     }
 
-    public fill(ratio: number): RGBA {
+    public fill(ratio: number): RGBASpace {
         ratio = normalizePercent(ratio);
         this.space.alpha += this.alpha() * ratio;
         return this;
     }
 
-    public rotate(degrees: number): RGBA {
+    public rotate(degrees: number): RGBASpace {
         const rotated = this.toHSL().rotate(degrees).toRGBA();
         this.applySpace(rotated.space);
         return this;
     }
 
-    public mix(color: RGBAColorSpace, weight = 0.5): RGBA {
+    public mix(color: RGBAColorSpace, weight = 0.5): RGBASpace {
         weight = normalizePercent(weight);
         const p = weight === undefined ? 0.5 : weight;
 
@@ -274,14 +274,14 @@ export class RGBA implements BaseSpace<RGBAColorSpace> {
     }
 
     /**
-     * Adjusts the opacity of the {@link RGBA} instance. This value
+     * Adjusts the opacity of the {@link RGBASpace} instance. This value
      * is limited between 0 and 1, and also between 1 and 100. Values between 0
      * and 1 are compared first, after which values between 1 and 100 are compared,
      * This value is clamped.
      *
      * @param percent the percent of opacity to set (0-1 or 1-100)
      */
-    public setOpacity(percent: number): RGBA {
+    public setOpacity(percent: number): RGBASpace {
         this.space.alpha = normalizePercent(percent);
         return this;
     }
@@ -330,7 +330,7 @@ export class RGBA implements BaseSpace<RGBAColorSpace> {
     }
 
     public toHSL() {
-        return new HSL(convertRgbToHsl(this.space));
+        return new HSLSpace(convertRgbToHsl(this.space));
     }
 
     private applySpace(space: RGBAColorSpace) {

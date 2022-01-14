@@ -1,6 +1,6 @@
-import { RGBA } from './rgba';
+import { RGBASpace } from './rgba';
 
 export * from './rgba';
 export * from './utils';
 
-export type ColorModel = RGBA;
+export type ColorModel = RGBASpace;

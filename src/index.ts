@@ -1,1 +1,1 @@
-export * from './spaces';
+export { RGBA } from './spaces';

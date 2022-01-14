@@ -1,1 +1,1 @@
-export { RGBAColorSpace } from './rgba.space';
+export { RGBAColorSpace } from './rgba.type';

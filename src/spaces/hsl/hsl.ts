@@ -7,9 +7,9 @@ import {
 } from '../utils';
 import { HSLColorSpace } from './types';
 import { normalizePercent } from '../../common';
-import { RGBA } from '../rgba';
+import { RGBASpace } from '../rgba';
 
-export class HSL implements BaseSpace<HSLColorSpace> {
+export class HSLSpace implements BaseSpace<HSLColorSpace> {
     public type: ModelType;
     private readonly space: HSLColorSpace;
 
@@ -30,7 +30,7 @@ export class HSL implements BaseSpace<HSLColorSpace> {
         return this.space.lightness;
     }
 
-    blacken(ratio: number): HSL {
+    blacken(ratio: number): HSLSpace {
         ratio = normalizePercent(ratio);
         const hwb = convertHslToHwb(this.space);
         hwb.blackness += hwb.blackness * ratio;
@@ -39,23 +39,23 @@ export class HSL implements BaseSpace<HSLColorSpace> {
         return this;
     }
 
-    clone(): HSL {
-        return new HSL({ ...this.space });
+    clone(): HSLSpace {
+        return new HSLSpace({ ...this.space });
     }
 
     color(color: keyof HSLColorSpace): number {
         return this.space[color];
     }
 
-    darken(ratio: number): HSL {
+    darken(ratio: number): HSLSpace {
         return this.adjustRelativeValue('lightness', ratio, false);
     }
 
-    desaturate(ratio: number): HSL {
+    desaturate(ratio: number): HSLSpace {
         return this.adjustRelativeValue('saturation', ratio, false);
     }
 
-    grayscale(): HSL {
+    grayscale(): HSLSpace {
         const rgba = this.toRGBA();
         rgba.grayscale();
         const hsl = convertRgbToHsl(rgba.toObject());
@@ -63,17 +63,17 @@ export class HSL implements BaseSpace<HSLColorSpace> {
         return this;
     }
 
-    lighten(ratio: number): HSL {
+    lighten(ratio: number): HSLSpace {
         return this.adjustRelativeValue('lightness', ratio, true);
     }
 
-    mix(color: HSLColorSpace, weight?: number): HSL {
+    mix(color: HSLColorSpace, weight?: number): HSLSpace {
         const hsl = this.toRGBA().mix(convertHslToRgb(color), weight).toHSL();
         this.applySpace(hsl.space);
         return this;
     }
 
-    rotate(degrees: number): HSL {
+    rotate(degrees: number): HSLSpace {
         this.space.hue = (this.space.hue + degrees) % 360;
         if (this.space.hue < 0) {
             this.space.hue += 360;
@@ -81,11 +81,11 @@ export class HSL implements BaseSpace<HSLColorSpace> {
         return this;
     }
 
-    saturate(ratio: number): HSL {
+    saturate(ratio: number): HSLSpace {
         return this.adjustRelativeValue('saturation', ratio, true);
     }
 
-    setColor(color: keyof HSLColorSpace, value: number): HSL {
+    setColor(color: keyof HSLColorSpace, value: number): HSLSpace {
         if (color !== 'hue') {
             this.space[color] = Math.floor(Math.min(Math.max(value, 0), 360));
         } else {
@@ -110,7 +110,7 @@ export class HSL implements BaseSpace<HSLColorSpace> {
         return `hsl(${this.space.hue},${this.space.saturation}%,${this.space.lightness}%)`;
     }
 
-    whiten(ratio: number): HSL {
+    whiten(ratio: number): HSLSpace {
         ratio = normalizePercent(ratio);
         const hwb = convertHslToHwb(this.space);
         hwb.whiteness += hwb.whiteness * ratio;
@@ -120,7 +120,7 @@ export class HSL implements BaseSpace<HSLColorSpace> {
     }
 
     public toRGBA() {
-        return new RGBA(convertHslToRgb(this.space));
+        return new RGBASpace(convertHslToRgb(this.space));
     }
 
     private applySpace(space: HSLColorSpace) {

@@ -1,10 +1,10 @@
-import { HSL } from './hsl';
+import { HSLSpace } from './hsl';
 
 describe('hsl color space', () => {
-    let hsl: HSL;
+    let hsl: HSLSpace;
 
     beforeEach(() => {
-        hsl = new HSL({ hue: 144, saturation: 50, lightness: 75 });
+        hsl = new HSLSpace({ hue: 144, saturation: 50, lightness: 75 });
     });
 
     describe('color channel mutators', () => {

@@ -1,8 +1,8 @@
 {
-  "name": "color-toolkit",
+  "name": "n-color",
   "version": "1.0.0",
   "description": "A modern, fully fledged color toolkit",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "start": "ts-node-dev --respawn --transpile-only server.ts",
     "build": "tsc",

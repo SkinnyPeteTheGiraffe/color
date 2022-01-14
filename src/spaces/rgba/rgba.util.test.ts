@@ -1,4 +1,4 @@
-import { convertHexToRgb } from './utils';
+import { convertHexToRgb } from './rgba.utils';
 
 describe('rgb model utils', () => {
     describe('convert full length hex value to rgb', () => {

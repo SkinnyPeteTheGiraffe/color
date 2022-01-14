@@ -1,10 +1,10 @@
-import { RGBA } from './rgba';
+import { RGBASpace } from './rgba.space';
 
 describe('rgba color space', () => {
-    let rgba: RGBA;
+    let rgba: RGBASpace;
 
     beforeEach(() => {
-        rgba = new RGBA({ red: 200, green: 128, blue: 75, alpha: 1 });
+        rgba = new RGBASpace({ red: 200, green: 128, blue: 75, alpha: 1 });
     });
 
     describe('color channel mutators', () => {
