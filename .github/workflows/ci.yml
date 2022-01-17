@@ -7,6 +7,7 @@ jobs:
       fail-fast: false
       matrix:
         node: [ 12, 14, 16 ]
+        test_number: [1, 2]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -24,6 +25,13 @@ jobs:
       - name: Lint, Test, and Build
         run: bash build.sh
 
+      - name: Coveralls Parallel
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.github_token }}
+          flag-name: run-${{ matrix.test_number }}
+          parallel: true
+
       - name: Generate typedocs
         run: pnpm run docs:build
 
@@ -32,3 +40,13 @@ jobs:
         with:
           branch: gh-pages
           folder: docs
+
+  finish:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Coveralls Finished
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.github_token }}
+          parallel-finished: true
