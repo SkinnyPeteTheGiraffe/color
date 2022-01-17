@@ -1,7 +1,6 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@tago-io/typedoc-tagoio-theme': ^0.10.3
   '@types/jest': ^27.4.0
   '@typescript-eslint/eslint-plugin': ^5.9.1
   '@typescript-eslint/parser': ^5.9.1
@@ -17,7 +16,6 @@ specifiers:
   typescript: ^4.5.4
 
 devDependencies:
-  '@tago-io/typedoc-tagoio-theme': 0.10.3
   '@types/jest': 27.4.0
   '@typescript-eslint/eslint-plugin': 5.9.1_b7b2e42b32ee097737cd3e626b10847b
   '@typescript-eslint/parser': 5.9.1_eslint@8.6.0+typescript@4.5.4
@@ -627,13 +625,6 @@ packages:
     resolution: {integrity: sha512-OAPJUAtgeINhh/TAlUID4QTs53Njm7xzddaVlEs/SXwgtiD1tW22zAB/W1wdqfrpmikgaWQ9Fw6Ws+hsiRm5Vg==}
     dependencies:
       '@sinonjs/commons': 1.8.3
-    dev: true
-
-  /@tago-io/typedoc-tagoio-theme/0.10.3:
-    resolution: {integrity: sha512-OYU7iEicywkaT9/wwoAEFqrVdaTV2UFzmEiXlfvJSyDjqVIdGydYmLVhWobex/SX0YgZ2vVpmzRoRwl2slOq/w==}
-    engines: {node: '>= 8'}
-    dependencies:
-      lunr: 2.3.9
     dev: true
 
   /@tootallnate/once/1.1.2:
