@@ -5,7 +5,7 @@
   "sort": ["source-order"],
   "excludePrivate": true,
   "media": "media",
-  "theme": "default",
+  "theme": "hugo",
   "darkHighlightTheme": "dark-plus",
   "customCss": "./docs-style.css"
 }
