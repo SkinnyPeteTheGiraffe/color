@@ -62,7 +62,7 @@ the RGBA color space.
 
 #### Defined in
 
-[spaces/rgba/rgba.space.ts:17](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/rgba/rgba.space.ts#L17)
+[spaces/rgba/rgba.space.ts:17](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/rgba/rgba.space.ts#L17)
 
 ## Properties
 
@@ -76,7 +76,7 @@ BaseSpace.type
 
 #### Defined in
 
-[spaces/rgba/rgba.space.ts:14](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/rgba/rgba.space.ts#L14)
+[spaces/rgba/rgba.space.ts:14](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/rgba/rgba.space.ts#L14)
 
 ## Methods
 
@@ -94,7 +94,7 @@ the red channel value of this color space
 
 #### Defined in
 
-[spaces/rgba/rgba.space.ts:27](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/rgba/rgba.space.ts#L27)
+[spaces/rgba/rgba.space.ts:27](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/rgba/rgba.space.ts#L27)
 
 ___
 
@@ -112,7 +112,7 @@ the green channel value of this color space
 
 #### Defined in
 
-[spaces/rgba/rgba.space.ts:36](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/rgba/rgba.space.ts#L36)
+[spaces/rgba/rgba.space.ts:36](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/rgba/rgba.space.ts#L36)
 
 ___
 
@@ -130,7 +130,7 @@ the alpha channel value of this color space
 
 #### Defined in
 
-[spaces/rgba/rgba.space.ts:45](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/rgba/rgba.space.ts#L45)
+[spaces/rgba/rgba.space.ts:45](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/rgba/rgba.space.ts#L45)
 
 ___
 
@@ -148,7 +148,7 @@ the blue channel value of this color space
 
 #### Defined in
 
-[spaces/rgba/rgba.space.ts:54](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/rgba/rgba.space.ts#L54)
+[spaces/rgba/rgba.space.ts:54](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/rgba/rgba.space.ts#L54)
 
 ___
 
@@ -185,7 +185,7 @@ BaseSpace.color
 
 #### Defined in
 
-[spaces/rgba/rgba.space.ts:71](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/rgba/rgba.space.ts#L71)
+[spaces/rgba/rgba.space.ts:71](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/rgba/rgba.space.ts#L71)
 
 ___
 
@@ -221,7 +221,7 @@ BaseSpace.setColor
 
 #### Defined in
 
-[spaces/rgba/rgba.space.ts:88](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/rgba/rgba.space.ts#L88)
+[spaces/rgba/rgba.space.ts:88](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/rgba/rgba.space.ts#L88)
 
 ___
 
@@ -243,7 +243,7 @@ BaseSpace.clone
 
 #### Defined in
 
-[spaces/rgba/rgba.space.ts:102](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/rgba/rgba.space.ts#L102)
+[spaces/rgba/rgba.space.ts:102](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/rgba/rgba.space.ts#L102)
 
 ___
 
@@ -290,7 +290,7 @@ BaseSpace.lighten
 
 #### Defined in
 
-[spaces/rgba/rgba.space.ts:132](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/rgba/rgba.space.ts#L132)
+[spaces/rgba/rgba.space.ts:132](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/rgba/rgba.space.ts#L132)
 
 ___
 
@@ -334,7 +334,7 @@ BaseSpace.darken
 
 #### Defined in
 
-[spaces/rgba/rgba.space.ts:160](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/rgba/rgba.space.ts#L160)
+[spaces/rgba/rgba.space.ts:160](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/rgba/rgba.space.ts#L160)
 
 ___
 
@@ -361,7 +361,7 @@ BaseSpace.whiten
 
 #### Defined in
 
-[spaces/rgba/rgba.space.ts:172](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/rgba/rgba.space.ts#L172)
+[spaces/rgba/rgba.space.ts:172](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/rgba/rgba.space.ts#L172)
 
 ___
 
@@ -388,7 +388,7 @@ BaseSpace.blacken
 
 #### Defined in
 
-[spaces/rgba/rgba.space.ts:187](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/rgba/rgba.space.ts#L187)
+[spaces/rgba/rgba.space.ts:187](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/rgba/rgba.space.ts#L187)
 
 ___
 
@@ -408,7 +408,7 @@ BaseSpace.grayscale
 
 #### Defined in
 
-[spaces/rgba/rgba.space.ts:199](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/rgba/rgba.space.ts#L199)
+[spaces/rgba/rgba.space.ts:199](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/rgba/rgba.space.ts#L199)
 
 ___
 
@@ -436,7 +436,7 @@ BaseSpace.saturate
 
 #### Defined in
 
-[spaces/rgba/rgba.space.ts:216](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/rgba/rgba.space.ts#L216)
+[spaces/rgba/rgba.space.ts:216](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/rgba/rgba.space.ts#L216)
 
 ___
 
@@ -464,7 +464,7 @@ BaseSpace.desaturate
 
 #### Defined in
 
-[spaces/rgba/rgba.space.ts:229](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/rgba/rgba.space.ts#L229)
+[spaces/rgba/rgba.space.ts:229](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/rgba/rgba.space.ts#L229)
 
 ___
 
@@ -486,7 +486,7 @@ Reduce the RGBA color space alpha value by a relative ratio.
 
 #### Defined in
 
-[spaces/rgba/rgba.space.ts:240](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/rgba/rgba.space.ts#L240)
+[spaces/rgba/rgba.space.ts:240](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/rgba/rgba.space.ts#L240)
 
 ___
 
@@ -508,7 +508,7 @@ Increase the RGBA color space alpha value by a relative ratio.
 
 #### Defined in
 
-[spaces/rgba/rgba.space.ts:251](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/rgba/rgba.space.ts#L251)
+[spaces/rgba/rgba.space.ts:251](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/rgba/rgba.space.ts#L251)
 
 ___
 
@@ -536,7 +536,7 @@ BaseSpace.rotate
 
 #### Defined in
 
-[spaces/rgba/rgba.space.ts:264](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/rgba/rgba.space.ts#L264)
+[spaces/rgba/rgba.space.ts:264](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/rgba/rgba.space.ts#L264)
 
 ___
 
@@ -565,7 +565,7 @@ BaseSpace.mix
 
 #### Defined in
 
-[spaces/rgba/rgba.space.ts:278](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/rgba/rgba.space.ts#L278)
+[spaces/rgba/rgba.space.ts:278](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/rgba/rgba.space.ts#L278)
 
 ___
 
@@ -590,7 +590,7 @@ This value is clamped.
 
 #### Defined in
 
-[spaces/rgba/rgba.space.ts:316](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/rgba/rgba.space.ts#L316)
+[spaces/rgba/rgba.space.ts:316](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/rgba/rgba.space.ts#L316)
 
 ___
 
@@ -623,7 +623,7 @@ BaseSpace.toHexString
 
 #### Defined in
 
-[spaces/rgba/rgba.space.ts:332](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/rgba/rgba.space.ts#L332)
+[spaces/rgba/rgba.space.ts:332](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/rgba/rgba.space.ts#L332)
 
 ___
 
@@ -646,7 +646,7 @@ BaseSpace.toArray
 
 #### Defined in
 
-[spaces/rgba/rgba.space.ts:344](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/rgba/rgba.space.ts#L344)
+[spaces/rgba/rgba.space.ts:344](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/rgba/rgba.space.ts#L344)
 
 ___
 
@@ -669,7 +669,7 @@ BaseSpace.toObject
 
 #### Defined in
 
-[spaces/rgba/rgba.space.ts:354](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/rgba/rgba.space.ts#L354)
+[spaces/rgba/rgba.space.ts:354](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/rgba/rgba.space.ts#L354)
 
 ___
 
@@ -693,7 +693,7 @@ BaseSpace.toString
 
 #### Defined in
 
-[spaces/rgba/rgba.space.ts:358](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/rgba/rgba.space.ts#L358)
+[spaces/rgba/rgba.space.ts:358](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/rgba/rgba.space.ts#L358)
 
 ___
 
@@ -707,4 +707,4 @@ ___
 
 #### Defined in
 
-[spaces/rgba/rgba.space.ts:364](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/rgba/rgba.space.ts#L364)
+[spaces/rgba/rgba.space.ts:364](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/rgba/rgba.space.ts#L364)

@@ -33,7 +33,7 @@ slug: "modules"
 
 #### Defined in
 
-[spaces/hsl/hsl.resolver.ts:4](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/hsl/hsl.resolver.ts#L4)
+[spaces/hsl/hsl.resolver.ts:4](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/hsl/hsl.resolver.ts#L4)
 
 ___
 
@@ -51,4 +51,4 @@ ___
 
 #### Defined in
 
-[spaces/rgba/rgba.resolver.ts:4](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/rgba/rgba.resolver.ts#L4)
+[spaces/rgba/rgba.resolver.ts:4](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/rgba/rgba.resolver.ts#L4)

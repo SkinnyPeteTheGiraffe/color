@@ -58,7 +58,7 @@ the HSL color space.
 
 #### Defined in
 
-[spaces/hsl/hsl.space.ts:22](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/hsl/hsl.space.ts#L22)
+[spaces/hsl/hsl.space.ts:22](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/hsl/hsl.space.ts#L22)
 
 ## Properties
 
@@ -72,7 +72,7 @@ BaseSpace.type
 
 #### Defined in
 
-[spaces/hsl/hsl.space.ts:19](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/hsl/hsl.space.ts#L19)
+[spaces/hsl/hsl.space.ts:19](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/hsl/hsl.space.ts#L19)
 
 ## Methods
 
@@ -90,7 +90,7 @@ the hue channel value of this color space
 
 #### Defined in
 
-[spaces/hsl/hsl.space.ts:32](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/hsl/hsl.space.ts#L32)
+[spaces/hsl/hsl.space.ts:32](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/hsl/hsl.space.ts#L32)
 
 ___
 
@@ -108,7 +108,7 @@ the saturation channel value of this color space
 
 #### Defined in
 
-[spaces/hsl/hsl.space.ts:41](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/hsl/hsl.space.ts#L41)
+[spaces/hsl/hsl.space.ts:41](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/hsl/hsl.space.ts#L41)
 
 ___
 
@@ -126,7 +126,7 @@ the lightness channel value of this color space
 
 #### Defined in
 
-[spaces/hsl/hsl.space.ts:50](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/hsl/hsl.space.ts#L50)
+[spaces/hsl/hsl.space.ts:50](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/hsl/hsl.space.ts#L50)
 
 ___
 
@@ -154,7 +154,7 @@ BaseSpace.blacken
 
 #### Defined in
 
-[spaces/hsl/hsl.space.ts:61](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/hsl/hsl.space.ts#L61)
+[spaces/hsl/hsl.space.ts:61](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/hsl/hsl.space.ts#L61)
 
 ___
 
@@ -176,7 +176,7 @@ BaseSpace.clone
 
 #### Defined in
 
-[spaces/hsl/hsl.space.ts:75](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/hsl/hsl.space.ts#L75)
+[spaces/hsl/hsl.space.ts:75](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/hsl/hsl.space.ts#L75)
 
 ___
 
@@ -213,7 +213,7 @@ BaseSpace.color
 
 #### Defined in
 
-[spaces/hsl/hsl.space.ts:92](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/hsl/hsl.space.ts#L92)
+[spaces/hsl/hsl.space.ts:92](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/hsl/hsl.space.ts#L92)
 
 ___
 
@@ -256,7 +256,7 @@ BaseSpace.darken
 
 #### Defined in
 
-[spaces/hsl/hsl.space.ts:117](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/hsl/hsl.space.ts#L117)
+[spaces/hsl/hsl.space.ts:117](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/hsl/hsl.space.ts#L117)
 
 ___
 
@@ -282,7 +282,7 @@ BaseSpace.desaturate
 
 #### Defined in
 
-[spaces/hsl/hsl.space.ts:126](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/hsl/hsl.space.ts#L126)
+[spaces/hsl/hsl.space.ts:126](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/hsl/hsl.space.ts#L126)
 
 ___
 
@@ -304,7 +304,7 @@ BaseSpace.grayscale
 
 #### Defined in
 
-[spaces/hsl/hsl.space.ts:135](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/hsl/hsl.space.ts#L135)
+[spaces/hsl/hsl.space.ts:135](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/hsl/hsl.space.ts#L135)
 
 ___
 
@@ -346,7 +346,7 @@ BaseSpace.lighten
 
 #### Defined in
 
-[spaces/hsl/hsl.space.ts:164](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/hsl/hsl.space.ts#L164)
+[spaces/hsl/hsl.space.ts:164](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/hsl/hsl.space.ts#L164)
 
 ___
 
@@ -377,7 +377,7 @@ BaseSpace.mix
 
 #### Defined in
 
-[spaces/hsl/hsl.space.ts:177](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/hsl/hsl.space.ts#L177)
+[spaces/hsl/hsl.space.ts:177](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/hsl/hsl.space.ts#L177)
 
 ___
 
@@ -403,7 +403,7 @@ BaseSpace.rotate
 
 #### Defined in
 
-[spaces/hsl/hsl.space.ts:188](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/hsl/hsl.space.ts#L188)
+[spaces/hsl/hsl.space.ts:188](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/hsl/hsl.space.ts#L188)
 
 ___
 
@@ -429,7 +429,7 @@ BaseSpace.saturate
 
 #### Defined in
 
-[spaces/hsl/hsl.space.ts:201](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/hsl/hsl.space.ts#L201)
+[spaces/hsl/hsl.space.ts:201](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/hsl/hsl.space.ts#L201)
 
 ___
 
@@ -454,7 +454,7 @@ BaseSpace.setColor
 
 #### Defined in
 
-[spaces/hsl/hsl.space.ts:205](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/hsl/hsl.space.ts#L205)
+[spaces/hsl/hsl.space.ts:205](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/hsl/hsl.space.ts#L205)
 
 ___
 
@@ -478,7 +478,7 @@ BaseSpace.toArray
 
 #### Defined in
 
-[spaces/hsl/hsl.space.ts:221](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/hsl/hsl.space.ts#L221)
+[spaces/hsl/hsl.space.ts:221](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/hsl/hsl.space.ts#L221)
 
 ___
 
@@ -511,7 +511,7 @@ BaseSpace.toHexString
 
 #### Defined in
 
-[spaces/hsl/hsl.space.ts:236](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/hsl/hsl.space.ts#L236)
+[spaces/hsl/hsl.space.ts:236](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/hsl/hsl.space.ts#L236)
 
 ___
 
@@ -534,7 +534,7 @@ BaseSpace.toObject
 
 #### Defined in
 
-[spaces/hsl/hsl.space.ts:246](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/hsl/hsl.space.ts#L246)
+[spaces/hsl/hsl.space.ts:246](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/hsl/hsl.space.ts#L246)
 
 ___
 
@@ -562,7 +562,7 @@ BaseSpace.toString
 
 #### Defined in
 
-[spaces/hsl/hsl.space.ts:261](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/hsl/hsl.space.ts#L261)
+[spaces/hsl/hsl.space.ts:261](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/hsl/hsl.space.ts#L261)
 
 ___
 
@@ -590,7 +590,7 @@ BaseSpace.whiten
 
 #### Defined in
 
-[spaces/hsl/hsl.space.ts:274](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/hsl/hsl.space.ts#L274)
+[spaces/hsl/hsl.space.ts:274](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/hsl/hsl.space.ts#L274)
 
 ___
 
@@ -608,4 +608,4 @@ the converted RGBA color space instance
 
 #### Defined in
 
-[spaces/hsl/hsl.space.ts:288](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/4b1d5d9/src/spaces/hsl/hsl.space.ts#L288)
+[spaces/hsl/hsl.space.ts:288](https://github.com/SkinnyPeteTheGiraffe/n-color/blob/096e8dc/src/spaces/hsl/hsl.space.ts#L288)
