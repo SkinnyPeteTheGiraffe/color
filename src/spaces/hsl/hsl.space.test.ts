@@ -1,4 +1,4 @@
-import { HSLSpace } from './hsl';
+import { HSLSpace } from './hsl.space';
 
 describe('hsl color space', () => {
     let hsl: HSLSpace;
@@ -29,8 +29,20 @@ describe('hsl color space', () => {
         it('should lighten hsl color 1 - 100', () => {
             expect(hsl.lighten(5).toString()).toBe('hsl(144,50%,79%)');
         });
+        it('should darken hsl color 0 - 1', () => {
+            expect(hsl.darken(0.22).toString()).toBe('hsl(144,50%,59%)');
+        });
+        it('should darken hsl color 1 - 100', () => {
+            expect(hsl.darken(5).toString()).toBe('hsl(144,50%,71%)');
+        });
         it('should saturate hsl color 0 - 1', () => {
             expect(hsl.saturate(0.44).toString()).toBe('hsl(144,72%,75%)');
+        });
+        it('should saturate hsl color with large number', () => {
+            expect(hsl.saturate(203123).toString()).toBe('hsl(144,100%,75%)');
+        });
+        it('should saturate hsl color with negative number', () => {
+            expect(hsl.saturate(-203123).toString()).toBe('hsl(144,0%,75%)');
         });
         it('should saturate hsl color 1 - 100', () => {
             expect(hsl.saturate(88).toString()).toBe('hsl(144,94%,75%)');
@@ -43,6 +55,29 @@ describe('hsl color space', () => {
         });
         it('should clone hsl object', () => {
             expect(hsl.clone()).toMatchObject(hsl);
+        });
+        it('should mix hsl colors', () => {
+            expect(
+                hsl.mix({ hue: 270, saturation: 64, lightness: 40 }).toString()
+            ).toBe('hsl(241,23%,60%)');
+        });
+        it('should rotate hsl color hue', () => {
+            expect(hsl.rotate(64).toString()).toBe('hsl(208,50%,75%)');
+        });
+        it('should set color channels using setter function', () => {
+            expect(hsl.setColor('hue', 360).hue()).toBe(360);
+            expect(hsl.setColor('lightness', 100).lightness()).toBe(100);
+            expect(hsl.setColor('saturation', 75).saturation()).toBe(75);
+        });
+        it('should handle any attempts of overflowing', () => {
+            expect(hsl.setColor('saturation', 100).saturate(1).toString()).toBe(
+                'hsl(144,100%,75%)'
+            );
+        });
+        it('should handle any attempts of "underflowing"', () => {
+            expect(
+                hsl.setColor('saturation', -1000).desaturate(10000).toString()
+            ).toBe('hsl(144,0%,75%)');
         });
     });
     describe('color channel accessors', () => {

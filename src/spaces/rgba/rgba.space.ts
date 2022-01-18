@@ -2,7 +2,7 @@ import { BaseSpace, ModelType } from '../base';
 import { RGBAColorSpace } from './types';
 import { normalizePercent } from '../../common';
 import { convertHwbToRgb, convertRgbToHsl, convertRgbToHwb } from '../utils';
-import { HSLSpace } from '../hsl/hsl';
+import { HSLSpace } from '../hsl';
 
 /**
  * RGBA wrapper which provides mutations and accessor functions for
@@ -94,32 +94,40 @@ export class RGBASpace implements BaseSpace<RGBAColorSpace> {
         return this;
     }
 
+    /**
+     * Clones the current color space.
+     *
+     * @return {@link RGBASpace} a new cloned instance of the original color space
+     */
     public clone(): RGBASpace {
         return new RGBASpace({ ...this.space });
     }
 
     /**
-     * Lightens the RGB color by a relative ratio.
+     * Lightens the color space by a relative ratio.
      *
      * @remarks
-     * To lighten the color, this
-     * function converts the RGB color to HSL color space, adjusts the lightness
-     * attribute, and converts back to the RGB color space.
+     * To lighten the color space this function converts the space to HSL, in which the `lightness` value by a relative
+     * ratio, after which is converted back to the original color space.
      * @remarks
      * The ratio is applied
      * by first multiplying the percent against the current value, and adding that
      * result to the lightness value clamping it between [0,1]
      *
+     * @param {number} ratio a value between [0,1] or (1,100] as the ratio to adjust the lightness of the color space
+     *
+     *
      * @example
-     * Here's a simple usage example lightening the color by 20%:
+     * Here's a simple usage example lightening the color by 20% using the RGBA color space:
      * ```ts
-     * color.toString() // rgb(200,128,75)
-     * color.lighten(0).toString() // rgb(200,128,75)
-     * color.lighten(20).toString() // rgb(213,157,118)
+     *
+     * import { RGBA } from 'n-color'
+     *
+     * const rgba = RGBA.fromHex('#b9825b')
+     * rgba.toString() // rgb(200,128,75)
+     * rgba.lighten(0).toString() // rgb(200,128,75)
+     * rgba.lighten(20).toString() // rgb(213,157,118)
      * ```
-     *
-     * @param {number} ratio percentage to lighten the color by as a value between [0,1], or (1,100]
-     *
      */
     public lighten(ratio: number): RGBASpace {
         const rotated = this.toHSL().lighten(ratio).toRGBA();
@@ -128,8 +136,7 @@ export class RGBASpace implements BaseSpace<RGBAColorSpace> {
     }
 
     /**
-     * Darkens the RGB color by a relative ratio. The ratio is relative of the
-     * value of each primary color.
+     * Darkens the RGB color space by a relative ratio.
      *
      * @remarks
      * To lighten the color, this
@@ -200,11 +207,11 @@ export class RGBASpace implements BaseSpace<RGBAColorSpace> {
     }
 
     /**
-     * Saturates the RGB color by a relative ratio. The color is desaturated by
-     * converting the value to HSL, adjusting the saturation, and converting
-     * back to RGB.
+     * Saturates the RGB color by a relative ratio.
      *
-     * @param {number} ratio the relative ratio to saturate the color
+     * @remarks This function converts the color space to HSL to preform operation
+     *
+     * @param {number} ratio the ratio to saturate color
      */
     public saturate(ratio: number): RGBASpace {
         const rotated = this.toHSL().saturate(ratio).toRGBA();
@@ -225,24 +232,49 @@ export class RGBASpace implements BaseSpace<RGBAColorSpace> {
         return this;
     }
 
+    /**
+     * Reduce the RGBA color space alpha value by a relative ratio.
+     *
+     * @param {number} ratio the ratio in which to reduce the alpha channel value
+     */
     public fade(ratio: number): RGBASpace {
         ratio = normalizePercent(ratio);
         this.space.alpha -= this.alpha() * ratio;
         return this;
     }
 
+    /**
+     * Increase the RGBA color space alpha value by a relative ratio.
+     *
+     * @param {number} ratio the ratio in which to increase the alpha channel value
+     */
     public fill(ratio: number): RGBASpace {
         ratio = normalizePercent(ratio);
         this.space.alpha += this.alpha() * ratio;
         return this;
     }
 
+    /**
+     * Rotates the hue of the color space by a given number of degrees.
+     *
+     * @remarks Converts the color space to HSL, where the hue is represented as degrees; having a value between [0,360].
+     *
+     * @param {number} degrees the number of degrees to rotate the hue channel
+     */
     public rotate(degrees: number): RGBASpace {
         const rotated = this.toHSL().rotate(degrees).toRGBA();
         this.applySpace(rotated.space);
         return this;
     }
 
+    /**
+     * Mixes this color with the provided RGBA color value by the specified weight.
+     *
+     * @remarks This function is directly ported from the SASS mix method: https://github.com/sass/libsass/blob/0e6b4a2850092356aa3ece07c6b249f0221caced/functions.cpp#L209
+     *
+     * @param color the RGBA color to mix into the current instance
+     * @param weight the weight in which the color should be mixed
+     */
     public mix(color: RGBAColorSpace, weight = 0.5): RGBASpace {
         weight = normalizePercent(weight);
         const p = weight === undefined ? 0.5 : weight;
@@ -287,7 +319,7 @@ export class RGBASpace implements BaseSpace<RGBAColorSpace> {
     }
 
     /**
-     * Returns a hex string representing the RGB color model. This ignores any
+     * Returns a hex string representing the RGB color space. This ignores any
      * alpha values.<br/><br/>
      * Example
      * ```ts
@@ -305,11 +337,11 @@ export class RGBASpace implements BaseSpace<RGBAColorSpace> {
 
     /**
      * Retrieves an array representing the RGBA color space containing the primary colors and alpha
-     * values. Array index is ordered logically, [RGBA].
+     * values. Array index is ordered logically [RGBA].
      *
-     * @return {RGBAColorSpace} the RGBA color model values
+     * @return {[number, number, number, number]} the RGBA color space values as an array
      */
-    public toArray(): Array<number> {
+    public toArray(): [number, number, number, number] {
         return [this.red(), this.green(), this.blue(), this.alpha()];
     }
 
@@ -317,7 +349,7 @@ export class RGBASpace implements BaseSpace<RGBAColorSpace> {
      * Retrieves an object representing the RGBA color space containing the primary colors and alpha
      * values.
      *
-     * @return {RGBAColorSpace} the RGBA color model values
+     * @return {RGBAColorSpace} the RGBA color space values
      */
     public toObject(): RGBAColorSpace {
         return this.space;

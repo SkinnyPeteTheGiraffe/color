@@ -1,1 +1,1 @@
-export { RGBA } from './spaces';
+export { RGBA, HSL, RGBASpace, HSLSpace } from './spaces';
