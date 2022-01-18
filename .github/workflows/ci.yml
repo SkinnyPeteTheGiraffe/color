@@ -23,7 +23,7 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - name: Lint, Test, and Build
-        run: bash build.sh
+        run: bash bin/build.sh
 
       - name: Coveralls Parallel
         uses: coverallsapp/github-action@master
@@ -33,7 +33,7 @@ jobs:
           parallel: true
 
       - name: Generate typedocs
-        run: pnpm run docs:build
+        run: bash bin/docs.sh
 
       - name: Deploy Docs To Github Pages
         uses: JamesIves/github-pages-deploy-action@4.1.4
