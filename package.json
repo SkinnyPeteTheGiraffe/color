@@ -9,7 +9,10 @@
     "lint": "eslint \"src/**/*.ts\"",
     "test": "jest --config ./jest.config.ts",
     "test:watch": "jest --config ./jest.config.ts --watch",
-    "docs:build": "typedoc",
+    "docs:build": "documentation build dist/index.js -f html -o docs",
+    "docs:serve": "documentation serve dist/index.js",
+    "docs:site": "mkdir -p build && rsync -a docs/ build/docs && rsync -a site/ build",
+    "docs": "pnpm run docs:build && pnpm run docs:site",
     "docs:watch": "typedoc --watch"
   },
   "keywords": [
@@ -24,6 +27,7 @@
     "@types/jest": "^27.4.0",
     "@typescript-eslint/eslint-plugin": "^5.9.1",
     "@typescript-eslint/parser": "^5.9.1",
+    "documentation": "^13.2.5",
     "eslint": "^8.6.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-jest": "^25.3.4",
@@ -32,7 +36,6 @@
     "prettier": "^2.5.1",
     "ts-jest": "^27.1.2",
     "ts-node-dev": "^1.1.8",
-    "typedoc": "^0.22.10",
     "typescript": "^4.5.4"
   }
 }

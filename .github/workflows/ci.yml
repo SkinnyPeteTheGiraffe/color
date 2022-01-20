@@ -33,13 +33,13 @@ jobs:
           parallel: true
 
       - name: Generate typedocs
-        run: pnpm run docs:build
+        run: pnpm run docs
 
       - name: Deploy Docs To Github Pages
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           branch: gh-pages
-          folder: docs
+          folder: build
 
   finish:
     needs: build
