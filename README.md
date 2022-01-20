@@ -1,16 +1,17 @@
-<p style="text-align: center;">
-  <a href="https://skinnypetethegiraffe.github.io/n-color/" target="blank"><img src="site/docs/_media/n-color-logo.svg" width="120" alt="Nest Logo" /></a>
-</p>
-<p style="text-align: center;">
-<a href="https://skinnypetethegiraffe.github.io/n-color/" target="blank">Documentation</a>
-&nbsp;&nbsp;—&nbsp;&nbsp;
-<a href="https://skinnypetethegiraffe.github.io/n-color/api/" target="blank">API</a>
-</p>
-
 # n-color
 [![Build Status](https://github.com/SkinnyPeteTheGiraffe/n-color/actions/workflows/ci.yml/badge.svg)](https://github.com/SkinnyPeteTheGiraffe/n-color/actions/workflows/ci.yml?query=branch%3Amain+)
 [![Coverage Status](https://coveralls.io/repos/github/SkinnyPeteTheGiraffe/n-color/badge.svg?branch=main)](https://coveralls.io/github/SkinnyPeteTheGiraffe/n-color?branch=main)
 [![MIT License](http://img.shields.io/badge/license-MIT-green.svg)](LICENSE.md)
+
+<p align="center">
+  <a href="https://skinnypetethegiraffe.github.io/n-color/" target="blank"><img src="site/docs/_media/n-color-logo.svg" width="120" alt="Nest Logo" /></a>
+  <br/>
+</p>
+<p align="center">
+<a href="https://skinnypetethegiraffe.github.io/n-color/" target="blank">Documentation</a>
+&nbsp;&nbsp;—&nbsp;&nbsp;
+<a href="https://skinnypetethegiraffe.github.io/n-color/api/" target="blank">API</a>
+</p>
 
 Modern, lightweight, dependency free, color manipulation and conversion library.
 
