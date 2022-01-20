@@ -105,6 +105,3 @@ dist
 
 # Webstorm
 .idea/
-
-# Typedocs
-docs/
