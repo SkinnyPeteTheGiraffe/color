@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+
+:root {
+    --theme-color: #EF476F
+}
+
+.ready > .cover {
+    background-color: #fff !important;
+    box-shadow: inset 0 -7px 19px -3px rgba(0,0,0,0.24);
+}
+
+.ready > .cover > .cover-main > blockquote > p {
+    color: #EF476F;
+}
+
+#n-color-1x > a > span > sup > small {
+    bottom: 2rem;
+}
