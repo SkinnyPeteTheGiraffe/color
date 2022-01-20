@@ -11,7 +11,7 @@
     "test:watch": "jest --config ./jest.config.ts --watch",
     "docs:build": "documentation build dist/index.js -f html -o build/api",
     "docs:serve": "docsify serve ./site",
-    "docs:site": "mkdir -p build && rsync -a docs/ build/docs && rsync -a site/ build",
+    "docs:site": "mkdir -p build && rsync -a site/ build",
     "docs": "pnpm run docs:build && pnpm run docs:site",
     "docs:watch": "typedoc --watch"
   },
