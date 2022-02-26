@@ -1,6 +1,6 @@
 import { HSLColorSpace } from '../hsl';
 import { RGBAColorSpace } from '../rgba';
-import { HWBColorSpace } from '../hwb/types/hwb.space';
+import { HWBColorSpace } from '../hwb';
 import { HSVColorSpace } from '../hsv';
 
 const rgbToHue = (space: RGBAColorSpace, defaultHue = 0) => {
