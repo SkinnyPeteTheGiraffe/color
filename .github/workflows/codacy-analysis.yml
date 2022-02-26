@@ -7,8 +7,8 @@ jobs:
     name: Codacy Analysis CLI
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@main
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
       - name: Run Codacy Analysis CLI
-        uses: codacy/codacy-analysis-action@master
+        uses: codacy/codacy-analysis-cli-action@master
