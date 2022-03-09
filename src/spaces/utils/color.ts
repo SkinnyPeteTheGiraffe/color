@@ -286,8 +286,8 @@ export const convertHwbToHsv = ({
     value: 100 - blackness,
 });
 
-export const convertHslToHwb = (space: HSLColorSpace) =>
+export const convertHslToHwb = (space: HSLColorSpace): HWBColorSpace =>
     convertHsvToHwb(convertHslToHsv(space));
 
-export const convertHwbToHsl = (space: HWBColorSpace) =>
+export const convertHwbToHsl = (space: HWBColorSpace): HSLColorSpace =>
     convertHsvToHsl(convertHwbToHsv(space));

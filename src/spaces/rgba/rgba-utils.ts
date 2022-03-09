@@ -1,6 +1,7 @@
 import RGBAColorSpace from './types/rgba-color-space';
 import { normalizePercent } from '../../common';
 
+const HEX_REGEX = /([\da-f]{3}){1,2}/i;
 /**
  * Determines if the provided string is between 3 and 5, which would indicate a shorthand
  * hex color value.
@@ -23,11 +24,7 @@ export const isShortHand = (hex: string): boolean =>
  */
 export const convertHexToRgb = (hex: string): RGBAColorSpace => {
     const cleaned = hex.replace(/#/g, '').toLowerCase();
-    if (
-        cleaned.length >= 3 &&
-        cleaned.length <= 6 &&
-        cleaned.match(/([\da-f]{3}){1,2}/i)
-    ) {
+    if (cleaned.length >= 3 && cleaned.length <= 6 && HEX_REGEX.exec(cleaned)) {
         if (isShortHand(cleaned)) {
             const [r, g, b] = cleaned.substring(0, 3).split('');
             return {
@@ -61,7 +58,7 @@ export const mixRGBASpaces = (
     base: RGBAColorSpace,
     additive: RGBAColorSpace,
     weight: number
-) => {
+): RGBAColorSpace => {
     const normalized = normalizePercent(weight);
     const p = normalized === undefined ? 0.5 : normalized;
 
@@ -98,7 +95,9 @@ export const rgbaSpaceToHexString = (
         16
     )}${space.green.toString(16)}${space.blue.toString(16)}`;
 
-export const applyGreyscaleToRGBASpace = (space: RGBAColorSpace) => {
+export const applyGreyscaleToRGBASpace = (
+    space: RGBAColorSpace
+): RGBAColorSpace => {
     const y = Math.floor(
         space.red * 0.299 + space.green * 0.587 + space.blue * 0.114
     );

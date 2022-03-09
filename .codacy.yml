@@ -1,3 +1,6 @@
 ---
 exclude_paths:
   - "**.test.ts"
+  - "**/coverage/**"
+  - "**/site/**"
+  - "**/.github/**"
