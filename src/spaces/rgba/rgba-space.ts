@@ -218,7 +218,7 @@ export default class RGBASpace implements BaseSpace<RGBAColorSpace> {
     /**
      * Converts RGB color channels to grayscale using a weighted YUV conversion.
      */
-    public grayscale() {
+    public grayscale(): RGBASpace {
         const greyscale = applyGreyscaleToRGBASpace(this.space);
         return this.applySpace(greyscale);
     }
@@ -357,7 +357,7 @@ export default class RGBASpace implements BaseSpace<RGBAColorSpace> {
         return this.space;
     }
 
-    public toString(alpha?: boolean) {
+    public toString(alpha?: boolean): string {
         return alpha
             ? `rgba(${this.space.red},${this.space.green},${this.space.blue},${this.space.alpha})`
             : `rgb(${this.space.red},${this.space.green},${this.space.blue})`;
