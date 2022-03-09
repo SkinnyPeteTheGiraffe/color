@@ -4,3 +4,4 @@ exclude_paths:
   - "**/coverage/**"
   - "**/site/**"
   - "**/.github/**"
+  - "**/ISSUE_TEMPLATE/**"
