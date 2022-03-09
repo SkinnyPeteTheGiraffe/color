@@ -1,13 +1,19 @@
 import { BaseSpace, ModelType } from '../base';
+import HslColorSpace from './types/hsl-color-space';
+import { normalizePercent } from '../../common';
 import {
     convertHslToHwb,
     convertHslToRgb,
     convertHwbToHsl,
     convertRgbToHsl,
 } from '../utils';
-import { HSLColorSpace } from './types';
-import { normalizePercent } from '../../common';
-import { RGBASpace } from '../rgba';
+import RGBAColorSpace from '../rgba/types/rgba-color-space';
+import { adjustHSLRelativeValue, rotateHue } from './hsl-utils';
+import {
+    applyGreyscaleToRGBASpace,
+    mixRGBASpaces,
+    rgbaSpaceToHexString,
+} from '../rgba/rgba-utils';
 
 /**
  * HSL wrapper which provides mutations and accessor functions for
@@ -15,11 +21,12 @@ import { RGBASpace } from '../rgba';
  *
  * @public
  */
-export class HSLSpace implements BaseSpace<HSLColorSpace> {
+export default class HSLSpace implements BaseSpace<HslColorSpace> {
     public type: ModelType;
-    private readonly space: HSLColorSpace;
 
-    constructor(space: HSLColorSpace) {
+    private readonly space: HslColorSpace;
+
+    constructor(space: HslColorSpace) {
         this.type = 'hsl';
         this.space = space;
     }
@@ -59,9 +66,9 @@ export class HSLSpace implements BaseSpace<HSLColorSpace> {
      * @param {number} ratio the ratio to blacken color
      */
     public blacken(ratio: number): HSLSpace {
-        ratio = normalizePercent(ratio);
+        const normalized = normalizePercent(ratio);
         const hwb = convertHslToHwb(this.space);
-        hwb.blackness += hwb.blackness * ratio;
+        hwb.blackness += hwb.blackness * normalized;
         const hsl = convertHwbToHsl(hwb);
         this.applySpace(hsl);
         return this;
@@ -89,17 +96,14 @@ export class HSLSpace implements BaseSpace<HSLColorSpace> {
      * @param color the name of the channel from the current color space to retrieve
      * @returns the value of the channel matching the provided key
      */
-    public color(color: keyof HSLColorSpace): number {
+    public color(color: keyof HslColorSpace): number {
         return this.space[color];
     }
 
     /**
      * Darkens the HSL color space by a relative ratio.
      *
-     * @remarks
-     * The ratio is applied
-     * by first multiplying the percent against the current value, and subtracting that
-     * result to the lightness value clamping it between [0,1]
+     * @remarks The ratio is applied by first multiplying the percent against the current value, and subtracting that result to the lightness value clamping it between [0,1]
      *
      * @example
      * Here's a simple usage example darkening the color by 20% in the HSL color space:
@@ -115,7 +119,13 @@ export class HSLSpace implements BaseSpace<HSLColorSpace> {
      * @param {number} ratio percentage to darken the color by as a value between [0,1], or (1,100]
      */
     public darken(ratio: number): HSLSpace {
-        return this.adjustRelativeValue('lightness', ratio, false);
+        const darkened = adjustHSLRelativeValue(
+            this.space,
+            'lightness',
+            ratio,
+            false
+        );
+        return this.applySpace(darkened);
     }
 
     /**
@@ -124,7 +134,13 @@ export class HSLSpace implements BaseSpace<HSLColorSpace> {
      * @param {number} ratio the ratio to desaturate color
      */
     public desaturate(ratio: number): HSLSpace {
-        return this.adjustRelativeValue('saturation', ratio, false);
+        const desaturated = adjustHSLRelativeValue(
+            this.space,
+            'saturation',
+            ratio,
+            false
+        );
+        return this.applySpace(desaturated);
     }
 
     /**
@@ -133,20 +149,15 @@ export class HSLSpace implements BaseSpace<HSLColorSpace> {
      * @remarks This function converts color space to RGBA to preform operation
      */
     public grayscale(): HSLSpace {
-        const rgba = this.toRGBA();
-        rgba.grayscale();
-        const hsl = convertRgbToHsl(rgba.toObject());
-        this.applySpace(hsl);
-        return this;
+        const greyscale = applyGreyscaleToRGBASpace(this.toRGBAColorSpace());
+        const hsl = convertRgbToHsl(greyscale);
+        return this.applySpace(hsl);
     }
 
     /**
      * Lightens the color space by a relative ratio.
      *
-     * @remarks
-     * The ratio is applied
-     * by first multiplying the percent against the current value, and adding that
-     * result to the lightness value clamping it between [0,1]
+     * @remarks The ratio is applied by first multiplying the percent against the current value, and adding that result to the lightness value clamping it between [0,1]
      *
      * @example
      * Here's a simple usage example lightening the color by 20% using the HSL color space:
@@ -162,7 +173,13 @@ export class HSLSpace implements BaseSpace<HSLColorSpace> {
      * @param {number} ratio a value between [0,1] or (1,100] as the ratio to adjust the lightness of the color space
      */
     public lighten(ratio: number): HSLSpace {
-        return this.adjustRelativeValue('lightness', ratio, true);
+        const lightened = adjustHSLRelativeValue(
+            this.space,
+            'lightness',
+            ratio,
+            true
+        );
+        return this.applySpace(lightened);
     }
 
     /**
@@ -174,10 +191,11 @@ export class HSLSpace implements BaseSpace<HSLColorSpace> {
      * @param color the HSL color to mix into the current instance
      * @param weight the weight in which the color should be mixed
      */
-    public mix(color: HSLColorSpace, weight?: number): HSLSpace {
-        const hsl = this.toRGBA().mix(convertHslToRgb(color), weight).toHSL();
-        this.applySpace(hsl.space);
-        return this;
+    public mix(color: HslColorSpace, weight = 0.5): HSLSpace {
+        const rgba = this.toRGBAColorSpace();
+        const mixed = mixRGBASpaces(rgba, convertHslToRgb(color), weight);
+        const hsl = convertRgbToHsl(mixed);
+        return this.applySpace(hsl);
     }
 
     /**
@@ -186,10 +204,7 @@ export class HSLSpace implements BaseSpace<HSLColorSpace> {
      * @param {number} degrees the number of degrees to rotate the hue channel
      */
     public rotate(degrees: number): HSLSpace {
-        this.space.hue = (this.space.hue + degrees) % 360;
-        if (this.space.hue < 0) {
-            this.space.hue += 360;
-        }
+        this.space.hue = rotateHue(this.space.hue, degrees);
         return this;
     }
 
@@ -199,10 +214,16 @@ export class HSLSpace implements BaseSpace<HSLColorSpace> {
      * @param {number} ratio the ratio to saturate color
      */
     public saturate(ratio: number): HSLSpace {
-        return this.adjustRelativeValue('saturation', ratio, true);
+        const adjusted = adjustHSLRelativeValue(
+            this.space,
+            'saturation',
+            ratio,
+            true
+        );
+        return this.applySpace(adjusted);
     }
 
-    public setColor(color: keyof HSLColorSpace, value: number): HSLSpace {
+    public setColor(color: keyof HslColorSpace, value: number): HSLSpace {
         if (color === 'hue') {
             this.space[color] = Math.floor(Math.min(Math.max(value, 0), 360));
         } else {
@@ -234,16 +255,16 @@ export class HSLSpace implements BaseSpace<HSLColorSpace> {
      * @param {boolean} removeHashtag will return the hex value without a hashtag if true, otherwise will return with hashtag
      */
     public toHexString(removeHashtag?: boolean): string {
-        return this.toRGBA().toHexString(removeHashtag);
+        return rgbaSpaceToHexString(this.toRGBAColorSpace(), removeHashtag);
     }
 
     /**
      * Retrieves an object representing the RGBA color space containing the primary colors and alpha
      * values.
      *
-     * @return {HSLColorSpace} the HSL color space values
+     * @return {HslColorSpace} the HSL color space values
      */
-    public toObject(): HSLColorSpace {
+    public toObject(): HslColorSpace {
         return { ...this.space };
     }
 
@@ -259,9 +280,9 @@ export class HSLSpace implements BaseSpace<HSLColorSpace> {
      * @return {string} valid CSS color value.
      */
     public toString(): string {
-        return `hsl(${Math.floor(this.space.hue)},${Math.floor(
-            this.space.saturation
-        )}%,${Math.floor(this.space.lightness)}%)`;
+        return `hsl(${parseFloat(this.space.hue.toFixed(1))},${parseFloat(
+            this.space.saturation.toFixed(1)
+        )}%,${parseFloat(this.space.lightness.toFixed(1))}%)`;
     }
 
     /**
@@ -272,9 +293,9 @@ export class HSLSpace implements BaseSpace<HSLColorSpace> {
      * @param {number} ratio the ratio to whiten color
      */
     public whiten(ratio: number): HSLSpace {
-        ratio = normalizePercent(ratio);
+        const normalized = normalizePercent(ratio);
         const hwb = convertHslToHwb(this.space);
-        hwb.whiteness += hwb.whiteness * ratio;
+        hwb.whiteness += hwb.whiteness * normalized;
         const hsl = convertHwbToHsl(hwb);
         this.applySpace(hsl);
         return this;
@@ -283,15 +304,15 @@ export class HSLSpace implements BaseSpace<HSLColorSpace> {
     /**
      * Converts this HSL color space to RGBA with an alpha of 100%.
      *
-     * @return {RGBASpace} the converted RGBA color space instance
+     * @return {RGBAColorSpace} the converted RGBA color space instance
      */
-    public toRGBA() {
-        return new RGBASpace(convertHslToRgb(this.space));
+    public toRGBAColorSpace(): RGBAColorSpace {
+        return convertHslToRgb(this.space);
     }
 
     /* ---------- PRIVATE FUNCTIONS --------- */
 
-    private applySpace(space: HSLColorSpace) {
+    private applySpace(space: HslColorSpace): HSLSpace {
         this.space.hue = Math.min(Math.max(Math.floor(space.hue), 0), 360);
         this.space.saturation = Math.min(
             Math.max(Math.floor(space.saturation), 0),
@@ -301,20 +322,6 @@ export class HSLSpace implements BaseSpace<HSLColorSpace> {
             Math.max(Math.floor(space.lightness), 0),
             100
         );
-    }
-
-    private adjustRelativeValue(
-        key: keyof Omit<HSLColorSpace, 'hue'>,
-        ratio: number,
-        increase: boolean
-    ) {
-        const normalized = normalizePercent(ratio, true);
-        this.space[key] += Math.round(
-            this.space[key] * normalized * (increase ? 1 : -1)
-        );
-        /* istanbul ignore next */ // Can't get this to trigger
-        if (this.space[key] < 0) this.space[key] = 0;
-        if (this.space[key] > 100) this.space[key] = 100;
         return this;
     }
 }

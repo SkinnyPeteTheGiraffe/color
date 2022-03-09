@@ -1,0 +1,14 @@
+name: Codacy Analysis CLI
+
+on: ["pull_request"]
+
+jobs:
+  code-analysis-cli:
+    name: Codacy Analysis CLI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Run Codacy Analysis CLI
+        uses: codacy/codacy-analysis-cli-action@master

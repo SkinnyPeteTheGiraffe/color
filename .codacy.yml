@@ -1,0 +1,9 @@
+---
+exclude_paths:
+  - "**.test.ts"
+  - "coverage/**"
+  - "site/**"
+  - "site/**/*"
+  - ".github/**"
+  - "ISSUE_TEMPLATE/**"
+  - "docs/**"

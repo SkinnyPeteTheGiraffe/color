@@ -1,2 +1,2 @@
 // eslint-disable-next-line import/prefer-default-export
-export { default as HSVColorSpace } from './hsv-space';
+export { default as HWBSpace } from './types/hwb-space';

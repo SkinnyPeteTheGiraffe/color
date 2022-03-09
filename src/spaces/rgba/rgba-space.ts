@@ -1,8 +1,19 @@
 import { BaseSpace, ModelType } from '../base';
-import { RGBAColorSpace } from './types';
+import RGBAColorSpace from './types/rgba-color-space';
 import { normalizePercent } from '../../common';
-import { convertHwbToRgb, convertRgbToHsl, convertRgbToHwb } from '../utils';
-import { HSLSpace } from '../hsl';
+import {
+    convertHslToRgb,
+    convertHwbToRgb,
+    convertRgbToHsl,
+    convertRgbToHwb,
+} from '../utils';
+import HSLColorSpace from '../hsl/types/hsl-color-space';
+import { adjustHSLRelativeValue, rotateHue } from '../hsl/hsl-utils';
+import {
+    applyGreyscaleToRGBASpace,
+    mixRGBASpaces,
+    rgbaSpaceToHexString,
+} from './rgba-utils';
 
 /**
  * RGBA wrapper which provides mutations and accessor functions for
@@ -10,8 +21,9 @@ import { HSLSpace } from '../hsl';
  *
  * @public
  */
-export class RGBASpace implements BaseSpace<RGBAColorSpace> {
+export default class RGBASpace implements BaseSpace<RGBAColorSpace> {
     public type: ModelType;
+
     private readonly space: RGBAColorSpace;
 
     constructor(space: RGBAColorSpace) {
@@ -130,9 +142,14 @@ export class RGBASpace implements BaseSpace<RGBAColorSpace> {
      * ```
      */
     public lighten(ratio: number): RGBASpace {
-        const rotated = this.toHSL().lighten(ratio).toRGBA();
-        this.applySpace(rotated.space);
-        return this;
+        const lightened = adjustHSLRelativeValue(
+            this.toHSLColorSpace(),
+            'lightness',
+            ratio,
+            true
+        );
+        const rgba = convertHslToRgb(lightened);
+        return this.applySpace(rgba);
     }
 
     /**
@@ -158,9 +175,14 @@ export class RGBASpace implements BaseSpace<RGBAColorSpace> {
      * @param {number} ratio percentage to darken the color by as a value between [0,1], or (1,100]
      */
     public darken(ratio: number): RGBASpace {
-        const rotated = this.toHSL().darken(ratio).toRGBA();
-        this.applySpace(rotated.space);
-        return this;
+        const darkened = adjustHSLRelativeValue(
+            this.toHSLColorSpace(),
+            'lightness',
+            ratio,
+            false
+        );
+        const rgba = convertHslToRgb(darkened);
+        return this.applySpace(rgba);
     }
 
     /**
@@ -196,14 +218,9 @@ export class RGBASpace implements BaseSpace<RGBAColorSpace> {
     /**
      * Converts RGB color channels to grayscale using a weighted YUV conversion.
      */
-    public grayscale() {
-        const y = Math.floor(
-            this.red() * 0.299 + this.green() * 0.587 + this.blue() * 0.114
-        );
-        this.space.red = y;
-        this.space.green = y;
-        this.space.blue = y;
-        return this;
+    public grayscale(): RGBASpace {
+        const greyscale = applyGreyscaleToRGBASpace(this.space);
+        return this.applySpace(greyscale);
     }
 
     /**
@@ -214,9 +231,14 @@ export class RGBASpace implements BaseSpace<RGBAColorSpace> {
      * @param {number} ratio the ratio to saturate color
      */
     public saturate(ratio: number): RGBASpace {
-        const rotated = this.toHSL().saturate(ratio).toRGBA();
-        this.applySpace(rotated.space);
-        return this;
+        const saturated = adjustHSLRelativeValue(
+            this.toHSLColorSpace(),
+            'saturation',
+            ratio,
+            true
+        );
+        const rgba = convertHslToRgb(saturated);
+        return this.applySpace(rgba);
     }
 
     /**
@@ -227,9 +249,14 @@ export class RGBASpace implements BaseSpace<RGBAColorSpace> {
      * @param {number} ratio the relative ratio to saturate the color
      */
     public desaturate(ratio: number): RGBASpace {
-        const rotated = this.toHSL().desaturate(ratio).toRGBA();
-        this.applySpace(rotated.space);
-        return this;
+        const desaturated = adjustHSLRelativeValue(
+            this.toHSLColorSpace(),
+            'saturation',
+            ratio,
+            false
+        );
+        const rgba = convertHslToRgb(desaturated);
+        return this.applySpace(rgba);
     }
 
     /**
@@ -238,8 +265,8 @@ export class RGBASpace implements BaseSpace<RGBAColorSpace> {
      * @param {number} ratio the ratio in which to reduce the alpha channel value
      */
     public fade(ratio: number): RGBASpace {
-        ratio = normalizePercent(ratio);
-        this.space.alpha -= this.alpha() * ratio;
+        const normalized = normalizePercent(ratio);
+        this.space.alpha -= this.alpha() * normalized;
         return this;
     }
 
@@ -249,8 +276,8 @@ export class RGBASpace implements BaseSpace<RGBAColorSpace> {
      * @param {number} ratio the ratio in which to increase the alpha channel value
      */
     public fill(ratio: number): RGBASpace {
-        ratio = normalizePercent(ratio);
-        this.space.alpha += this.alpha() * ratio;
+        const normalized = normalizePercent(ratio);
+        this.space.alpha += this.alpha() * normalized;
         return this;
     }
 
@@ -262,8 +289,10 @@ export class RGBASpace implements BaseSpace<RGBAColorSpace> {
      * @param {number} degrees the number of degrees to rotate the hue channel
      */
     public rotate(degrees: number): RGBASpace {
-        const rotated = this.toHSL().rotate(degrees).toRGBA();
-        this.applySpace(rotated.space);
+        const hsl = this.toHSLColorSpace();
+        hsl.hue = rotateHue(hsl.hue, degrees);
+        const rgba = convertHslToRgb(hsl);
+        this.applySpace(rgba);
         return this;
     }
 
@@ -276,33 +305,8 @@ export class RGBASpace implements BaseSpace<RGBAColorSpace> {
      * @param weight the weight in which the color should be mixed
      */
     public mix(color: RGBAColorSpace, weight = 0.5): RGBASpace {
-        weight = normalizePercent(weight);
-        const p = weight === undefined ? 0.5 : weight;
-
-        const w = 2 * p - 1;
-        const a = color.alpha - this.alpha();
-
-        const w1 = ((w * a === -1 ? w : (w + a) / (1 + w * a)) + 1) / 2;
-        const w2 = 1 - w1;
-        this.applySpace({
-            red: Math.min(
-                Math.max(Math.round(w1 * color.red + w2 * this.red()), 0),
-                255
-            ),
-            green: Math.min(
-                Math.max(Math.round(w1 * color.green + w2 * this.green()), 0),
-                255
-            ),
-            blue: Math.min(
-                Math.max(Math.round(w1 * color.blue + w2 * this.blue()), 0),
-                255
-            ),
-            alpha: Math.min(
-                Math.max(color.alpha * p + this.alpha() * (1 - p), 0),
-                1
-            ),
-        });
-        return this;
+        const mixed = mixRGBASpaces(this.space, color, weight);
+        return this.applySpace(mixed);
     }
 
     /**
@@ -330,9 +334,7 @@ export class RGBASpace implements BaseSpace<RGBAColorSpace> {
      * @param {boolean} removeHashtag will return the hex value without a hashtag if true, otherwise will return with hashtag
      */
     public toHexString(removeHashtag?: boolean): string {
-        return `${!removeHashtag ? '#' : ''}${this.space.red.toString(
-            16
-        )}${this.space.green.toString(16)}${this.space.blue.toString(16)}`;
+        return rgbaSpaceToHexString(this.space, removeHashtag);
     }
 
     /**
@@ -355,20 +357,21 @@ export class RGBASpace implements BaseSpace<RGBAColorSpace> {
         return this.space;
     }
 
-    public toString(alpha?: boolean) {
+    public toString(alpha?: boolean): string {
         return alpha
             ? `rgba(${this.space.red},${this.space.green},${this.space.blue},${this.space.alpha})`
             : `rgb(${this.space.red},${this.space.green},${this.space.blue})`;
     }
 
-    public toHSL() {
-        return new HSLSpace(convertRgbToHsl(this.space));
+    public toHSLColorSpace(): HSLColorSpace {
+        return convertRgbToHsl(this.space);
     }
 
-    private applySpace(space: RGBAColorSpace) {
+    private applySpace(space: RGBAColorSpace): RGBASpace {
         this.space.red = space.red;
         this.space.green = space.green;
         this.space.blue = space.blue;
         this.space.alpha = space.alpha;
+        return this;
     }
 }
