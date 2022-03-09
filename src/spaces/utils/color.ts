@@ -1,7 +1,13 @@
-import { HSLColorSpace } from '../hsl';
-import { RGBAColorSpace } from '../rgba';
-import { HWBColorSpace } from '../hwb';
-import { HSVColorSpace } from '../hsv';
+import HSLColorSpace from '../hsl/types/hsl-color-space';
+import RGBAColorSpace from '../rgba/types/rgba-color-space';
+import HWBColorSpace from '../hwb/types/hwb-space';
+import HSVColorSpace from '../hsv/types/hsv-space';
+
+const rgbMax = (space: RGBAColorSpace): number =>
+    Math.max(space.red, space.green, space.blue);
+
+const rgbMin = (space: RGBAColorSpace): number =>
+    Math.min(space.red, space.green, space.blue);
 
 const rgbToHue = (space: RGBAColorSpace, defaultHue = 0) => {
     const value = rgbMax(space);
@@ -10,33 +16,28 @@ const rgbToHue = (space: RGBAColorSpace, defaultHue = 0) => {
 
     if (delta) {
         // calculate segment
-        const segment =
-            value === space.red
-                ? (space.green - space.blue) / delta
-                : value === space.green
-                ? (space.blue - space.red) / delta
-                : (space.red - space.green) / delta;
+        let segment: number;
+        if (value === space.red) {
+            segment = (space.green - space.blue) / delta;
+        } else {
+            segment =
+                value === space.green
+                    ? (space.blue - space.red) / delta
+                    : (space.red - space.green) / delta;
+        }
 
         // calculate shift
-        const shift =
-            value === space.red
-                ? segment < 0
-                    ? 360 / 60
-                    : 0 / 60
-                : value === space.green
-                ? 120 / 60
-                : 240 / 60;
+        let shift: number;
+        if (value === space.red) {
+            shift = segment < 0 ? 360 / 60 : 0 / 60;
+        } else {
+            shift = value === space.green ? 120 / 60 : 240 / 60;
+        }
 
         return (segment + shift) * 60;
     }
     return defaultHue;
 };
-
-const rgbMax = (space: RGBAColorSpace): number =>
-    Math.max(space.red, space.green, space.blue);
-
-const rgbMin = (space: RGBAColorSpace): number =>
-    Math.min(space.red, space.green, space.blue);
 
 /**
  * Converts an RGB color value to HSL. Formula modeled from
@@ -45,7 +46,7 @@ const rgbMin = (space: RGBAColorSpace): number =>
  * are as follows. H [0,360], S [0,1], L[0,1]
  *
  * @param {RGBAColorSpace} model the RGB color model to convert to HSL
- * @return {HSLColorSpace} the converted HSL color model
+ * @return {HslColorSpace} the converted HSL color model
  */
 export const convertRgbToHsl = ({
     red,
@@ -81,22 +82,44 @@ export const convertRgbToHsl = ({
         hue = (redRatio - greenRatio) / delta + 4;
     }
 
-    hue = Math.round(hue * 60);
+    hue *= 60;
 
     // Make negative hues positive behind 360
     if (hue < 0) hue += 360;
 
     // Calculate saturation
-    saturation = delta == 0 ? 0 : delta / (1 - Math.abs(2 * lightness - 1));
+    saturation = delta === 0 ? 0 : delta / (1 - Math.abs(2 * lightness - 1));
 
     // Multiply l and s by 100
-    saturation = Math.round((saturation + Number.EPSILON) * 100);
-    lightness = Math.round((lightness + Number.EPSILON) * 100);
+    saturation = (saturation + Number.EPSILON) * 100;
+    lightness = (lightness + Number.EPSILON) * 100;
     return {
-        hue,
-        saturation,
-        lightness,
+        hue: Math.round(hue),
+        saturation: Math.round(saturation),
+        lightness: Math.round(lightness),
     };
+};
+
+const hueToRGBValue = (p: number, q: number, t: number) => {
+    let clampedT = t;
+    if (t < 0) {
+        clampedT += 360;
+    }
+    if (clampedT > 360) {
+        clampedT -= 360;
+    }
+
+    if (clampedT < 60) {
+        return p + (q - p) * 6 * (clampedT / 360);
+    }
+    if (clampedT < 180) {
+        return q;
+    }
+    if (clampedT < 240) {
+        return p + (q - p) * ((240 - clampedT) / 360) * 6;
+    }
+
+    return p;
 };
 
 /**
@@ -104,6 +127,8 @@ export const convertRgbToHsl = ({
  * https://en.wikipedia.org/wiki/HSL_and_HSV. This function assumes
  * HSL values are as follows; H [0,360], S [0,1], L[0,1]. The out RGB color
  * values are within the domain of [0,255]
+ *
+ * @author https://css-tricks.com/converting-color-spaces-in-javascript/#aa-hsl-to-rgb
  *
  * @param {RGBAColorSpace} model the RGB color model to convert to HSL
  * @return {HSLColorSpace} the converted HSL color model
@@ -113,28 +138,44 @@ export const convertHslToRgb = ({
     saturation,
     lightness,
 }: HSLColorSpace): RGBAColorSpace => {
-    hue %= 360;
+    let adjustedHue = hue;
+    let adjustedSaturation = saturation;
+    let adjustedLightness = lightness;
+    if (adjustedHue > 360) {
+        adjustedHue %= 360;
+    } else if (adjustedHue < 0) {
+        adjustedHue += 360;
+    }
+    if (adjustedSaturation > 1) adjustedSaturation /= 100;
+    if (adjustedLightness > 1) adjustedLightness /= 100;
 
-    if (hue < 0) {
-        hue += 360;
+    // Achromatic
+    if (saturation === 0) {
+        const rgb = Math.round(adjustedLightness * 255);
+        return {
+            red: rgb,
+            green: rgb,
+            blue: rgb,
+            alpha: 1,
+        };
     }
 
-    if (saturation > 1) saturation /= 100;
-    if (lightness > 1) lightness /= 100;
+    const q =
+        adjustedLightness < 0.5
+            ? adjustedLightness * (1 + adjustedSaturation)
+            : adjustedLightness +
+              adjustedSaturation -
+              adjustedLightness * adjustedSaturation;
+    const p = 2 * adjustedLightness - q;
 
-    const calculateChannel = (n: number): number => {
-        const k = (n + hue / 30) % 12;
-        const a = saturation * Math.min(lightness, 1 - lightness);
-        return lightness - a * Math.max(-1, Math.min(k - 3, 9 - k, 1));
-    };
+    const red = hueToRGBValue(p, q, adjustedHue + 120);
+    const green = hueToRGBValue(p, q, adjustedHue);
+    const blue = hueToRGBValue(p, q, adjustedHue - 120);
 
     return {
-        red: Math.min(Math.max(Math.floor(calculateChannel(0) * 256), 0), 255),
-        green: Math.min(
-            Math.max(Math.floor(calculateChannel(8) * 256), 0),
-            255
-        ),
-        blue: Math.min(Math.max(Math.floor(calculateChannel(4) * 256), 0), 255),
+        red: Math.round(red * 255),
+        green: Math.round(green * 255),
+        blue: Math.round(blue * 255),
         alpha: 1,
     };
 };
@@ -162,10 +203,10 @@ export const convertHwbToRgb = ({
     whiteness,
     blackness,
 }: HWBColorSpace): RGBAColorSpace => {
-    whiteness /= 100;
-    blackness /= 100;
-    if (whiteness + blackness >= 1) {
-        const gray = whiteness / (whiteness + blackness);
+    const colorWhiteness = whiteness / 100;
+    const clorBlackness = blackness / 100;
+    if (colorWhiteness + clorBlackness >= 1) {
+        const gray = colorWhiteness / (colorWhiteness + clorBlackness);
         return {
             red: gray,
             green: gray,
@@ -175,23 +216,15 @@ export const convertHwbToRgb = ({
     }
     const rgb = convertHslToRgb({ hue, saturation: 100, lightness: 50 });
     const calculateAppliedValue = (value: number) => {
-        value /= 255;
-        value *= 1 - whiteness - blackness;
-        value += whiteness;
-        return Math.min(Math.max(Math.floor(value * 256), 0), 255);
+        let calculatedValue = value / 255;
+        calculatedValue *= 1 - colorWhiteness - clorBlackness;
+        calculatedValue += colorWhiteness;
+        return Math.min(Math.max(Math.floor(calculatedValue * 256), 0), 255);
     };
     rgb.red = calculateAppliedValue(rgb.red);
     rgb.green = calculateAppliedValue(rgb.green);
     rgb.blue = calculateAppliedValue(rgb.blue);
     return rgb;
-};
-
-export const convertHslToHwb = (space: HSLColorSpace) => {
-    return convertHsvToHwb(convertHslToHsv(space));
-};
-
-export const convertHwbToHsl = (space: HWBColorSpace) => {
-    return convertHsvToHsl(convertHwbToHsv(space));
 };
 
 export const convertHslToHsv = ({
@@ -236,23 +269,25 @@ export const convertHsvToHwb = ({
     hue,
     saturation,
     value,
-}: HSVColorSpace): HWBColorSpace => {
-    return {
-        hue,
-        whiteness: ((100 - saturation) * value) / 100,
-        blackness: 100 - value,
-    };
-};
+}: HSVColorSpace): HWBColorSpace => ({
+    hue,
+    whiteness: ((100 - saturation) * value) / 100,
+    blackness: 100 - value,
+});
 
 export const convertHwbToHsv = ({
     hue,
     whiteness,
     blackness,
-}: HWBColorSpace): HSVColorSpace => {
-    return {
-        hue,
-        saturation:
-            blackness === 100 ? 0 : 100 - (whiteness / (100 - blackness)) * 100,
-        value: 100 - blackness,
-    };
-};
+}: HWBColorSpace): HSVColorSpace => ({
+    hue,
+    saturation:
+        blackness === 100 ? 0 : 100 - (whiteness / (100 - blackness)) * 100,
+    value: 100 - blackness,
+});
+
+export const convertHslToHwb = (space: HSLColorSpace) =>
+    convertHsvToHwb(convertHslToHsv(space));
+
+export const convertHwbToHsl = (space: HWBColorSpace) =>
+    convertHsvToHsl(convertHwbToHsv(space));

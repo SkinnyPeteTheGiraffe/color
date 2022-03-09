@@ -2,7 +2,7 @@
  * RGBA color model data structure, providing values for each primary color
  * and alpha.
  */
-export interface RGBAColorSpace {
+export default interface RGBAColorSpace {
     /**
      * The primary color Red value
      */

@@ -1,6 +1,6 @@
-import { HSLColorSpace } from '../hsl';
-import { RGBAColorSpace } from '../rgba';
-import { HWBColorSpace } from '../hwb';
+import RGBAColorSpace from '../rgba/types/rgba-color-space';
+import HWBColorSpace from '../hwb/types/hwb-space';
+import HSLColorSpace from '../hsl/types/hsl-color-space';
 import {
     convertHslToRgb,
     convertHwbToRgb,
@@ -8,7 +8,7 @@ import {
     convertRgbToHwb,
 } from './color';
 
-describe('model color utils', function () {
+describe('model color utils', () => {
     it('should convert rgba to hsl successfully', () => {
         expect(
             convertRgbToHsl({ red: 0, green: 221, blue: 255, alpha: 1 })

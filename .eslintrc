@@ -3,7 +3,10 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "prettier"
+    "airbnb",
+    "airbnb-typescript",
+    "prettier",
+    "plugin:jest/recommended"
   ],
   "env": {
     "node": true
@@ -14,6 +17,7 @@
     "project": "./tsconfig.json"
   },
   "plugins": [
-    "@typescript-eslint"
-  ],
+    "@typescript-eslint",
+    "jest"
+  ]
 }

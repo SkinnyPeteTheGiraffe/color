@@ -1,5 +1,5 @@
-import { convertHexToRgb } from './rgba.utils';
-import { RGBAColorSpace } from './types';
+import { convertHexToRgb } from './rgba-utils';
+import RGBAColorSpace from './types/rgba-color-space';
 
 describe('rgb model utils', () => {
     describe('convert full length hex value to rgb', () => {

@@ -1,5 +1,6 @@
-import { HSLSpace } from './hsl.space';
-import { HSLColorSpace } from './types';
+import HSLSpace from './hsl-space';
+import HSLColorSpace from './types/hsl-color-space';
+import RGBAColorSpace from '../rgba/types/rgba-color-space';
 
 describe('hsl color space', () => {
     let hsl: HSLSpace;
@@ -131,10 +132,10 @@ describe('hsl color space', () => {
             expect(hsl.toArray()).toStrictEqual<Array<number>>([144, 50, 75]);
         });
         it('should return hex string with hashtag', () => {
-            expect(hsl.toHexString()).toBe<string>('#a0e0b9');
+            expect(hsl.toHexString()).toBe<string>('#9fdfb9');
         });
         it('should return hex string without hashtag', () => {
-            expect(hsl.toHexString(true)).toBe<string>('a0e0b9');
+            expect(hsl.toHexString(true)).toBe<string>('9fdfb9');
         });
         it('should return hsl object', () => {
             expect(hsl.toObject()).toMatchObject<HSLColorSpace>({
@@ -143,8 +144,13 @@ describe('hsl color space', () => {
                 lightness: 75,
             });
         });
-        it('should return rgba object', () => {
-            expect(hsl.toRGBA().toString()).toBe<string>('rgb(160,224,185)');
+        it('should return rgba space object', () => {
+            expect(hsl.toRGBAColorSpace()).toMatchObject<RGBAColorSpace>({
+                red: 159,
+                green: 223,
+                blue: 185,
+                alpha: 1,
+            });
         });
     });
 });

@@ -1,5 +1,6 @@
-import { RGBASpace } from './rgba.space';
-import { RGBAColorSpace } from './types';
+import RGBASpace from './rgba-space';
+import RGBAColorSpace from './types/rgba-color-space';
+import HslColorSpace from '../hsl/types/hsl-color-space';
 
 describe('rgba color space', () => {
     let rgba: RGBASpace;
@@ -11,7 +12,7 @@ describe('rgba color space', () => {
     describe('color channel mutators', () => {
         it('should lighten rgba with value between 0 - 1', () => {
             expect(rgba.lighten(0.42).toString()).toBe<string>(
-                'rgb(228,191,165)'
+                'rgb(227,191,165)'
             );
         });
         it('should lighten rgba with value between 1 - 100', () => {
@@ -44,33 +45,29 @@ describe('rgba color space', () => {
                 0.75
             );
         });
-        it('should return grayscale', () => {
-            expect(rgba.grayscale().toString()).toBe<string>(
-                'rgb(143,143,143)'
-            );
-        });
+
         it('should rotate hue positive', () => {
-            expect(rgba.rotate(90).toString()).toBe<string>('rgb(86,200,75)');
+            expect(rgba.rotate(90).toString()).toBe<string>('rgb(86,200,76)');
         });
         it('should rotate hue negative', () => {
-            expect(rgba.rotate(-90).toString()).toBe<string>('rgb(190,75,200)');
+            expect(rgba.rotate(-90).toString()).toBe<string>('rgb(190,76,200)');
         });
 
         it('should darken rgba with value between 0 - 1', () => {
             expect(rgba.darken(0.42).toString()).toBe<string>('rgb(121,72,37)');
         });
         it('should darken rgba with value between 1 - 100', () => {
-            expect(rgba.darken(20).toString()).toBe<string>('rgb(168,100,51)');
+            expect(rgba.darken(20).toString()).toBe<string>('rgb(168,100,52)');
         });
 
         it('should saturate rgba with value 0 - 1', () => {
             expect(rgba.saturate(0.75).toString()).toBe<string>(
-                `rgb(247,119,28)`
+                `rgb(247,120,29)`
             );
         });
         it('should saturate rgba with value 1 - 100', () => {
             expect(rgba.saturate(62).toString()).toBe<string>(
-                `rgb(239,121,36)`
+                `rgb(239,121,37)`
             );
         });
 
@@ -161,6 +158,13 @@ describe('rgba color space', () => {
                 green: 128,
                 blue: 75,
                 alpha: 1,
+            });
+        });
+        it('should return hsl space object', () => {
+            expect(rgba.toHSLColorSpace()).toMatchObject<HslColorSpace>({
+                hue: 25,
+                saturation: 53,
+                lightness: 54,
             });
         });
     });

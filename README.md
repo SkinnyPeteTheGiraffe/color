@@ -3,6 +3,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/SkinnyPeteTheGiraffe/n-color/badge.svg?branch=main)](https://coveralls.io/github/SkinnyPeteTheGiraffe/n-color?branch=main)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/1ea5d484507b4ed8812d44c30cf72c43)](https://www.codacy.com/gh/SkinnyPeteTheGiraffe/n-color/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SkinnyPeteTheGiraffe/n-color&amp;utm_campaign=Badge_Grade)
 [![MIT License](http://img.shields.io/badge/license-MIT-green.svg)](LICENSE.md)
+![Best Badge](https://img.shields.io/badge/another%20js%20library-yes-green)
 
 <p align="center">
   <a href="https://skinnypetethegiraffe.github.io/n-color/" target="blank"><img src="site/docs/_media/n-color-logo.svg" width="120" alt="Nest Logo" /></a>
