@@ -1,4 +1,4 @@
-import HslColorSpace from './types/hsl-color-space';
+import HSLColorSpace from './types/hsl-color-space';
 import { normalizePercent } from '../../common';
 
 /**
@@ -16,11 +16,11 @@ export const rotateHue = (hue: number, degrees: number): number => {
 };
 
 export const adjustHSLRelativeValue = (
-    space: HslColorSpace,
-    key: keyof Omit<HslColorSpace, 'hue'>,
+    space: HSLColorSpace,
+    key: keyof Omit<HSLColorSpace, 'hue'>,
     ratio: number,
     increase: boolean
-): HslColorSpace => {
+): HSLColorSpace => {
     const adjusted = { ...space };
     const normalized = normalizePercent(ratio, true);
     adjusted[key] += Math.round(
