@@ -1,5 +1,5 @@
 import { BaseSpace, ModelType } from '../base';
-import HslColorSpace from './types/hsl-color-space';
+import HSLColorSpace from './types/hsl-color-space';
 import { normalizePercent } from '../../common';
 import {
     convertHslToHwb,
@@ -21,12 +21,12 @@ import {
  *
  * @public
  */
-export default class HSLSpace implements BaseSpace<HslColorSpace> {
+export default class HSLSpace implements BaseSpace<HSLColorSpace> {
     public type: ModelType;
 
-    private readonly space: HslColorSpace;
+    private readonly space: HSLColorSpace;
 
-    constructor(space: HslColorSpace) {
+    constructor(space: HSLColorSpace) {
         this.type = 'hsl';
         this.space = space;
     }
@@ -96,7 +96,7 @@ export default class HSLSpace implements BaseSpace<HslColorSpace> {
      * @param color the name of the channel from the current color space to retrieve
      * @returns the value of the channel matching the provided key
      */
-    public color(color: keyof HslColorSpace): number {
+    public color(color: keyof HSLColorSpace): number {
         return this.space[color];
     }
 
@@ -191,7 +191,7 @@ export default class HSLSpace implements BaseSpace<HslColorSpace> {
      * @param color the HSL color to mix into the current instance
      * @param weight the weight in which the color should be mixed
      */
-    public mix(color: HslColorSpace, weight = 0.5): HSLSpace {
+    public mix(color: HSLColorSpace, weight = 0.5): HSLSpace {
         const rgba = this.toRGBAColorSpace();
         const mixed = mixRGBASpaces(rgba, convertHslToRgb(color), weight);
         const hsl = convertRgbToHsl(mixed);
@@ -223,7 +223,7 @@ export default class HSLSpace implements BaseSpace<HslColorSpace> {
         return this.applySpace(adjusted);
     }
 
-    public setColor(color: keyof HslColorSpace, value: number): HSLSpace {
+    public setColor(color: keyof HSLColorSpace, value: number): HSLSpace {
         if (color === 'hue') {
             this.space[color] = Math.floor(Math.min(Math.max(value, 0), 360));
         } else {
@@ -262,9 +262,9 @@ export default class HSLSpace implements BaseSpace<HslColorSpace> {
      * Retrieves an object representing the RGBA color space containing the primary colors and alpha
      * values.
      *
-     * @return {HslColorSpace} the HSL color space values
+     * @return {HSLColorSpace} the HSL color space values
      */
-    public toObject(): HslColorSpace {
+    public toObject(): HSLColorSpace {
         return { ...this.space };
     }
 
@@ -312,7 +312,7 @@ export default class HSLSpace implements BaseSpace<HslColorSpace> {
 
     /* ---------- PRIVATE FUNCTIONS --------- */
 
-    private applySpace(space: HslColorSpace): HSLSpace {
+    private applySpace(space: HSLColorSpace): HSLSpace {
         this.space.hue = Math.min(Math.max(Math.floor(space.hue), 0), 360);
         this.space.saturation = Math.min(
             Math.max(Math.floor(space.saturation), 0),

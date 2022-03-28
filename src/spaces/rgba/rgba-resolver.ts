@@ -3,6 +3,14 @@ import colors from '../../colors';
 import { convertHexToRgb } from './rgba-utils';
 import RGBAColorSpace from './types/rgba-color-space';
 
+/**
+ * Create a {@link RGBASpace} instance from a valid color hex value.
+ *
+ * @remarks Accepts both shorthand and full hex values and with or without a # (Ex. #FFF / #FFFFFF / FFF / FFFFFF)
+ *
+ * @param hex a valid string hex color value
+ * @return New {@link RGBASpace} instance of the hex color value
+ */
 export const fromHex = (hex: string): RGBASpace =>
     new RGBASpace(convertHexToRgb(hex));
 

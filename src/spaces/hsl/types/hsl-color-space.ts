@@ -1,4 +1,4 @@
-export default interface HslColorSpace {
+export default interface HSLColorSpace {
     hue: number;
     lightness: number;
     saturation: number;

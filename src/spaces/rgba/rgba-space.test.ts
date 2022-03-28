@@ -1,6 +1,6 @@
 import RGBASpace from './rgba-space';
 import RGBAColorSpace from './types/rgba-color-space';
-import HslColorSpace from '../hsl/types/hsl-color-space';
+import HSLColorSpace from '../hsl/types/hsl-color-space';
 
 describe('rgba color space', () => {
     let rgba: RGBASpace;
@@ -161,7 +161,7 @@ describe('rgba color space', () => {
             });
         });
         it('should return hsl space object', () => {
-            expect(rgba.toHSLColorSpace()).toMatchObject<HslColorSpace>({
+            expect(rgba.toHSLColorSpace()).toMatchObject<HSLColorSpace>({
                 hue: 25,
                 saturation: 53,
                 lightness: 54,
