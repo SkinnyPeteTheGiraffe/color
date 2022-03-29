@@ -10,5 +10,8 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
+      - name: Lint, Test, and Build
+        run: bash build-test.sh
+
       - name: Run Codacy Analysis CLI
         uses: codacy/codacy-analysis-cli-action@master
