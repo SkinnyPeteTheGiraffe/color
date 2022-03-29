@@ -1,6 +1,6 @@
 import HSLSpace from './hsl-space';
 import colors from '../../colors';
-import HslColorSpace from './types/hsl-color-space';
+import HSLColorSpace from './types/hsl-color-space';
 import { convertHexToRgb } from '../rgba/rgba-utils';
 import { convertRgbToHsl } from '../utils';
 
@@ -16,5 +16,5 @@ export const fromHSL = (
     lightness: number
 ): HSLSpace => new HSLSpace({ hue, saturation, lightness });
 
-export const fromHSLColorSpace = (space: HslColorSpace): HSLSpace =>
+export const fromHSLColorSpace = (space: HSLColorSpace): HSLSpace =>
     new HSLSpace(space);

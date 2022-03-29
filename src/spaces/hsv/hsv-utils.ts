@@ -1,13 +1,12 @@
-import HSLColorSpace from './types/hsl-color-space';
 import { normalizePercent } from '../../common';
+import { HSVColorSpace } from './types';
 
-// eslint-disable-next-line import/prefer-default-export
-export const adjustHSLRelativeValue = (
-    space: HSLColorSpace,
-    key: keyof Omit<HSLColorSpace, 'hue'>,
+export const adjustHsvRelativeValue = (
+    space: HSVColorSpace,
+    key: keyof Omit<HSVColorSpace, 'hue'>,
     ratio: number,
     increase: boolean
-): HSLColorSpace => {
+): HSVColorSpace => {
     const adjusted = { ...space };
     const normalized = normalizePercent(ratio, true);
     adjusted[key] += Math.round(
