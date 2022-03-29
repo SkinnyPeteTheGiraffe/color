@@ -4,7 +4,7 @@
   "description": "A modern, fully fledged color toolkit",
   "main": "dist/index.js",
   "scripts": {
-    "start": "ts-node-dev --respawn --transpile-only server.ts",
+    "start": "ts-node-dev --respawn --transpile-only src/example.ts",
     "build": "tsc -p tsconfig.prod.json",
     "lint": "eslint \"src/**/*.ts\" \"src/**/*.test.ts\"",
     "test": "jest --config ./jest.config.ts",

@@ -48,7 +48,7 @@ const rgbToHue = (space: RGBAColorSpace, defaultHue = 0) => {
  * are as follows. H [0,360], S [0,1], L[0,1]
  *
  * @param {RGBAColorSpace} model the RGB color model to convert to HSL
- * @return {HslColorSpace} the converted HSL color model
+ * @return {HSLColorSpace} the converted HSL color model
  */
 export const convertRgbToHsl = ({
     red,
