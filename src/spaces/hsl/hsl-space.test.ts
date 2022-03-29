@@ -34,6 +34,11 @@ describe('hsl color space', () => {
                 'hsl(144,50%,92%)'
             );
         });
+        it('should lighten hsl color -1 - 0', () => {
+            expect(hsl.lighten(-0.22).toString()).toBe<string>(
+                'hsl(144,50%,59%)'
+            );
+        });
         it('should lighten hsl color 1 - 100', () => {
             expect(hsl.lighten(5).toString()).toBe<string>('hsl(144,50%,79%)');
         });

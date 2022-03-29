@@ -21,10 +21,5 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      - name: Setup PNPM
-        uses: pnpm/action-setup@v2.0.1
-        with:
-          version: 6.23.6
-
       - name: Lint, Test, and Build
         run: bash build-test.sh

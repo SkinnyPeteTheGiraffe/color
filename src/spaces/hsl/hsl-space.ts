@@ -2,6 +2,7 @@ import { BaseSpace, ModelType } from '../base';
 import HSLColorSpace from './types/hsl-color-space';
 import { normalizePercent } from '../../common';
 import {
+    adjustHueRelativeValue,
     convertHslToHwb,
     convertHslToRgb,
     convertHwbToHsl,
@@ -10,7 +11,6 @@ import {
     setHueColorSpaceValue,
 } from '../utils';
 import RGBAColorSpace from '../rgba/types/rgba-color-space';
-import { adjustHSLRelativeValue } from './hsl-utils';
 import {
     applyGreyscaleToRGBASpace,
     mixRGBASpaces,
@@ -121,7 +121,7 @@ export default class HSLSpace implements BaseSpace<HSLColorSpace> {
      * @param {number} ratio percentage to darken the color by as a value between [0,1], or (1,100]
      */
     public darken(ratio: number): HSLSpace {
-        const darkened = adjustHSLRelativeValue(
+        const darkened = adjustHueRelativeValue(
             this.space,
             'lightness',
             ratio,
@@ -136,7 +136,7 @@ export default class HSLSpace implements BaseSpace<HSLColorSpace> {
      * @param {number} ratio the ratio to desaturate color
      */
     public desaturate(ratio: number): HSLSpace {
-        const desaturated = adjustHSLRelativeValue(
+        const desaturated = adjustHueRelativeValue(
             this.space,
             'saturation',
             ratio,
@@ -175,7 +175,7 @@ export default class HSLSpace implements BaseSpace<HSLColorSpace> {
      * @param {number} ratio a value between [0,1] or (1,100] as the ratio to adjust the lightness of the color space
      */
     public lighten(ratio: number): HSLSpace {
-        const lightened = adjustHSLRelativeValue(
+        const lightened = adjustHueRelativeValue(
             this.space,
             'lightness',
             ratio,
@@ -216,7 +216,7 @@ export default class HSLSpace implements BaseSpace<HSLColorSpace> {
      * @param {number} ratio the ratio to saturate color
      */
     public saturate(ratio: number): HSLSpace {
-        const adjusted = adjustHSLRelativeValue(
+        const adjusted = adjustHueRelativeValue(
             this.space,
             'saturation',
             ratio,

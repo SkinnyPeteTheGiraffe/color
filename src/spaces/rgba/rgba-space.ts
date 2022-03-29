@@ -2,13 +2,14 @@ import { BaseSpace, ModelType } from '../base';
 import RGBAColorSpace from './types/rgba-color-space';
 import { normalizePercent } from '../../common';
 import {
+    adjustHueRelativeValue,
     convertHslToRgb,
     convertHwbToRgb,
     convertRgbToHsl,
     convertRgbToHwb,
+    rotateHue,
 } from '../utils';
 import HSLColorSpace from '../hsl/types/hsl-color-space';
-import { adjustHSLRelativeValue, rotateHue } from '../hsl/hsl-utils';
 import {
     applyGreyscaleToRGBASpace,
     mixRGBASpaces,
@@ -142,7 +143,7 @@ export default class RGBASpace implements BaseSpace<RGBAColorSpace> {
      * ```
      */
     public lighten(ratio: number): RGBASpace {
-        const lightened = adjustHSLRelativeValue(
+        const lightened = adjustHueRelativeValue(
             this.toHSLColorSpace(),
             'lightness',
             ratio,
@@ -175,7 +176,7 @@ export default class RGBASpace implements BaseSpace<RGBAColorSpace> {
      * @param {number} ratio percentage to darken the color by as a value between [0,1], or (1,100]
      */
     public darken(ratio: number): RGBASpace {
-        const darkened = adjustHSLRelativeValue(
+        const darkened = adjustHueRelativeValue(
             this.toHSLColorSpace(),
             'lightness',
             ratio,
@@ -231,7 +232,7 @@ export default class RGBASpace implements BaseSpace<RGBAColorSpace> {
      * @param {number} ratio the ratio to saturate color
      */
     public saturate(ratio: number): RGBASpace {
-        const saturated = adjustHSLRelativeValue(
+        const saturated = adjustHueRelativeValue(
             this.toHSLColorSpace(),
             'saturation',
             ratio,
@@ -249,7 +250,7 @@ export default class RGBASpace implements BaseSpace<RGBAColorSpace> {
      * @param {number} ratio the relative ratio to saturate the color
      */
     public desaturate(ratio: number): RGBASpace {
-        const desaturated = adjustHSLRelativeValue(
+        const desaturated = adjustHueRelativeValue(
             this.toHSLColorSpace(),
             'saturation',
             ratio,

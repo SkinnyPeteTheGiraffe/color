@@ -3,6 +3,7 @@ import RGBAColorSpace from '../rgba/types/rgba-color-space';
 import HWBColorSpace from '../hwb/types/hwb-space';
 import HSVColorSpace from '../hsv/types/hsv-space';
 import { HueColorSpace } from '../base';
+import { clampNumericValue, normalizePercent } from '../../common';
 
 const rgbMax = (space: RGBAColorSpace): number =>
     Math.max(space.red, space.green, space.blue);
@@ -436,5 +437,24 @@ export const setHueColorSpaceValue = <R extends HueColorSpace>(
             [color]: Math.min(Math.max(value, 0), 100),
         });
     }
+    return adjusted;
+};
+
+export const adjustHueRelativeValue = <R extends HueColorSpace>(
+    space: R,
+    key: keyof Omit<R, 'hue'>,
+    ratio: number,
+    increase: boolean
+): R => {
+    const adjusted: R = { ...space };
+    const value = Number(adjusted[key]);
+    const normalized = normalizePercent(ratio, true);
+    Object.assign(adjusted, {
+        [key]: clampNumericValue(
+            value + Math.round(value * normalized * (increase ? 1 : -1)),
+            0,
+            100
+        ),
+    });
     return adjusted;
 };

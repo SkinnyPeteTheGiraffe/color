@@ -1,6 +1,7 @@
 import { BaseSpace, ModelType } from '../base';
 import { normalizePercent } from '../../common';
 import {
+    adjustHueRelativeValue,
     convertHslToHsv,
     convertHsvToHsl,
     convertHsvToHwb,
@@ -17,8 +18,6 @@ import {
     rgbaSpaceToHexString,
 } from '../rgba/rgba-utils';
 import { HSVColorSpace } from './types';
-import { adjustHSLRelativeValue } from '../hsl/hsl-utils';
-import { adjustHsvRelativeValue } from './hsv-utils';
 
 /**
  * HSV wrapper which provides mutations and accessor functions for
@@ -125,7 +124,7 @@ export default class HSVSpace implements BaseSpace<HSVColorSpace> {
      */
     public darken(ratio: number): HSVSpace {
         const hsl = convertHsvToHsl(this.space);
-        const darkened = adjustHSLRelativeValue(hsl, 'lightness', ratio, false);
+        const darkened = adjustHueRelativeValue(hsl, 'lightness', ratio, false);
         const hsv = convertHslToHsv(darkened);
         return this.applySpace(hsv);
     }
@@ -136,7 +135,7 @@ export default class HSVSpace implements BaseSpace<HSVColorSpace> {
      * @param {number} ratio the ratio to desaturate color
      */
     public desaturate(ratio: number): HSVSpace {
-        const desaturated = adjustHsvRelativeValue(
+        const desaturated = adjustHueRelativeValue(
             this.space,
             'saturation',
             ratio,
@@ -176,7 +175,7 @@ export default class HSVSpace implements BaseSpace<HSVColorSpace> {
      */
     public lighten(ratio: number): HSVSpace {
         const hsl = convertHsvToHsl(this.space);
-        const lightened = adjustHSLRelativeValue(hsl, 'lightness', ratio, true);
+        const lightened = adjustHueRelativeValue(hsl, 'lightness', ratio, true);
         const hsv = convertHslToHsv(lightened);
         return this.applySpace(hsv);
     }
@@ -214,7 +213,7 @@ export default class HSVSpace implements BaseSpace<HSVColorSpace> {
      */
     public saturate(ratio: number): HSVSpace {
         const hsl = convertHsvToHsl(this.space);
-        const adjusted = adjustHSLRelativeValue(hsl, 'saturation', ratio, true);
+        const adjusted = adjustHueRelativeValue(hsl, 'saturation', ratio, true);
         const hsv = convertHslToHsv(adjusted);
         return this.applySpace(hsv);
     }
@@ -272,7 +271,7 @@ export default class HSVSpace implements BaseSpace<HSVColorSpace> {
      * @return {string} valid CSS color value.
      */
     public toString(): string {
-        return `hsl(${parseFloat(this.space.hue.toFixed(1))},${parseFloat(
+        return `hsv(${parseFloat(this.space.hue.toFixed(1))},${parseFloat(
             this.space.saturation.toFixed(1)
         )}%,${parseFloat(this.space.value.toFixed(1))}%)`;
     }

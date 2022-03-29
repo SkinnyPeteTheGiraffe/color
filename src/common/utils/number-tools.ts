@@ -20,7 +20,10 @@
  *
  * @return {number} the normalized value within the range of `[0,1]` or `[-1,0]` if `allowNegatives` is `true`
  */
-const normalizePercent = (percent: number, allowNegatives = false): number => {
+export const normalizePercent = (
+    percent: number,
+    allowNegatives = false
+): number => {
     if (percent >= 0 && percent <= 1) {
         return percent;
     }
@@ -33,4 +36,5 @@ const normalizePercent = (percent: number, allowNegatives = false): number => {
     return Math.max(Math.min(percent, 100), 0) / 100;
 };
 
-export default normalizePercent;
+export const clampNumericValue = (value: number, min: number, max: number) =>
+    Math.min(Math.max(value, min), max);
