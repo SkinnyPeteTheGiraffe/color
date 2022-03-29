@@ -16,6 +16,7 @@ jobs:
       - name: Run Codacy Coverage Reporter
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
+          api-token: ${{ secrets.CODACY_API_TOKEN }}
           coverage-reports: lcov.info
 
       - name: Run Codacy Analysis CLI
