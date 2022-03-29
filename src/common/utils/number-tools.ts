@@ -36,5 +36,8 @@ export const normalizePercent = (
     return Math.max(Math.min(percent, 100), 0) / 100;
 };
 
-export const clampNumericValue = (value: number, min: number, max: number) =>
-    Math.min(Math.max(value, min), max);
+export const clampNumericValue = (
+    value: number,
+    min: number,
+    max: number
+): number => Math.min(Math.max(value, min), max);
