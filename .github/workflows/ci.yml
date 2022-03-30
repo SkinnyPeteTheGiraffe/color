@@ -34,7 +34,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: coverage
-      - run: ls -R
+      - name: Move Coverage Artifact
+        run: |
+          mkdir n-color
+          mv lcov.info n-color/lcov.info
       - name: Run Codacy Coverage Reporter
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
