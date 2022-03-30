@@ -1,6 +1,12 @@
+/**
+ * The definition of the supported color models
+ */
 export type ModelType = 'rgb' | 'cymk' | 'hsv' | 'hsl';
 
 export interface BaseSpace<T> {
+    /**
+     * The color model of the space
+     */
     type: ModelType;
     lighten(ratio: number): BaseSpace<T>;
     darken(ratio: number): BaseSpace<T>;
@@ -13,11 +19,13 @@ export interface BaseSpace<T> {
     clone(): BaseSpace<T>;
     grayscale(): BaseSpace<T>;
     color(color: keyof T): number;
-
     setColor(color: keyof T, value: number): BaseSpace<T>;
-
     toArray(): Array<number>;
     toObject(): T;
     toHexString(removeHashtag?: boolean): string;
     toString(): string;
+}
+
+export interface HueColorSpace {
+    hue: number;
 }

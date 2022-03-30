@@ -60,9 +60,8 @@ export const mixRGBASpaces = (
     weight: number
 ): RGBAColorSpace => {
     const normalized = normalizePercent(weight);
-    const p = normalized === undefined ? 0.5 : normalized;
 
-    const w = 2 * p - 1;
+    const w = 2 * normalized - 1;
     const a = additive.alpha - base.alpha;
 
     const w1 = ((w * a === -1 ? w : (w + a) / (1 + w * a)) + 1) / 2;
@@ -81,7 +80,10 @@ export const mixRGBASpaces = (
             255
         ),
         alpha: Math.min(
-            Math.max(additive.alpha * p + base.alpha * (1 - p), 0),
+            Math.max(
+                additive.alpha * normalized + base.alpha * (1 - normalized),
+                0
+            ),
             1
         ),
     };

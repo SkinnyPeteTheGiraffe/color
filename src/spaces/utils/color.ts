@@ -2,6 +2,8 @@ import HSLColorSpace from '../hsl/types/hsl-color-space';
 import RGBAColorSpace from '../rgba/types/rgba-color-space';
 import HWBColorSpace from '../hwb/types/hwb-space';
 import HSVColorSpace from '../hsv/types/hsv-space';
+import { HueColorSpace } from '../base';
+import { clampNumericValue, normalizePercent } from '../../common';
 
 const rgbMax = (space: RGBAColorSpace): number =>
     Math.max(space.red, space.green, space.blue);
@@ -100,6 +102,57 @@ export const convertRgbToHsl = ({
     };
 };
 
+/**
+ * Converts an RGB color value to HSL. Formula modeled from
+ * https://en.wikipedia.org/wiki/HSL_and_HSV. This function assumes
+ * RGB values are within the domain of [0,255], and the output HSL values
+ * are as follows. H [0,360], S [0,1], L[0,1]
+ *
+ * @param {RGBAColorSpace} model the RGB color model to convert to HSL
+ * @return {HSVColorSpace} the converted HSL color model
+ */
+export const convertRgbToHsv = ({
+    red,
+    green,
+    blue,
+}: RGBAColorSpace): HSVColorSpace => {
+    // Convert values from 0-255 to 0-1
+    const redRatio = red / 255;
+    const greenRatio = green / 255;
+    const blueRatio = blue / 255;
+    // Find both min/max values then calc their range
+    const min = Math.min(redRatio, greenRatio, blueRatio);
+    const max = Math.max(redRatio, greenRatio, blueRatio);
+    const delta = max - min;
+
+    const saturation = max === 0 ? 0 : delta / max;
+    let hue = 0;
+
+    if (max !== min) {
+        switch (max) {
+            case redRatio:
+                hue =
+                    (greenRatio - blueRatio) / delta +
+                    (greenRatio < blueRatio ? 6 : 0);
+                break;
+            case greenRatio:
+                hue = (blueRatio - redRatio) / delta + 2;
+                break;
+            case blueRatio:
+                hue = (redRatio - greenRatio) / delta + 4;
+                break;
+            default:
+                break;
+        }
+        hue /= 6;
+    }
+    return {
+        hue: Math.round(hue * 360),
+        saturation: Math.round(saturation * 100),
+        value: Math.round(max * 100),
+    };
+};
+
 const hueToRGBValue = (p: number, q: number, t: number) => {
     let clampedT = t;
     if (t < 0) {
@@ -172,6 +225,68 @@ export const convertHslToRgb = ({
     const green = hueToRGBValue(p, q, adjustedHue);
     const blue = hueToRGBValue(p, q, adjustedHue - 120);
 
+    return {
+        red: Math.round(red * 255),
+        green: Math.round(green * 255),
+        blue: Math.round(blue * 255),
+        alpha: 1,
+    };
+};
+
+export const convertHsvToRgb = ({
+    hue,
+    saturation,
+    value,
+}: HSVColorSpace): RGBAColorSpace => {
+    const h = (hue % 360) / 360;
+    const s = normalizePercent(saturation);
+    const v = normalizePercent(value);
+    let red: number;
+    let green: number;
+    let blue: number;
+
+    const i = Math.floor(h * 6);
+    const f = h * 6 - i;
+    const p = v * (1 - s);
+    const q = v * (1 - f * s);
+    const t = v * (1 - (1 - f) * s);
+
+    switch (i % 6) {
+        case 0:
+            red = v;
+            green = t;
+            blue = p;
+            break;
+        case 1:
+            red = q;
+            green = v;
+            blue = p;
+            break;
+        case 2:
+            red = p;
+            green = v;
+            blue = t;
+            break;
+        case 3:
+            red = p;
+            green = q;
+            blue = v;
+            break;
+        case 4:
+            red = t;
+            green = p;
+            blue = v;
+            break;
+        case 5:
+            red = v;
+            green = p;
+            blue = q;
+            break;
+        default:
+            red = 0;
+            green = 0;
+            blue = 0;
+    }
     return {
         red: Math.round(red * 255),
         green: Math.round(green * 255),
@@ -291,3 +406,54 @@ export const convertHslToHwb = (space: HSLColorSpace): HWBColorSpace =>
 
 export const convertHwbToHsl = (space: HWBColorSpace): HSLColorSpace =>
     convertHsvToHsl(convertHwbToHsv(space));
+
+/**
+ * Rotates the hue of the hue by a given number of degrees.
+ *
+ * @param {number} hue the hue value to rotate
+ * @param {number} degrees the number of degrees to rotate the hue channel
+ */
+export const rotateHue = (hue: number, degrees: number): number => {
+    let rotated = (hue + degrees) % 360;
+    if (hue < 0) {
+        rotated += 360;
+    }
+    return rotated;
+};
+
+export const setHueColorSpaceValue = <R extends HueColorSpace>(
+    space: R,
+    color: keyof R,
+    value: number
+): R => {
+    const adjusted: R = { ...space };
+    if (color === 'hue') {
+        Object.assign(adjusted, {
+            [color]: Math.floor(Math.min(Math.max(value, 0), 360)),
+        });
+    } else {
+        Object.assign(adjusted, {
+            [color]: Math.min(Math.max(value, 0), 100),
+        });
+    }
+    return adjusted;
+};
+
+export const adjustHueRelativeValue = <R extends HueColorSpace>(
+    space: R,
+    key: keyof Omit<R, 'hue'>,
+    ratio: number,
+    increase: boolean
+): R => {
+    const adjusted: R = { ...space };
+    const value = Number(adjusted[key]);
+    const normalized = normalizePercent(ratio, true);
+    Object.assign(adjusted, {
+        [key]: clampNumericValue(
+            value + Math.round(value * normalized * (increase ? 1 : -1)),
+            0,
+            100
+        ),
+    });
+    return adjusted;
+};

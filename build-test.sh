@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pnpm install --frozen-lockfile
-pnpm run lint
-pnpm run test
-pnpm run build
+npm install --frozen-lockfile
+npm run lint
+npm run test
+npm run build

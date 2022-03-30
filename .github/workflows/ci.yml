@@ -1,56 +1,51 @@
 name: CI
-on:
-  pull_request:
-    branches:
-      - main
-      - 'rc/**'
+
+on: ["pull_request"]
+
 jobs:
-  build:
+  test_and_build:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         node: [ 12, 14, 16 ]
-        test_number: [1, 2]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-
       - name: Setup NodeJS
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
-
-      - name: Setup PNPM
-        uses: pnpm/action-setup@v2.0.1
+      - run: npm install --frozen-lockfile
+      - run: npm run lint
+      - run: npm run test
+      - run: npm run build
+      - name: Store Test Coverage Artifact
+        uses: actions/upload-artifact@v3
         with:
-          version: 6.23.6
-
-      - name: Lint, Test, and Build
-        run: bash build-test.sh
-
-      - name: Coveralls Parallel
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.github_token }}
-          flag-name: run-${{ matrix.test_number }}
-          parallel: true
-
-      - name: Generate typedocs
-        run: pnpm run docs
-
-      - name: Deploy Docs To Github Pages
-        uses: JamesIves/github-pages-deploy-action@4.1.4
-        with:
-          branch: gh-pages
-          folder: build
-
-  finish:
-    needs: build
+          name: coverage
+          path: coverage/lcov.info
+  code_coverage_cli:
+    name: Codacy Coverage Reporter
+    needs: test_and_build
     runs-on: ubuntu-latest
     steps:
-      - name: Coveralls Finished
-        uses: coverallsapp/github-action@master
+      - name: Retrieve Test Coverage Artifact
+        uses: actions/download-artifact@v3
         with:
-          github-token: ${{ secrets.github_token }}
-          parallel-finished: true
+          name: coverage
+      - run: ls -R
+      - name: Run Codacy Coverage Reporter
+        uses: codacy/codacy-coverage-reporter-action@v1
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_API_TOKEN }}
+          coverage-reports: lcov.info
+  code_analysis_cli:
+    name: Codacy Analysis CLI
+    needs: code_coverage_cli
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Run Codacy Analysis CLI
+        uses: codacy/codacy-analysis-cli-action@master
