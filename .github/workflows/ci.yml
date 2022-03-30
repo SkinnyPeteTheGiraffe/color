@@ -24,7 +24,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: coverage
-          path: coverage/
+          path: coverage/lcov.info
   code_coverage_cli:
     name: Codacy Coverage Reporter
     needs: test_and_build
@@ -34,10 +34,12 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: coverage
+          path: ~/n-color
       - name: Run Codacy Coverage Reporter
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
           api-token: ${{ secrets.CODACY_PROJECT_API_TOKEN }}
+          coverage-reports: lcov.info
   code_analysis_cli:
     name: Codacy Analysis CLI
     needs: code_coverage_cli
