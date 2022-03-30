@@ -34,8 +34,9 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: coverage
-          path: ~/n-color
+          path: ~/coverage
       - run: ls -R
+      - run: ls -R ../
       - name: Run Codacy Coverage Reporter
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
