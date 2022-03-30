@@ -1,4 +1,4 @@
-import { HSVSpace } from './index';
+import { HSVColorSpace, HSVSpace } from './index';
 
 describe('hsv color space', () => {
     let hsv: HSVSpace;
@@ -8,6 +8,27 @@ describe('hsv color space', () => {
     });
 
     describe('color channel mutators', () => {
+        it('should match color values', () => {
+            expect(hsv.color('hue')).toBe<number>(144);
+            expect(hsv.color('saturation')).toBe<number>(50);
+            expect(hsv.color('value')).toBe<number>(75);
+        });
+        it('should match color array', () => {
+            expect(hsv.toArray()).toStrictEqual<[number, number, number]>([
+                144, 50, 75,
+            ]);
+        });
+        it('should match color object', () => {
+            expect(hsv.toObject()).toMatchObject<HSVColorSpace>({
+                hue: 144,
+                saturation: 50,
+                value: 75,
+            });
+        });
+        it('should match rgb hex', () => {
+            expect(hsv.toHexString()).toBe<string>('#60bf86');
+            expect(hsv.toHexString(true)).toBe<string>('60bf86');
+        });
         it('should whiten hsv with value between 0 - 1', () => {
             expect(hsv.whiten(0.42).toString()).toBe<string>(
                 'hsv(144,29%,75%)'
@@ -27,7 +48,7 @@ describe('hsv color space', () => {
             );
         });
         it('should greyscale hsv color', () => {
-            expect(hsv.grayscale().toString()).toBe<string>('hsv(0,0%,0%)');
+            expect(hsv.grayscale().toString()).toBe<string>('hsv(0,0%,61%)');
         });
         it('should lighten hsv color 0 - 1', () => {
             expect(hsv.lighten(0.22).toString()).toBe<string>(
@@ -86,7 +107,7 @@ describe('hsv color space', () => {
         it('should mix hsv colors', () => {
             expect(
                 hsv.mix({ hue: 97, saturation: 64, value: 40 }).toString()
-            ).toBe<string>('hsv(0,100%,100%)');
+            ).toBe<string>('hsv(126,46%,58%)');
         });
         it('should rotate hsv color hue', () => {
             expect(hsv.rotate(64).toString()).toBe<string>('hsv(208,50%,75%)');

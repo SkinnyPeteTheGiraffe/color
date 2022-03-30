@@ -125,32 +125,27 @@ export const convertRgbToHsv = ({
     const max = Math.max(redRatio, greenRatio, blueRatio);
     const delta = max - min;
 
-    const calculateDifference = (value: number): number =>
-        (max - value) / 6 / (delta + 1) / 2;
-
+    const saturation = max === 0 ? 0 : delta / max;
     let hue = 0;
-    let saturation = 0;
 
-    if (delta !== 0) {
-        saturation = delta / max;
-        const rr = calculateDifference(redRatio);
-        const gg = calculateDifference(greenRatio);
-        const bb = calculateDifference(blueRatio);
-
-        if (redRatio === max) {
-            hue = bb - gg;
-        } else if (greenRatio === max) {
-            hue = 1 / 3 + rr - bb;
-        } else if (blueRatio === max) {
-            hue = 2 / 3 + gg - rr;
+    if (max !== min) {
+        switch (max) {
+            case redRatio:
+                hue =
+                    (greenRatio - blueRatio) / delta +
+                    (greenRatio < blueRatio ? 6 : 0);
+                break;
+            case greenRatio:
+                hue = (blueRatio - redRatio) / delta + 2;
+                break;
+            case blueRatio:
+                hue = (redRatio - greenRatio) / delta + 4;
+                break;
+            default:
+                break;
         }
-        if (hue < 0) {
-            hue += 1;
-        } else if (hue > 1) {
-            hue -= 1;
-        }
+        hue /= 6;
     }
-
     return {
         hue: Math.round(hue * 360),
         saturation: Math.round(saturation * 100),
@@ -243,42 +238,47 @@ export const convertHsvToRgb = ({
     saturation,
     value,
 }: HSVColorSpace): RGBAColorSpace => {
-    const i = Math.floor(hue * 6);
-    const f = hue * 6 - i;
-    const p = value * (1 - saturation);
-    const q = value * (1 - f * saturation);
-    const t = value * (1 - (1 - f) * saturation);
+    const h = (hue % 360) / 360;
+    const s = normalizePercent(saturation);
+    const v = normalizePercent(value);
     let red: number;
     let green: number;
     let blue: number;
+
+    const i = Math.floor(h * 6);
+    const f = h * 6 - i;
+    const p = v * (1 - s);
+    const q = v * (1 - f * s);
+    const t = v * (1 - (1 - f) * s);
+
     switch (i % 6) {
         case 0:
-            red = value;
+            red = v;
             green = t;
             blue = p;
             break;
         case 1:
             red = q;
-            green = value;
+            green = v;
             blue = p;
             break;
         case 2:
             red = p;
-            green = value;
+            green = v;
             blue = t;
             break;
         case 3:
             red = p;
             green = q;
-            blue = value;
+            blue = v;
             break;
         case 4:
             red = t;
             green = p;
-            blue = value;
+            blue = v;
             break;
         case 5:
-            red = value;
+            red = v;
             green = p;
             blue = q;
             break;
@@ -286,7 +286,6 @@ export const convertHsvToRgb = ({
             red = 0;
             green = 0;
             blue = 0;
-            break;
     }
     return {
         red: Math.round(red * 255),
