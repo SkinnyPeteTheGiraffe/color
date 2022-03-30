@@ -24,7 +24,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: coverage
-          path: coverage/lcov.info
+          path: coverage/
   code_coverage_cli:
     name: Codacy Coverage Reporter
     needs: test_and_build
