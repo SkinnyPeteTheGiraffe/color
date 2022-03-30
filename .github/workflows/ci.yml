@@ -38,7 +38,7 @@ jobs:
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
           api-token: ${{ secrets.CODACY_PROJECT_API_TOKEN }}
-          coverage-reports: coverage/lcov.info
+          coverage-reports: lcov.info
   code_analysis_cli:
     name: Codacy Analysis CLI
     needs: code_coverage_cli
