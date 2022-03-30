@@ -1,10 +1,12 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { describe, expect, it } from '@jest/globals';
+
 import { convertHexToRgb } from './rgba-utils';
-import RGBAColorSpace from './types/rgba-color-space';
 
 describe('rgb model utils', () => {
     describe('convert full length hex value to rgb', () => {
         it('should handle full length hex values with hashtags', () => {
-            expect(convertHexToRgb('#fdb234')).toMatchObject<RGBAColorSpace>({
+            expect(convertHexToRgb('#fdb234')).toMatchObject({
                 red: 253,
                 green: 178,
                 blue: 52,
@@ -12,7 +14,7 @@ describe('rgb model utils', () => {
             });
         });
         it('should handle full length hex values without hashtags', () => {
-            expect(convertHexToRgb('fdb234')).toMatchObject<RGBAColorSpace>({
+            expect(convertHexToRgb('fdb234')).toMatchObject({
                 red: 253,
                 green: 178,
                 blue: 52,
@@ -23,7 +25,7 @@ describe('rgb model utils', () => {
 
     describe('convert shorthand hex value to rgb', () => {
         it('should handle shorthand hex values with hashtags', () => {
-            expect(convertHexToRgb('#fb3')).toMatchObject<RGBAColorSpace>({
+            expect(convertHexToRgb('#fb3')).toMatchObject({
                 red: 255,
                 green: 187,
                 blue: 51,
@@ -31,7 +33,7 @@ describe('rgb model utils', () => {
             });
         });
         it('should handle shorthand hex values without hashtags', () => {
-            expect(convertHexToRgb('fb3')).toMatchObject<RGBAColorSpace>({
+            expect(convertHexToRgb('fb3')).toMatchObject({
                 red: 255,
                 green: 187,
                 blue: 51,
@@ -42,7 +44,7 @@ describe('rgb model utils', () => {
 
     describe('return default color if hex value provided is too short', () => {
         it('should return default color with hashtags', () => {
-            expect(convertHexToRgb('#f')).toMatchObject<RGBAColorSpace>({
+            expect(convertHexToRgb('#f')).toMatchObject({
                 red: 0,
                 green: 0,
                 blue: 0,
@@ -50,7 +52,7 @@ describe('rgb model utils', () => {
             });
         });
         it('should return default color without hashtags', () => {
-            expect(convertHexToRgb('f')).toMatchObject<RGBAColorSpace>({
+            expect(convertHexToRgb('f')).toMatchObject({
                 red: 0,
                 green: 0,
                 blue: 0,
@@ -61,17 +63,15 @@ describe('rgb model utils', () => {
 
     describe('return default color if hex value provided is too long', () => {
         it('should return default color with hashtags', () => {
-            expect(convertHexToRgb('#fffffffff')).toMatchObject<RGBAColorSpace>(
-                {
-                    red: 0,
-                    green: 0,
-                    blue: 0,
-                    alpha: 1,
-                }
-            );
+            expect(convertHexToRgb('#fffffffff')).toMatchObject({
+                red: 0,
+                green: 0,
+                blue: 0,
+                alpha: 1,
+            });
         });
         it('should return default color without hashtags', () => {
-            expect(convertHexToRgb('fffffffff')).toMatchObject<RGBAColorSpace>({
+            expect(convertHexToRgb('fffffffff')).toMatchObject({
                 red: 0,
                 green: 0,
                 blue: 0,
@@ -82,7 +82,7 @@ describe('rgb model utils', () => {
 
     describe('return default color if hex value provided is invalid', () => {
         it('should return default color with hashtags', () => {
-            expect(convertHexToRgb('#zzzyyy')).toMatchObject<RGBAColorSpace>({
+            expect(convertHexToRgb('#zzzyyy')).toMatchObject({
                 red: 0,
                 green: 0,
                 blue: 0,
@@ -90,7 +90,7 @@ describe('rgb model utils', () => {
             });
         });
         it('should return default color without hashtags', () => {
-            expect(convertHexToRgb('zzzyyy')).toMatchObject<RGBAColorSpace>({
+            expect(convertHexToRgb('zzzyyy')).toMatchObject({
                 red: 0,
                 green: 0,
                 blue: 0,
