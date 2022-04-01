@@ -1,11 +1,10 @@
 import colors from '../../colors';
-import { convertHexToRgb } from '../rgba/rgba-utils';
-import { convertRgbToHsv } from '../utils';
 import HSVSpace from './hsv-space';
-import { HSVColorSpace } from './types';
+import HSVColorSpace from './types/hsv-space';
+import { hexConverter, rgbaConverter } from '../utils';
 
 export const fromHex = (hex: string): HSVSpace =>
-    new HSVSpace(convertRgbToHsv(convertHexToRgb(hex)));
+    new HSVSpace(rgbaConverter.toHSV(hexConverter.toRGBA(hex)));
 
 export const fromCssColor = (color: keyof typeof colors): HSVSpace =>
     fromHex(colors[color]);

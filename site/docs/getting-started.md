@@ -4,7 +4,7 @@ The guides below will help you get up and started using **n-color**. If somethin
 
 ## Guides
 * [Installation](#installation)
-* [Usage](#usage)
+* [Basic Usage](#usage)
 
 
 ## Installation
@@ -20,7 +20,7 @@ yarn add n-color
 
 That's it. Below you can see how to import and use **n-color** in the [Usage](#usage) section.
 
-## Usage
+## Basic Usage
 To improve usability and simplify the usage, **n-color** exposes function providers for each color space instead
 of opting for direct access to the class system.
 
@@ -37,7 +37,7 @@ import { RGBA, HSL } from 'n-color';
 As described above, **n-color** exposes provides instead of providing direct access to the class system. These are used
 to create a color space instances which then can be converted and/or manipulated.
 
-#### RGBA
+##### RGBA
 The [RGBA](https://en.wikipedia.org/wiki/RGB_color_spaces) (Red, Green, Blue, Alpha) color space provider.
 ```typescript
 import { RGBA } from 'n-color';
@@ -47,7 +47,7 @@ const rgb = RGBA.fromRGB(68, 191, 165);
 const rgba = RGBA.fromRGBA(68, 191, 165, 0.5);
 ```
 
-#### HSL
+##### HSL
 The [HSL](https://en.wikipedia.org/wiki/HSL_and_HSV) (Hue, Saturation, Lightness) color space provider.
 ```typescript
 import { HSL } from 'n-color';

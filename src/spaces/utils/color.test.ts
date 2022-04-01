@@ -6,7 +6,7 @@ import {
     convertHwbToRgb,
     convertRgbToHsl,
     convertRgbToHwb,
-} from './color';
+} from './hue-utils';
 
 describe('model color utils', () => {
     it('should convert rgba to hsl successfully', () => {

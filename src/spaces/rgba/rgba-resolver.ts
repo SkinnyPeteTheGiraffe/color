@@ -1,7 +1,7 @@
 import RGBASpace from './rgba-space';
 import colors from '../../colors';
-import { convertHexToRgb } from './rgba-utils';
 import RGBAColorSpace from './types/rgba-color-space';
+import { hexConverter } from '../utils';
 
 /**
  * Create a {@link RGBASpace} instance from a valid color hex value.
@@ -12,7 +12,7 @@ import RGBAColorSpace from './types/rgba-color-space';
  * @return New {@link RGBASpace} instance of the hex color value
  */
 export const fromHex = (hex: string): RGBASpace =>
-    new RGBASpace(convertHexToRgb(hex));
+    new RGBASpace(hexConverter.toRGBA(hex));
 
 export const fromCssColor = (color: keyof typeof colors): RGBASpace =>
     fromHex(colors[color]);

@@ -2,12 +2,13 @@
   "compilerOptions": {
     "lib": ["ES2021", "dom"],
     "module": "commonjs",
+    "isolatedModules": true,
     "noImplicitReturns": true,
     "esModuleInterop": true,
     "outDir": "dist",
     "strict": true,
     "sourceMap": true,
-    "target": "ES2021",
+    "target": "ESNext",
     "declaration": true,
     "types": [
       "jest"
