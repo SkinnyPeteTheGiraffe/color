@@ -3,10 +3,8 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "airbnb",
-    "airbnb-typescript",
-    "prettier",
-    "plugin:jest/recommended"
+    "plugin:mocha/recommended",
+    "plugin:prettier/recommended"
   ],
   "env": {
     "node": true
@@ -18,6 +16,15 @@
   },
   "plugins": [
     "@typescript-eslint",
-    "jest"
-  ]
+    "mocha",
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": "error"
+  },
+  "settings": {
+    "jest": {
+      "version": 27
+    }
+  }
 }

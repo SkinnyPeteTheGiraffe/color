@@ -8,10 +8,10 @@
     "outDir": "dist",
     "strict": true,
     "sourceMap": true,
-    "target": "ESNext",
+    "target": "ES2021",
     "declaration": true,
     "types": [
-      "jest"
+      "mocha"
     ]
   },
   "compileOnSave": true,

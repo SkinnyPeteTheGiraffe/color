@@ -5,6 +5,7 @@ import HSLColorSpace from '../../hsl/types/hsl-color-space';
 import hslConverter from './hsl-converter';
 import HSVColorSpace from '../../hsv/types/hsv-space';
 import hsvConverter from './hsv-converter';
+import { normalizePercent } from '../../../common';
 
 const toHSV = ({
     hue,
@@ -12,41 +13,33 @@ const toHSV = ({
     blackness,
 }: HWBColorSpace): HSVColorSpace => ({
     hue,
-    saturation:
-        blackness === 100 ? 0 : 100 - (whiteness / (100 - blackness)) * 100,
-    value: 100 - blackness,
+    saturation: Math.round(
+        blackness === 100 ? 0 : 100 - (whiteness / (100 - blackness)) * 100
+    ),
+    value: Math.round(100 - blackness),
 });
 
 const toHSL = (space: HWBColorSpace): HSLColorSpace =>
     hsvConverter.toHSL(toHSV(space));
 
-const toRGBA = ({
-    hue,
-    whiteness,
-    blackness,
-}: HWBColorSpace): RGBAColorSpace => {
-    const colorWhiteness = whiteness / 100;
-    const clorBlackness = blackness / 100;
-    if (colorWhiteness + clorBlackness >= 1) {
-        const gray = colorWhiteness / (colorWhiteness + clorBlackness);
-        return {
-            red: gray,
-            green: gray,
-            blue: gray,
-            alpha: 1,
-        };
-    }
+const toRGBA = (space: HWBColorSpace): RGBAColorSpace => {
+    const { hue, ...rest } = space;
+    const whiteness = normalizePercent(rest.whiteness);
+    const blackness = normalizePercent(rest.blackness);
     const rgb = hslConverter.toRGBA({ hue, saturation: 100, lightness: 50 });
-    const calculateAppliedValue = (value: number) => {
-        let calculatedValue = value / 255;
-        calculatedValue *= 1 - colorWhiteness - clorBlackness;
-        calculatedValue += colorWhiteness;
-        return Math.min(Math.max(Math.floor(calculatedValue * 256), 0), 255);
+    const keys = Object.keys(rgb) as Array<keyof RGBAColorSpace>;
+    keys.forEach((key) => {
+        let channel = rgb[key] / 255;
+
+        channel *= 1 - whiteness - blackness;
+        channel += whiteness;
+
+        rgb[key] = Math.round(channel * 255);
+    });
+    return {
+        ...rgb,
+        alpha: 1,
     };
-    rgb.red = calculateAppliedValue(rgb.red);
-    rgb.green = calculateAppliedValue(rgb.green);
-    rgb.blue = calculateAppliedValue(rgb.blue);
-    return rgb;
 };
 
 const hwbConverter: Omit<Converter<HWBColorSpace>, 'toHWB'> = {

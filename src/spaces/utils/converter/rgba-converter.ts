@@ -128,7 +128,7 @@ export const toHSL = ({ red, green, blue }: RGBAColorSpace): HSLColorSpace => {
  * Converts an RGB color value to HSV. Formula modeled from
  * https://en.wikipedia.org/wiki/HSL_and_HSV. This function assumes
  * RGB values are within the domain of [0,255], and the output HSV values
- * are as follows. H [0,360], S [0,1], L[0,1]
+ * are as follows. H [0,360], S [0,100], L[0,100]
  *
  * @param {RGBAColorSpace} model the RGB color model to convert to HSV
  * @return {HSVColorSpace} the converted HSV color model
@@ -145,7 +145,6 @@ export const toHSV = ({ red, green, blue }: RGBAColorSpace): HSVColorSpace => {
 
     const saturation = max === 0 ? 0 : delta / max;
     let hue = 0;
-
     if (max !== min) {
         switch (max) {
             case redRatio:
@@ -165,9 +164,9 @@ export const toHSV = ({ red, green, blue }: RGBAColorSpace): HSVColorSpace => {
         hue /= 6;
     }
     return {
-        hue: Math.round(hue),
-        saturation: Math.round(saturation),
-        value: Math.round(max),
+        hue: Math.round(hue * 360),
+        saturation: Math.round(saturation * 100),
+        value: Math.round(max * 100),
     };
 };
 

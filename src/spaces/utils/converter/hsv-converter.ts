@@ -3,32 +3,33 @@ import HSLColorSpace from '../../hsl/types/hsl-color-space';
 import HSVColorSpace from '../../hsv/types/hsv-space';
 import HWBColorSpace from '../../hwb/types/hwb-space';
 import RGBAColorSpace from '../../rgba/types/rgba-color-space';
-import { normalizePercent } from '../../../common';
+import { normalizePercent, normalizeRotation } from '../../../common';
 
 const toHSL = ({ hue, saturation, value }: HSVColorSpace): HSLColorSpace => {
     const hslL = ((200 - saturation) * value) / 100;
 
     return {
         hue,
-        saturation:
+        saturation: Math.round(
             hslL === 0 || hslL === 200
                 ? 0
                 : ((saturation * value) /
                       100 /
                       (hslL <= 100 ? hslL : 200 - hslL)) *
-                  100,
-        lightness: (hslL * 5) / 10,
+                      100
+        ),
+        lightness: Math.round((hslL * 5) / 10),
     };
 };
 
 const toHWB = ({ hue, saturation, value }: HSVColorSpace): HWBColorSpace => ({
     hue,
-    whiteness: ((100 - saturation) * value) / 100,
-    blackness: 100 - value,
+    whiteness: Math.round(((100 - saturation) * value) / 100),
+    blackness: Math.round(100 - value),
 });
 
 const toRGBA = ({ hue, saturation, value }: HSVColorSpace): RGBAColorSpace => {
-    const h = (hue % 360) / 360;
+    const h = normalizeRotation(hue) / 360;
     const s = normalizePercent(saturation);
     const v = normalizePercent(value);
     let red: number;

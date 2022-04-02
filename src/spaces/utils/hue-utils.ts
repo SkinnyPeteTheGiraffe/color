@@ -1,5 +1,9 @@
 import { HueColorSpace } from '../base';
-import { clampNumericValue, normalizePercent } from '../../common';
+import {
+    clampNumericValue,
+    normalizePercent,
+    normalizeRotation,
+} from '../../common';
 
 /**
  * Rotates the hue of the hue by a given number of degrees.
@@ -8,7 +12,7 @@ import { clampNumericValue, normalizePercent } from '../../common';
  * @param {number} degrees the number of degrees to rotate the hue channel
  */
 export const rotateHue = (hue: number, degrees: number): number => {
-    let rotated = (hue + degrees) % 360;
+    let rotated = normalizeRotation(hue + degrees);
     if (hue < 0) {
         rotated += 360;
     }

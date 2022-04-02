@@ -3,7 +3,6 @@ import HSLColorSpace from '../../hsl/types/hsl-color-space';
 import RGBAColorSpace from '../../rgba/types/rgba-color-space';
 import HSVColorSpace from '../../hsv/types/hsv-space';
 import HWBColorSpace from '../../hwb/types/hwb-space';
-import { normalizePercent } from '../../../common';
 
 /**
  * Takes in hue values, clamps them, and converts to RGB value,
@@ -36,31 +35,26 @@ const hueToRGBValue = (p: number, q: number, t: number) => {
     return p;
 };
 
-const toHSV = ({
-    hue,
-    saturation,
-    lightness,
-}: HSLColorSpace): HSVColorSpace => {
-    const root =
-        (saturation * (lightness < 50 ? lightness : 100 - lightness)) / 100;
-    const adjustedSaturation =
-        root === 0 ? 0 : ((2 * root) / (lightness + root)) * 100;
-    const value = lightness + root;
-
+const toHSV = (space: HSLColorSpace): HSVColorSpace => {
+    const { hue, ...rest } = space;
+    const chroma =
+        (rest.saturation *
+            (rest.lightness < 50 ? rest.lightness : 100 - rest.lightness)) /
+        100;
+    const saturation =
+        chroma === 0 ? 0 : ((2 * chroma) / (rest.lightness + chroma)) * 100;
+    const value = chroma + rest.lightness;
     return {
         hue,
-        saturation: adjustedSaturation,
-        value,
+        saturation: Math.round(saturation),
+        value: Math.round(value),
     };
 };
 
 const toHWB = (space: HSLColorSpace): HWBColorSpace => {
-    const hsv = toHSV(space);
-    const { hue, saturation: rawSaturation, value: rawValue } = hsv;
-    const saturation = normalizePercent(rawSaturation);
-    const value = normalizePercent(rawValue);
-    const whiteness = (1 - saturation) * value;
-    const blackness = 1 - value;
+    const { hue, saturation, value } = toHSV(space);
+    const whiteness = ((100 - saturation) * value) / 100;
+    const blackness = 100 - value;
     return {
         hue,
         whiteness: Math.round(whiteness),

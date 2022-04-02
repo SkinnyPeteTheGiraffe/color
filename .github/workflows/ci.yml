@@ -18,8 +18,8 @@ jobs:
           node-version: ${{ matrix.node }}
       - run: npm install --frozen-lockfile
       - run: npm run lint
-      - run: npm run test
-      - run: npm run build
+      - run: npm run test:coverage
+      - run: npm run build:rollup
       - name: Store Test Coverage Artifact
         uses: actions/upload-artifact@v3
         with:

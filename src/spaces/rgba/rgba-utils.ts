@@ -7,11 +7,14 @@ export const mixRGBASpaces = (
     weight: number
 ): RGBAColorSpace => {
     const normalized = normalizePercent(weight);
-
-    const w = 2 * normalized - 1;
+    const w = normalized * 2 - 1;
     const a = additive.alpha - base.alpha;
-
-    const w1 = ((w * a === -1 ? w : (w + a) / (1 + w * a)) + 1) / 2;
+    let w1: number;
+    if (w * a === -1) {
+        w1 = (w + 1) / 2;
+    } else {
+        w1 = ((w + a) / (1 + w * a) + 1) / 2;
+    }
     const w2 = 1 - w1;
     return {
         red: Math.min(

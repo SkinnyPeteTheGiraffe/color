@@ -15,6 +15,7 @@ import {
     mixRGBASpaces,
     rgbaSpaceToHexString,
 } from '../rgba/rgba-utils';
+import { HWBSpace } from '../hwb';
 
 /**
  * HSL wrapper which provides mutations and accessor functions for
@@ -295,6 +296,10 @@ export default class HSLSpace implements BaseSpace<HSLColorSpace> {
         const hsl = hwbConverter.toHSL(hwb);
         this.applySpace(hsl);
         return this;
+    }
+
+    public toHWB(): HWBSpace {
+        return new HWBSpace(hslConverter.toHWB(this.space));
     }
 
     /**

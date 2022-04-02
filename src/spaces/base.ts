@@ -1,7 +1,7 @@
 /**
  * The definition of the supported color models
  */
-export type ModelType = 'rgb' | 'cymk' | 'hsv' | 'hsl';
+export type ModelType = 'rgb' | 'cymk' | 'hsv' | 'hsl' | 'hwb';
 
 export interface BaseSpace<T> {
     /**
