@@ -1,7 +1,11 @@
 ---
+engines:
+  eslint:
+    enabled: true
 exclude_paths:
   - "site/**"
   - "site/**/*"
   - ".github/**"
   - "ISSUE_TEMPLATE/**"
   - "docs/**"
+  - "**.test.ts"
