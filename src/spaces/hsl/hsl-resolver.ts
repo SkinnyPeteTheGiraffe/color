@@ -1,11 +1,10 @@
 import HSLSpace from './hsl-space';
 import colors from '../../colors';
 import HSLColorSpace from './types/hsl-color-space';
-import { convertHexToRgb } from '../rgba/rgba-utils';
-import { convertRgbToHsl } from '../utils';
+import { hexConverter, rgbaConverter } from '../utils';
 
 export const fromHex = (hex: string): HSLSpace =>
-    new HSLSpace(convertRgbToHsl(convertHexToRgb(hex)));
+    new HSLSpace(rgbaConverter.toHSL(hexConverter.toRGBA(hex)));
 
 export const fromCssColor = (color: keyof typeof colors): HSLSpace =>
     fromHex(colors[color]);

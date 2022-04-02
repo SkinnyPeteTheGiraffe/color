@@ -41,3 +41,9 @@ export const clampNumericValue = (
     min: number,
     max: number
 ): number => Math.min(Math.max(value, min), max);
+
+export const normalizeRotation = (rotation: number): number => {
+    let orientation = rotation % 360;
+    if (orientation < 0) orientation += 360;
+    return orientation;
+};

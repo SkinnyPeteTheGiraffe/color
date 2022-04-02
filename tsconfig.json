@@ -2,6 +2,7 @@
   "compilerOptions": {
     "lib": ["ES2021", "dom"],
     "module": "commonjs",
+    "isolatedModules": true,
     "noImplicitReturns": true,
     "esModuleInterop": true,
     "outDir": "dist",
@@ -10,7 +11,7 @@
     "target": "ES2021",
     "declaration": true,
     "types": [
-      "jest"
+      "mocha"
     ]
   },
   "compileOnSave": true,

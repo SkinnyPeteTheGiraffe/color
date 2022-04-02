@@ -1,15 +1,14 @@
 import { BaseSpace, ModelType } from '../base';
 import RGBAColorSpace from './types/rgba-color-space';
+import HSLColorSpace from '../hsl/types/hsl-color-space';
 import { normalizePercent } from '../../common';
 import {
     adjustHueRelativeValue,
-    convertHslToRgb,
-    convertHwbToRgb,
-    convertRgbToHsl,
-    convertRgbToHwb,
     rotateHue,
+    hslConverter,
+    hwbConverter,
+    rgbaConverter,
 } from '../utils';
-import HSLColorSpace from '../hsl/types/hsl-color-space';
 import {
     applyGreyscaleToRGBASpace,
     mixRGBASpaces,
@@ -149,7 +148,7 @@ export default class RGBASpace implements BaseSpace<RGBAColorSpace> {
             ratio,
             true
         );
-        const rgba = convertHslToRgb(lightened);
+        const rgba = hslConverter.toRGBA(lightened);
         return this.applySpace(rgba);
     }
 
@@ -182,7 +181,7 @@ export default class RGBASpace implements BaseSpace<RGBAColorSpace> {
             ratio,
             false
         );
-        const rgba = convertHslToRgb(darkened);
+        const rgba = hslConverter.toRGBA(darkened);
         return this.applySpace(rgba);
     }
 
@@ -193,10 +192,10 @@ export default class RGBASpace implements BaseSpace<RGBAColorSpace> {
      * @param {number} ratio value between 0 - 1 or 1 - 100 representing a relative percent in which to whiten the color
      */
     public whiten(ratio: number): RGBASpace {
-        const hwb = convertRgbToHwb(this.space);
+        const hwb = rgbaConverter.toHWB(this.space);
         const value = hwb.whiteness * normalizePercent(ratio);
         hwb.whiteness += value;
-        const rgb = convertHwbToRgb(hwb);
+        const rgb = hwbConverter.toRGBA(hwb);
         this.applySpace(rgb);
         return this;
     }
@@ -208,10 +207,10 @@ export default class RGBASpace implements BaseSpace<RGBAColorSpace> {
      * @param {number} ratio value between 0 - 1 or 1 - 100 representing a relative percent in which to blacken the color
      */
     public blacken(ratio: number): RGBASpace {
-        const hwb = convertRgbToHwb(this.space);
+        const hwb = rgbaConverter.toHWB(this.space);
         const value = hwb.blackness * normalizePercent(ratio);
         hwb.blackness += value;
-        const rgb = convertHwbToRgb(hwb);
+        const rgb = hwbConverter.toRGBA(hwb);
         this.applySpace(rgb);
         return this;
     }
@@ -238,7 +237,7 @@ export default class RGBASpace implements BaseSpace<RGBAColorSpace> {
             ratio,
             true
         );
-        const rgba = convertHslToRgb(saturated);
+        const rgba = hslConverter.toRGBA(saturated);
         return this.applySpace(rgba);
     }
 
@@ -256,7 +255,7 @@ export default class RGBASpace implements BaseSpace<RGBAColorSpace> {
             ratio,
             false
         );
-        const rgba = convertHslToRgb(desaturated);
+        const rgba = hslConverter.toRGBA(desaturated);
         return this.applySpace(rgba);
     }
 
@@ -292,7 +291,7 @@ export default class RGBASpace implements BaseSpace<RGBAColorSpace> {
     public rotate(degrees: number): RGBASpace {
         const hsl = this.toHSLColorSpace();
         hsl.hue = rotateHue(hsl.hue, degrees);
-        const rgba = convertHslToRgb(hsl);
+        const rgba = hslConverter.toRGBA(hsl);
         this.applySpace(rgba);
         return this;
     }
@@ -365,7 +364,7 @@ export default class RGBASpace implements BaseSpace<RGBAColorSpace> {
     }
 
     public toHSLColorSpace(): HSLColorSpace {
-        return convertRgbToHsl(this.space);
+        return rgbaConverter.toHSL(this.space);
     }
 
     private applySpace(space: RGBAColorSpace): RGBASpace {
