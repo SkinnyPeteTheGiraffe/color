@@ -122,16 +122,5 @@ describe('hsl color space', function () {
                 lightness: 75,
             });
         });
-        it('should return rgba space object', function () {
-            expect(hsl.toRGBAColorSpace()).deep.eq({
-                red: 159,
-                green: 223,
-                blue: 185,
-                alpha: 1,
-            });
-        });
-        it('should return valid HWB space instance', function () {
-            expect(hsl.toHWB().toString()).to.eq('hwb(144,62%,12%)');
-        });
     });
 });

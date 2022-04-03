@@ -4,10 +4,6 @@
 export type ModelType = 'rgb' | 'cymk' | 'hsv' | 'hsl' | 'hwb';
 
 export interface BaseSpace<T> {
-    /**
-     * The color model of the space
-     */
-    type: ModelType;
     lighten(ratio: number): BaseSpace<T>;
     darken(ratio: number): BaseSpace<T>;
     whiten(ratio: number): BaseSpace<T>;

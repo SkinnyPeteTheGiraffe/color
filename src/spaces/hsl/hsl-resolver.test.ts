@@ -10,6 +10,11 @@ describe('hsl resolver', function () {
     it('should create hsl color from hex string', function () {
         expect(fromHex('#30e57f').toString()).to.eq('hsl(146,78%,54%)');
     });
+    it('should have access to conversion method', function () {
+        expect(
+            fromHex('#30e57f').toSpace('rgb').toSpace('hsl').toString()
+        ).to.eq('hsl(146,78%,54%)');
+    });
     it('should create hsl color from hsl values', function () {
         expect(fromHSL(133, 74, 20).toString()).to.eq('hsl(133,74%,20%)');
     });

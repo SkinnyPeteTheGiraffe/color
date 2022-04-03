@@ -1,6 +1,5 @@
-import { HueColorSpace } from '../../base';
-
-export default interface HSVColorSpace extends HueColorSpace {
+export default interface HSVColorSpace {
+    hue: number;
     saturation: number;
     value: number;
 }

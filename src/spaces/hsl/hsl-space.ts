@@ -1,4 +1,4 @@
-import { BaseSpace, ModelType } from '../base';
+import { BaseSpace } from '../base';
 import HSLColorSpace from './types/hsl-color-space';
 import { normalizePercent } from '../../common';
 import {
@@ -9,13 +9,11 @@ import {
     rotateHue,
     setHueColorSpaceValue,
 } from '../utils';
-import RGBAColorSpace from '../rgba/types/rgba-color-space';
 import {
     applyGreyscaleToRGBASpace,
     mixRGBASpaces,
     rgbaSpaceToHexString,
 } from '../rgba/rgba-utils';
-import { HWBSpace } from '../hwb';
 
 /**
  * HSL wrapper which provides mutations and accessor functions for
@@ -24,12 +22,9 @@ import { HWBSpace } from '../hwb';
  * @public
  */
 export default class HSLSpace implements BaseSpace<HSLColorSpace> {
-    public type: ModelType;
-
-    private readonly space: HSLColorSpace;
+    protected readonly space: HSLColorSpace;
 
     constructor(space: HSLColorSpace) {
-        this.type = 'hsl';
         this.space = space;
     }
 
@@ -150,7 +145,9 @@ export default class HSLSpace implements BaseSpace<HSLColorSpace> {
      * @remarks This function converts color space to RGBA to preform operation
      */
     public grayscale(): HSLSpace {
-        const greyscale = applyGreyscaleToRGBASpace(this.toRGBAColorSpace());
+        const greyscale = applyGreyscaleToRGBASpace(
+            hslConverter.toRGBA(this.space)
+        );
         const hsl = rgbaConverter.toHSL(greyscale);
         return this.applySpace(hsl);
     }
@@ -193,7 +190,7 @@ export default class HSLSpace implements BaseSpace<HSLColorSpace> {
      * @param weight the weight in which the color should be mixed
      */
     public mix(color: HSLColorSpace, weight = 0.5): HSLSpace {
-        const rgba = this.toRGBAColorSpace();
+        const rgba = hslConverter.toRGBA(this.space);
         const mixed = mixRGBASpaces(rgba, hslConverter.toRGBA(color), weight);
         const hsl = rgbaConverter.toHSL(mixed);
         return this.applySpace(hsl);
@@ -252,7 +249,10 @@ export default class HSLSpace implements BaseSpace<HSLColorSpace> {
      * @param {boolean} removeHashtag will return the hex value without a hashtag if true, otherwise will return with hashtag
      */
     public toHexString(removeHashtag?: boolean): string {
-        return rgbaSpaceToHexString(this.toRGBAColorSpace(), removeHashtag);
+        return rgbaSpaceToHexString(
+            hslConverter.toRGBA(this.space),
+            removeHashtag
+        );
     }
 
     /**
@@ -296,19 +296,6 @@ export default class HSLSpace implements BaseSpace<HSLColorSpace> {
         const hsl = hwbConverter.toHSL(hwb);
         this.applySpace(hsl);
         return this;
-    }
-
-    public toHWB(): HWBSpace {
-        return new HWBSpace(hslConverter.toHWB(this.space));
-    }
-
-    /**
-     * Converts this HSL color space to RGBA with an alpha of 100%.
-     *
-     * @return {RGBAColorSpace} the converted RGBA color space instance
-     */
-    public toRGBAColorSpace(): RGBAColorSpace {
-        return hslConverter.toRGBA(this.space);
     }
 
     /* ---------- PRIVATE FUNCTIONS --------- */

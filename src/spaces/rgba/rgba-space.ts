@@ -24,7 +24,7 @@ import {
 export default class RGBASpace implements BaseSpace<RGBAColorSpace> {
     public type: ModelType;
 
-    private readonly space: RGBAColorSpace;
+    protected readonly space: RGBAColorSpace;
 
     constructor(space: RGBAColorSpace) {
         this.type = 'rgb';

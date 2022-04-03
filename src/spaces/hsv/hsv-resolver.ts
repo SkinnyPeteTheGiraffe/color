@@ -1,19 +1,19 @@
 import colors from '../../colors';
-import HSVSpace from './hsv-space';
 import HSVColorSpace from './types/hsv-space';
 import { hexConverter, rgbaConverter } from '../utils';
+import { ExtendedHSVSpace } from '../extensions';
 
-export const fromHex = (hex: string): HSVSpace =>
-    new HSVSpace(rgbaConverter.toHSV(hexConverter.toRGBA(hex)));
+export const fromHex = (hex: string): ExtendedHSVSpace =>
+    new ExtendedHSVSpace(rgbaConverter.toHSV(hexConverter.toRGBA(hex)));
 
-export const fromCssColor = (color: keyof typeof colors): HSVSpace =>
+export const fromCssColor = (color: keyof typeof colors): ExtendedHSVSpace =>
     fromHex(colors[color]);
 
 export const fromHSV = (
     hue: number,
     saturation: number,
     value: number
-): HSVSpace => new HSVSpace({ hue, saturation, value });
+): ExtendedHSVSpace => new ExtendedHSVSpace({ hue, saturation, value });
 
-export const fromHSVColorSpace = (space: HSVColorSpace): HSVSpace =>
-    new HSVSpace(space);
+export const fromHSVColorSpace = (space: HSVColorSpace): ExtendedHSVSpace =>
+    new ExtendedHSVSpace(space);

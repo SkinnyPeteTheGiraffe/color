@@ -24,7 +24,7 @@ import { HWBColorSpace } from './types';
 export default class HWBSpace implements BaseSpace<HWBColorSpace> {
     public type: ModelType;
 
-    private readonly space: HWBColorSpace;
+    protected readonly space: HWBColorSpace;
 
     constructor(space: HWBColorSpace) {
         this.type = 'hwb';

@@ -26,7 +26,7 @@ import {
 export default class HSVSpace implements BaseSpace<HSVColorSpace> {
     public type: ModelType;
 
-    private readonly space: HSVColorSpace;
+    protected readonly space: HSVColorSpace;
 
     constructor(space: HSVColorSpace) {
         this.type = 'hsv';
