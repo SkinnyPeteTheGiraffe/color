@@ -1,11 +1,11 @@
 import Converter from './converter';
 import RGBAColorSpace from '../../rgba/types/rgba-color-space';
-import { HWBColorSpace } from '../../hwb/types';
+import HWBColorSpace from '../../hwb/types/hwb-space';
 import HSLColorSpace from '../../hsl/types/hsl-color-space';
 import hslConverter from './hsl-converter';
 import HSVColorSpace from '../../hsv/types/hsv-space';
 import hsvConverter from './hsv-converter';
-import { normalizePercent } from '../../../common';
+import { normalizePercent } from '../../../common/utils/number-tools';
 
 const toHSV = ({
     hue,

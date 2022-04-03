@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "lib": ["ES2021", "dom"],
-    "module": "commonjs",
+    "lib": ["ESNext", "dom"],
+    "module": "ESNext",
     "isolatedModules": true,
     "noImplicitReturns": true,
     "esModuleInterop": true,

@@ -1,6 +1,7 @@
 import colors from '../../colors';
 import HSLColorSpace from './types/hsl-color-space';
-import { hexConverter, rgbaConverter } from '../utils';
+import rgbaConverter from '../utils/converter/rgba-converter';
+import hexConverter from '../utils/converter/hex-converter';
 import { ExtendedHSLSpace } from '../extensions';
 
 export const fromHex = (hex: string): ExtendedHSLSpace =>

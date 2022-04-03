@@ -1,7 +1,7 @@
 /* eslint-disable mocha/no-setup-in-describe */
 
 import { expect } from 'chai';
-import { hsvConverter } from './index';
+import hsvConverter from './hsv-converter';
 import HSVColorSpace from '../../hsv/types/hsv-space';
 
 const color: HSVColorSpace = {

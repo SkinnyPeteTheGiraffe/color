@@ -2,7 +2,7 @@ import { ModelType } from '../base';
 import HSVSpace from '../hsv/hsv-space';
 import HWBSpace from '../hwb/hwb-space';
 import RGBASpace from '../rgba/rgba-space';
-import { HSLSpace } from '../hsl';
+import HSLSpace from '../hsl/hsl-space';
 
 type KeyedSpace<
     T extends ModelType,

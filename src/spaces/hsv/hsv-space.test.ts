@@ -1,4 +1,4 @@
-import { HSVSpace } from './index';
+import HSVSpace from './hsv-space';
 import { expect } from 'chai';
 
 describe('hsv color space', function () {

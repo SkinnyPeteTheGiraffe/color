@@ -1,5 +1,4 @@
 /* eslint-disable mocha/no-setup-in-describe */
-
 import { expect } from 'chai';
 import {
     clampNumericValue,

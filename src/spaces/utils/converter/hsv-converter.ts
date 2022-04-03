@@ -3,7 +3,10 @@ import HSLColorSpace from '../../hsl/types/hsl-color-space';
 import HSVColorSpace from '../../hsv/types/hsv-space';
 import HWBColorSpace from '../../hwb/types/hwb-space';
 import RGBAColorSpace from '../../rgba/types/rgba-color-space';
-import { normalizePercent, normalizeRotation } from '../../../common';
+import {
+    normalizePercent,
+    normalizeRotation,
+} from '../../../common/utils/number-tools';
 
 const toHSL = ({ hue, saturation, value }: HSVColorSpace): HSLColorSpace => {
     const hslL = ((200 - saturation) * value) / 100;

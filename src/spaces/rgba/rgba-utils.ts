@@ -1,5 +1,5 @@
 import RGBAColorSpace from './types/rgba-color-space';
-import { normalizePercent } from '../../common';
+import { normalizePercent } from '../../common/utils/number-tools';
 
 export const mixRGBASpaces = (
     base: RGBAColorSpace,

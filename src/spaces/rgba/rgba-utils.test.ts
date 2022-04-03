@@ -1,8 +1,7 @@
 /* eslint-disable mocha/no-setup-in-describe */
-
 import { expect } from 'chai';
 import { mixRGBASpaces } from './rgba-utils';
-import { normalizePercent } from '../../common';
+import { normalizePercent } from '../../common/utils/number-tools';
 
 describe('test rgba util functions', function () {
     const mixRGBASpacesTests = [

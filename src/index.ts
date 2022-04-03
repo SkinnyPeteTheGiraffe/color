@@ -1,1 +1,1 @@
-export * from './spaces';
+export * from './spaces/index';

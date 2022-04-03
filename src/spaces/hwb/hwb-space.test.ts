@@ -1,4 +1,4 @@
-import { HWBSpace } from './index';
+import HWBSpace from './hwb-space';
 import { expect } from 'chai';
 
 describe('hwb color space', function () {

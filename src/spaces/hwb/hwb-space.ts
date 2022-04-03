@@ -1,19 +1,19 @@
 import { BaseSpace, ModelType } from '../base';
+import HWBColorSpace from './types/hwb-space';
+import RGBAColorSpace from '../rgba/types/rgba-color-space';
+import hslConverter from '../utils/converter/hsl-converter';
+import hwbConverter from '../utils/converter/hwb-converter';
+import rgbaConverter from '../utils/converter/rgba-converter';
 import {
     adjustHueRelativeValue,
-    hslConverter,
-    hwbConverter,
-    rgbaConverter,
     rotateHue,
     setHueColorSpaceValue,
-} from '../utils';
-import RGBAColorSpace from '../rgba/types/rgba-color-space';
+} from '../utils/hue-utils';
 import {
     applyGreyscaleToRGBASpace,
     mixRGBASpaces,
     rgbaSpaceToHexString,
 } from '../rgba/rgba-utils';
-import { HWBColorSpace } from './types';
 
 /**
  * HWB wrapper which provides mutations and accessor functions for

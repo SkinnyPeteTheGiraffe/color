@@ -3,7 +3,7 @@ import {
     clampNumericValue,
     normalizePercent,
     normalizeRotation,
-} from '../../common';
+} from '../../common/utils/number-tools';
 
 /**
  * Rotates the hue of the hue by a given number of degrees.

@@ -1,6 +1,5 @@
-import { HueColorSpace } from '../../base';
-
-export default interface HWBColorSpace extends HueColorSpace {
+export default interface HWBColorSpace {
+    hue: number;
     whiteness: number;
     blackness: number;
 }

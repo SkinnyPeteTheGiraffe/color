@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { hslConverter } from './index';
+import hslConverter from './hsl-converter';
 import HSLColorSpace from '../../hsl/types/hsl-color-space';
 
 const color: HSLColorSpace = {

@@ -1,17 +1,18 @@
-import dts from 'rollup-plugin-dts'
-import esbuild from 'rollup-plugin-esbuild'
+import dts from 'rollup-plugin-dts';
+import typescript from '@rollup/plugin-typescript';
+import { terser } from 'rollup-plugin-terser';
 
-const name = require('./package.json').main.replace(/\.js$/, '')
+const name = require('./package.json').main.replace(/\.js$/, '');
 
-const bundle = config => ({
+const bundle = (config) => ({
     ...config,
     input: 'src/index.ts',
-    external: id => !/^[./]/.test(id),
-})
+    external: (id) => !/^[./]/.test(id),
+});
 
-export default [
+const config = [
     bundle({
-        plugins: [esbuild()],
+        input: 'build/compiled/index.js',
         output: [
             {
                 file: `${name}.js`,
@@ -24,6 +25,16 @@ export default [
                 sourcemap: true,
             },
         ],
+        plugins: [
+            typescript(),
+            terser({
+                ecma: 2020,
+                module: true,
+                toplevel: true,
+                compress: { pure_getters: true },
+                format: { wrap_func_args: false },
+            }),
+        ],
     }),
     bundle({
         plugins: [dts()],
@@ -32,4 +43,6 @@ export default [
             format: 'es',
         },
     }),
-]
+];
+
+export default config;

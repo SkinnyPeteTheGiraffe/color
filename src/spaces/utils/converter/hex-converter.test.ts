@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { hexConverter } from './index';
+import hexConverter from './hex-converter';
 
 describe('test HEX conversion functions', function () {
     it('should handle full length hex values with hashtags', function () {

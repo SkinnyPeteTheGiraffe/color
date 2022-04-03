@@ -1,7 +1,7 @@
 import { ExtendedRGBASpace } from '../extensions';
 import colors from '../../colors';
 import RGBAColorSpace from './types/rgba-color-space';
-import { hexConverter } from '../utils';
+import hexConverter from '../utils/converter/hex-converter';
 
 /**
  * Create a {@link RGBASpace} instance from a valid color hex value.

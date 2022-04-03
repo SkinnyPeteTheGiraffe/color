@@ -1,21 +1,19 @@
 import { ModelType } from './base';
-import { KeyedSpace } from './types';
+import Converter from './utils/converter/converter';
+import KeyedSpace from './types/keyed-spaced';
 import { toColorSpace } from './space-extender';
-import {
-    Converter,
-    hslConverter,
-    hsvConverter,
-    hwbConverter,
-    rgbaConverter,
-} from './utils';
+import hslConverter from './utils/converter/hsl-converter';
+import hwbConverter from './utils/converter/hwb-converter';
+import rgbaConverter from './utils/converter/rgba-converter';
+import hsvConverter from './utils/converter/hsv-converter';
 import RGBSpace from './rgba/rgba-space';
 import RGBAColorSpace from './rgba/types/rgba-color-space';
 import HSLSpace from './hsl/hsl-space';
 import HSLColorSpace from './hsl/types/hsl-color-space';
-import { HSVSpace } from './hsv';
+import HSVSpace from './hsv/hsv-space';
 import HSVColorSpace from './hsv/types/hsv-space';
-import { HWBSpace } from './hwb';
-import { HWBColorSpace } from './hwb/types';
+import HWBSpace from './hwb/hwb-space';
+import HWBColorSpace from './hwb/types/hwb-space';
 
 /* -------------- RGBA -------------- */
 export class ExtendedRGBASpace extends RGBSpace {

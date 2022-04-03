@@ -1,14 +1,11 @@
 import { BaseSpace, ModelType } from '../base';
 import RGBAColorSpace from './types/rgba-color-space';
 import HSLColorSpace from '../hsl/types/hsl-color-space';
-import { normalizePercent } from '../../common';
-import {
-    adjustHueRelativeValue,
-    rotateHue,
-    hslConverter,
-    hwbConverter,
-    rgbaConverter,
-} from '../utils';
+import { normalizePercent } from '../../common/utils/number-tools';
+import hslConverter from '../utils/converter/hsl-converter';
+import hwbConverter from '../utils/converter/hwb-converter';
+import rgbaConverter from '../utils/converter/rgba-converter';
+import { adjustHueRelativeValue, rotateHue } from '../utils/hue-utils';
 import {
     applyGreyscaleToRGBASpace,
     mixRGBASpaces,

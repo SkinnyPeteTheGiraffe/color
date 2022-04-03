@@ -3,8 +3,8 @@ import HSVSpace from './hsv/hsv-space';
 import RGBASpace from './rgba/rgba-space';
 import HWBSpace from './hwb/hwb-space';
 import { ModelType } from './base';
-import { KeyedSpace } from './types';
-import { HSLSpace } from './hsl';
+import KeyedSpace from './types/keyed-spaced';
+import HSLSpace from './hsl/hsl-space';
 
 /**
  * Allows for converting the current color space to another by providing
