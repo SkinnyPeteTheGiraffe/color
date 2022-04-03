@@ -5,31 +5,47 @@
 [![MIT License](http://img.shields.io/badge/license-MIT-green.svg)](LICENSE.md)
 ![Best Badge](https://img.shields.io/badge/another%20js%20library-yes-green)
 ![Purple](https://img.shields.io/badge/purple-purple)
-n
-#### _"This is the best Javascript/Typescript library for colors!" - <small>Maybe Someone</small>_
-<p align="center">
+
+#### _"This is the best library for colors!" - <small>Very Important, Real Person</small>_
+
+<div>
+<p style="text-align: center;">
   <a href="https://skinnypetethegiraffe.github.io/n-color/" target="blank"><img src="site/docs/_media/n-color-logo.svg" width="120" alt="Nest Logo" /></a>
   <br/>
 </p>
-<p align="center">
-<a href="https://skinnypetethegiraffe.github.io/n-color/" target="blank">Documentation</a>
-&nbsp;&nbsp;—&nbsp;&nbsp;
-<a href="https://skinnypetethegiraffe.github.io/n-color/api/" target="blank">API</a>
-</p>
+<div style="text-align: center;">
+    <a href="https://skinnypetethegiraffe.github.io/n-color/" target="blank">Documentation</a>
+    &nbsp;&nbsp;—&nbsp;&nbsp;
+    <a href="https://skinnypetethegiraffe.github.io/n-color/api/" target="blank">API</a>
+    <div style="text-align: center;">
+        Powerful lightweight color conversion and manipulation library.
+    </div>
+</div>
 
-Modern, lightweight, dependency free, color manipulation and conversion library.
+## Features
+<hr />
 
+  * Supports multiple color models (Ex. [RGBA](https://en.wikipedia.org/wiki/RGBA_color_model), [HWB](https://en.wikipedia.org/wiki/HWB_color_model), [HSL & HSV](https://en.wikipedia.org/wiki/HSL_and_HSV))
+  * Accepts CSS [color-names](https://www.w3schools.com/colors/colors_names.asp)
+  * Full of features and easy-to-use ([Builder Pattern](https://en.wikipedia.org/wiki/Builder_pattern#:~:text=The%20builder%20pattern%20is%20a,Gang%20of%20Four%20design%20patterns.) design)
+  * Written in Typescript
+  * Plenty of QOL enchantments
+  * Works directly with the color space instead of relying on single color space to generate output values
+  * Dependency free
+  * **Will not do your taxes, sorry...**
+
+## Example
 ```typescript
 RGBA.fromHex('#fecd22')
     .darken(0.69) // Accepts [0,1] and (1,100] as a percentage - 0-100%
     .rotate(69) // Leverages multiple color spaces
     .lighten(44.15) // Supports decimal ratios
-    .setColor('blue', 250) // Manual overrides
-    .grayscale() // Random stuff like this
+    .setColor('blue', 250) // Manually set values
+    .grayscale() // Miscellaneous stuff like this
     .toHexString() // #696969 - Can return valid CSS values
 ```
 
-## Installation
+## Installation <small>(Coming Soon™)</small>
 ```shell
 # NPM
 npm install n-color
@@ -37,32 +53,4 @@ npm install n-color
 pnpm install n-color
 # Yarn
 yarn add n-color
-```
-
-## Usage
-A simple example of importing providers, creating an instances, applying a mutations, and outputting valid CSS values.
-```ts
-import { RGBA, HSL, RGBASpace, HSLSpace, HSLColorSpace } from 'n-color';
-
-const hex: RGBASpace = RGBA.fromHex('#c8804b').lighten(42);         // Create RGB from hex, and lighten the color by 42%
-const css: RGBASpace = RGBA.fromCssColor('Aquamarine');             // Create RGB from CSS color value
-const rgb: RGBASpace = RGBA.fromRGB(200, 128, 75).grayscale();      // Create RGB instance from channels values and grayscales the color
-const rgba: RGBASpace = RGBA.fromRGBA(200, 128, 75, 0.5).fill(0.5); // Create RGBA instance from channels values and fill 50%
-const hsl: HSLSpace = HSL.fromHSL(144, 50, 75).saturate(44);        // Creates a HSL instance from channel values and saturates it by 44%
-
-// Convert an RGBA color space to HSL
-const rgbToHslColorSpace: HSLColorSpace = RGBA.fromRGB(
-    200,
-    128,
-    75
-).toHSLColorSpace();
-const convertedHSLSpace: HSLSpace = HSL.fromHSLColorSpace(rgbToHslColorSpace);
-
-console.log(hex.toString());                // rgb(227,191,165)
-console.log(css.toString());                // rgb(227,191,165)
-console.log(rgb.toString());                // rgb(143,143,143)
-console.log(rgba.toString());               // rgb(200,128,75)
-console.log(hsl.toString());                // hsl(144,72%,75%)
-console.log(css.toHexString());             // rgb(127, 255, 212)
-console.log(convertedHSLSpace.toString());  // hsl(25,53%,54%)
 ```
