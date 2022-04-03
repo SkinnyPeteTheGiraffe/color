@@ -1,14 +1,14 @@
 {
   "name": "n-color",
+  "author": "Bobby Plunkett",
   "version": "1.0.0",
   "description": "A modern, fully fledged color toolkit",
+  "license": "MIT",
   "main": "dist/n-color.js",
   "module": "dist/n-color.mjs",
   "typings": "dist/n-color.d.ts",
   "files": [
-    "n-color.d.ts",
-    "n-color.js",
-    "n-color.js.map"
+    "*.{js,mjs,ts,map}"
   ],
   "scripts": {
     "start": "ts-node-dev --respawn --transpile-only src/example.ts",
@@ -30,8 +30,7 @@
     "css",
     "typescript"
   ],
-  "author": "Bobby Plunkett",
-  "license": "MIT",
+
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@rollup/plugin-typescript": "^8.3.1",

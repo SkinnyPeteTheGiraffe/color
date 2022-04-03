@@ -17,17 +17,11 @@ export const fromHex = (hex: string): ExtendedRGBASpace =>
 export const fromCssColor = (color: keyof typeof colors): ExtendedRGBASpace =>
     fromHex(colors[color]);
 
-export const fromRGB = (
-    red: number,
-    green: number,
-    blue: number
-): ExtendedRGBASpace => new ExtendedRGBASpace({ red, green, blue, alpha: 1 });
-
 export const fromRGBA = (
     red: number,
     green: number,
     blue: number,
-    alpha: number
+    alpha = 1
 ): ExtendedRGBASpace => new ExtendedRGBASpace({ red, green, blue, alpha });
 
 export const fromRGBAColorSpace = (space: RGBAColorSpace): ExtendedRGBASpace =>

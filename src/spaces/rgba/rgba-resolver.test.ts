@@ -1,7 +1,6 @@
 import {
     fromCssColor,
     fromHex,
-    fromRGB,
     fromRGBA,
     fromRGBAColorSpace,
 } from './rgba-resolver';
@@ -15,9 +14,6 @@ describe('rgba resolver', function () {
         expect(
             fromHex('#50a8ff').toSpace('hsl').toSpace('rgb').toString()
         ).to.eq('rgb(82,168,255)');
-    });
-    it('should create rgba color from rgb', function () {
-        expect(fromRGB(133, 74, 20).toString()).to.eq('rgb(133,74,20)');
     });
     it('should create rgba color from rgba', function () {
         expect(fromRGBA(133, 74, 200, 0.69).toString()).to.eq(
