@@ -15,9 +15,17 @@ describe('rgba resolver', function () {
             fromHex('#50a8ff').toSpace('hsl').toSpace('rgb').toString()
         ).to.eq('rgb(82,168,255)');
     });
+    it('should have not access to same space conversion method', function () {
+        expect(fromHex('#50a8ff').toSpace('rgb')).to.eq(null);
+    });
     it('should create rgba color from rgba', function () {
         expect(fromRGBA(133, 74, 200, 0.69).toString()).to.eq(
             'rgb(133,74,200)'
+        );
+    });
+    it('should create rgb color from rgba', function () {
+        expect(fromRGBA(133, 74, 200).toString(true)).to.eq(
+            'rgba(133,74,200,1)'
         );
     });
     it('should create rgba color from rgb values', function () {

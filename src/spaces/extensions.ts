@@ -11,9 +11,9 @@ import RGBAColorSpace from './rgba/types/rgba-color-space';
 import HSLSpace from './hsl/hsl-space';
 import HSLColorSpace from './hsl/types/hsl-color-space';
 import HSVSpace from './hsv/hsv-space';
-import HSVColorSpace from './hsv/types/hsv-space';
+import HSVColorSpace from './hsv/types/hsv-color-space';
 import HWBSpace from './hwb/hwb-space';
-import HWBColorSpace from './hwb/types/hwb-space';
+import HWBColorSpace from './hwb/types/hwb-color-space';
 
 /* -------------- RGBA -------------- */
 export class ExtendedRGBASpace extends RGBSpace {

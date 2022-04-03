@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import hwbConverter from './hwb-converter';
-import HWBColorSpace from '../../hwb/types/hwb-space';
+import HWBColorSpace from '../../hwb/types/hwb-color-space';
 
 const color: HWBColorSpace = {
     hue: 180,

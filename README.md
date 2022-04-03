@@ -18,7 +18,7 @@
         &nbsp;&nbsp;—&nbsp;&nbsp;
         <a href="https://skinnypetethegiraffe.github.io/n-color/api/" target="blank">API</a>
         <div style="text-align: center;">
-            Simple yet powerful lightweight true color conversion and manipulation library.
+            Simple yet powerful, lightweight, true color conversion and manipulation library.
         </div>
     </div>
 </div>
@@ -57,7 +57,7 @@ import { RGBA } from 'n-color';
 const cssColor = RGBA.fromCssColor('RebeccaPurple');    // Accepts CSS Color Names
 const shortHandHex = RGBA.fromHex('000');               // Can use shorthand hex values with and without hashtags
 const hex = RGBA.fromHex('#663399');                    // Of course you can use hex (for any color space)
-const rgb = RGBA.fromRGBA(102, 51, 153);                // Ability to pass in values (useful for external color space modifacations)
+const rgb = RGBA.fromRGBA(102, 51, 153);                // Ability to pass in values (useful for external color space modfications)
 const rgba = RGBA.fromRGBA(102, 51, 153, 0.44);         // Use alpha when applicable
 const hslFromRGBA = RGBA.fromCssColor('RebeccaPurple')  // Easily switch between color models
     .toSpace('hsl');                                            

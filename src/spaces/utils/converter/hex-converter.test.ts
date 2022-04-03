@@ -10,6 +10,14 @@ describe('test HEX conversion functions', function () {
             alpha: 1,
         });
     });
+    it('should handle full length hex values with hashtags alt', function () {
+        expect(hexConverter.toRGBA('#zzzzzz')).deep.eq({
+            red: 0,
+            green: 0,
+            blue: 0,
+            alpha: 1,
+        });
+    });
     it('should handle full length hex values without hashtags', function () {
         expect(hexConverter.toRGBA('fdb234')).deep.eq({
             red: 253,

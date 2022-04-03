@@ -12,11 +12,7 @@ import {
  * @param {number} degrees the number of degrees to rotate the hue channel
  */
 export const rotateHue = (hue: number, degrees: number): number => {
-    let rotated = normalizeRotation(hue + degrees);
-    if (hue < 0) {
-        rotated += 360;
-    }
-    return rotated;
+    return normalizeRotation(hue + degrees);
 };
 
 export const setHueColorSpaceValue = <R extends HueColorSpace>(

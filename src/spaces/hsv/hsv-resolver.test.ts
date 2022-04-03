@@ -15,6 +15,9 @@ describe('hsl resolver', function () {
             fromHex('#30e57f').toSpace('rgb').toSpace('hsv').toString()
         ).to.eq('hsv(146,79%,90%)');
     });
+    it('should have not access to same space conversion method', function () {
+        expect(fromHex('#50a8ff').toSpace('hsv')).to.eq(null);
+    });
     it('should create hsv color from hsl values', function () {
         expect(fromHSV(133, 74, 20).toString()).to.eq('hsv(133,74%,20%)');
     });

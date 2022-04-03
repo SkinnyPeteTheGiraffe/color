@@ -1,5 +1,5 @@
 import colors from '../../colors';
-import HSVColorSpace from './types/hsv-space';
+import HSVColorSpace from './types/hsv-color-space';
 import rgbaConverter from '../utils/converter/rgba-converter';
 import hexConverter from '../utils/converter/hex-converter';
 import { ExtendedHSVSpace } from '../extensions';

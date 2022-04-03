@@ -2,7 +2,7 @@
 
 import { expect } from 'chai';
 import hsvConverter from './hsv-converter';
-import HSVColorSpace from '../../hsv/types/hsv-space';
+import HSVColorSpace from '../../hsv/types/hsv-color-space';
 
 const color: HSVColorSpace = {
     hue: 180,

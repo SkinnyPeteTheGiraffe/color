@@ -1,7 +1,7 @@
 import { BaseSpace, ModelType } from '../base';
 import { normalizePercent } from '../../common/utils/number-tools';
 import RGBAColorSpace from '../rgba/types/rgba-color-space';
-import HSVColorSpace from './types/hsv-space';
+import HSVColorSpace from './types/hsv-color-space';
 import hslConverter from '../utils/converter/hsl-converter';
 import hwbConverter from '../utils/converter/hwb-converter';
 import rgbaConverter from '../utils/converter/rgba-converter';

@@ -1,9 +1,9 @@
 import Converter from './converter';
 import RGBAColorSpace from '../../rgba/types/rgba-color-space';
-import HWBColorSpace from '../../hwb/types/hwb-space';
+import HWBColorSpace from '../../hwb/types/hwb-color-space';
 import HSLColorSpace from '../../hsl/types/hsl-color-space';
+import HSVColorSpace from '../../hsv/types/hsv-color-space';
 import hslConverter from './hsl-converter';
-import HSVColorSpace from '../../hsv/types/hsv-space';
 import hsvConverter from './hsv-converter';
 import { normalizePercent } from '../../../common/utils/number-tools';
 

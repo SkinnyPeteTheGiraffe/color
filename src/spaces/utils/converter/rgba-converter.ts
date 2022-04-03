@@ -1,8 +1,12 @@
 import RGBAColorSpace from '../../rgba/types/rgba-color-space';
-import HWBColorSpace from '../../hwb/types/hwb-space';
+import HWBColorSpace from '../../hwb/types/hwb-color-space';
 import HSLColorSpace from '../../hsl/types/hsl-color-space';
-import HSVColorSpace from '../../hsv/types/hsv-space';
+import HSVColorSpace from '../../hsv/types/hsv-color-space';
 import Converter from './converter';
+import {
+    clampNumericValue,
+    normalizeRotation,
+} from '../../../common/utils/number-tools';
 
 const rgbMax = (space: RGBAColorSpace): number =>
     Math.max(space.red, space.green, space.blue);
@@ -106,10 +110,7 @@ export const toHSL = ({ red, green, blue }: RGBAColorSpace): HSLColorSpace => {
         hue = (redRatio - greenRatio) / delta + 4;
     }
 
-    hue *= 60;
-
-    // Make negative hues positive behind 360
-    if (hue < 0) hue += 360;
+    hue = normalizeRotation(hue * 60);
 
     // Calculate saturation
     saturation = delta === 0 ? 0 : delta / (1 - Math.abs(2 * lightness - 1));
@@ -142,7 +143,6 @@ export const toHSV = ({ red, green, blue }: RGBAColorSpace): HSVColorSpace => {
     const min = Math.min(redRatio, greenRatio, blueRatio);
     const max = Math.max(redRatio, greenRatio, blueRatio);
     const delta = max - min;
-
     const saturation = max === 0 ? 0 : delta / max;
     let hue = 0;
     if (max !== min) {
@@ -158,15 +158,13 @@ export const toHSV = ({ red, green, blue }: RGBAColorSpace): HSVColorSpace => {
             case blueRatio:
                 hue = (redRatio - greenRatio) / delta + 4;
                 break;
-            default:
-                break;
         }
         hue /= 6;
     }
     return {
-        hue: Math.round(hue * 360),
-        saturation: Math.round(saturation * 100),
-        value: Math.round(max * 100),
+        hue: clampNumericValue(Math.round(hue * 360), 0, 360),
+        saturation: clampNumericValue(Math.round(saturation * 100), 0, 100),
+        value: clampNumericValue(Math.round(max * 100), 0, 100),
     };
 };
 
