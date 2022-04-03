@@ -16,7 +16,7 @@
     "build:rollup": "rollup -c",
     "lint": "eslint --help \"src/**/*.ts\" \"src/**/*.test.ts\"",
     "lint:fix": "eslint --fix \"src/**/*.ts\" \"src/**/*.test.ts\"",
-    "test": "ts-mocha -p tsconfig.json src/**/*.test.ts",
+    "test": "ts-mocha -p tsconfig.test.json src/**/*.test.ts",
     "test:coverage": "nyc --reporter=text-summary --reporter=text --reporter=lcovonly npm run test",
     "docs:build": "documentation build dist/index.js -f html -o build/api",
     "docs:serve": "docsify serve site",

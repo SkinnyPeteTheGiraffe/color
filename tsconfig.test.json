@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "lib": ["ESNext", "dom"],
+    "module": "CommonJS",
+    "isolatedModules": true,
+    "noImplicitReturns": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "strict": true,
+    "sourceMap": true,
+    "target": "ES2021",
+    "declaration": true,
+    "types": [
+      "mocha"
+    ]
+  },
+  "compileOnSave": true,
+  "include": [
+    "src"
+  ]
+}
