@@ -2,7 +2,7 @@ import Converter from './utils/converter/converter';
 import HSVSpace from './hsv/hsv-space';
 import RGBASpace from './rgba/rgba-space';
 import HWBSpace from './hwb/hwb-space';
-import { ModelType } from './base';
+import { ModelType } from './types/base';
 import KeyedSpace from './types/keyed-spaced';
 import HSLSpace from './hsl/hsl-space';
 

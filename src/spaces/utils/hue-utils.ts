@@ -1,4 +1,4 @@
-import { HueColorSpace } from '../base';
+import { HueColorSpace } from '../types/base';
 import {
     clampNumericValue,
     normalizePercent,

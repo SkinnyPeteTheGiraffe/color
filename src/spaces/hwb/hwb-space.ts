@@ -1,4 +1,4 @@
-import { BaseSpace, ModelType } from '../base';
+import { BaseSpace, ModelType } from '../types/base';
 import HWBColorSpace from './types/hwb-color-space';
 import RGBAColorSpace from '../rgba/types/rgba-color-space';
 import hslConverter from '../utils/converter/hsl-converter';

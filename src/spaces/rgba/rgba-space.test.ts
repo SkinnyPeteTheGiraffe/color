@@ -135,12 +135,5 @@ describe('rgba color space', function () {
                 alpha: 1,
             });
         });
-        it('should return hsl space object', function () {
-            expect(rgba.toHSLColorSpace()).deep.eq({
-                hue: 25,
-                saturation: 53,
-                lightness: 54,
-            });
-        });
     });
 });

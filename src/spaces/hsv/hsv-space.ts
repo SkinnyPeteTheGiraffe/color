@@ -1,4 +1,4 @@
-import { BaseSpace, ModelType } from '../base';
+import { BaseSpace, ModelType } from '../types/base';
 import { normalizePercent } from '../../common/utils/number-tools';
 import RGBAColorSpace from '../rgba/types/rgba-color-space';
 import HSVColorSpace from './types/hsv-color-space';

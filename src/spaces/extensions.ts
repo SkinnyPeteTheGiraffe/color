@@ -1,4 +1,4 @@
-import { ModelType } from './base';
+import { ModelType } from './types/base';
 import Converter from './utils/converter/converter';
 import KeyedSpace from './types/keyed-spaced';
 import { toColorSpace } from './space-extender';

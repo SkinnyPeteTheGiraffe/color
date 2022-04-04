@@ -1,4 +1,4 @@
 * [Home](/)
 * [Getting Started](getting-started.md)
-* [Getting Started](usage.md)
+* [Color Models](models.md)
 * [API Documentation](/api)

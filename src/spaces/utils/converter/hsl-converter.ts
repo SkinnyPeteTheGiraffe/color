@@ -35,6 +35,17 @@ const hueToRGBValue = (p: number, q: number, t: number) => {
     return p;
 };
 
+/**
+ * Converts an HSL color value to HSV. Formula modeled from
+ * https://en.wikipedia.org/wiki/HSL_and_HSV. This function assumes
+ * HSL values are as follows; H [0,360], S [0,1], L[0,1]. The output HSV color
+ * values are within the domain of [0,255]
+ *
+ * @author https://css-tricks.com/converting-color-spaces-in-javascript/#aa-hsl-to-rgb
+ *
+ * @param {HSLColorSpace} space the HSL color model to convert to HSV
+ * @return {HSVColorSpace} the converted HSL color model
+ */
 const toHSV = (space: HSLColorSpace): HSVColorSpace => {
     const { hue, ...rest } = space;
     const chroma =
@@ -51,6 +62,15 @@ const toHSV = (space: HSLColorSpace): HSVColorSpace => {
     };
 };
 
+/**
+ * Converts an HSL color value to HWB. Formula roughly modeled from
+ * https://en.wikipedia.org/wiki/HWB_color_model. This function assumes
+ * HSL values are as follows; H [0,360], S [0,1], L[0,1]. The output HWB color
+ * values are within the domain of [0,255]
+ *
+ * @param {HSLColorSpace} space the HSL color model to convert to HWB
+ * @return {HWBColorSpace} the converted HSL color model
+ */
 const toHWB = (space: HSLColorSpace): HWBColorSpace => {
     const { hue, saturation, value } = toHSV(space);
     const whiteness = ((100 - saturation) * value) / 100;
@@ -65,12 +85,12 @@ const toHWB = (space: HSLColorSpace): HWBColorSpace => {
 /**
  * Converts an HSL color value to RGB. Formula modeled from
  * https://en.wikipedia.org/wiki/HSL_and_HSV. This function assumes
- * HSL values are as follows; H [0,360], S [0,1], L[0,1]. The out RGB color
+ * HSL values are as follows; H [0,360], S [0,1], L[0,1]. The output RGB color
  * values are within the domain of [0,255]
  *
  * @author https://css-tricks.com/converting-color-spaces-in-javascript/#aa-hsl-to-rgb
  *
- * @param {HSLColorSpace} model the RGB color model to convert to HSL
+ * @param {HSLColorSpace} model the HSL color model to convert to RGB
  * @return {RGBAColorSpace} the converted HSL color model
  */
 const toRGBA = ({

@@ -1,6 +1,5 @@
-import { BaseSpace, ModelType } from '../base';
+import { BaseSpace, ModelType } from '../types/base';
 import RGBAColorSpace from './types/rgba-color-space';
-import HSLColorSpace from '../hsl/types/hsl-color-space';
 import { normalizePercent } from '../../common/utils/number-tools';
 import hslConverter from '../utils/converter/hsl-converter';
 import hwbConverter from '../utils/converter/hwb-converter';
@@ -140,7 +139,7 @@ export default class RGBASpace implements BaseSpace<RGBAColorSpace> {
      */
     public lighten(ratio: number): RGBASpace {
         const lightened = adjustHueRelativeValue(
-            this.toHSLColorSpace(),
+            rgbaConverter.toHSL(this.space),
             'lightness',
             ratio,
             true
@@ -173,7 +172,7 @@ export default class RGBASpace implements BaseSpace<RGBAColorSpace> {
      */
     public darken(ratio: number): RGBASpace {
         const darkened = adjustHueRelativeValue(
-            this.toHSLColorSpace(),
+            rgbaConverter.toHSL(this.space),
             'lightness',
             ratio,
             false
@@ -229,7 +228,7 @@ export default class RGBASpace implements BaseSpace<RGBAColorSpace> {
      */
     public saturate(ratio: number): RGBASpace {
         const saturated = adjustHueRelativeValue(
-            this.toHSLColorSpace(),
+            rgbaConverter.toHSL(this.space),
             'saturation',
             ratio,
             true
@@ -247,7 +246,7 @@ export default class RGBASpace implements BaseSpace<RGBAColorSpace> {
      */
     public desaturate(ratio: number): RGBASpace {
         const desaturated = adjustHueRelativeValue(
-            this.toHSLColorSpace(),
+            rgbaConverter.toHSL(this.space),
             'saturation',
             ratio,
             false
@@ -286,7 +285,7 @@ export default class RGBASpace implements BaseSpace<RGBAColorSpace> {
      * @param {number} degrees the number of degrees to rotate the hue channel
      */
     public rotate(degrees: number): RGBASpace {
-        const hsl = this.toHSLColorSpace();
+        const hsl = rgbaConverter.toHSL(this.space);
         hsl.hue = rotateHue(hsl.hue, degrees);
         const rgba = hslConverter.toRGBA(hsl);
         this.applySpace(rgba);
@@ -358,10 +357,6 @@ export default class RGBASpace implements BaseSpace<RGBAColorSpace> {
         return alpha
             ? `rgba(${this.space.red},${this.space.green},${this.space.blue},${this.space.alpha})`
             : `rgb(${this.space.red},${this.space.green},${this.space.blue})`;
-    }
-
-    public toHSLColorSpace(): HSLColorSpace {
-        return rgbaConverter.toHSL(this.space);
     }
 
     private applySpace(space: RGBAColorSpace): RGBASpace {

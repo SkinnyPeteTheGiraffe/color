@@ -1,4 +1,4 @@
-import { BaseSpace } from '../base';
+import { BaseSpace } from '../types/base';
 import HSLColorSpace from './types/hsl-color-space';
 import { normalizePercent } from '../../common/utils/number-tools';
 import hslConverter from '../utils/converter/hsl-converter';

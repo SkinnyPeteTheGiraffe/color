@@ -1,4 +1,4 @@
-import { ModelType } from '../base';
+import { ModelType } from './base';
 import HSVSpace from '../hsv/hsv-space';
 import HWBSpace from '../hwb/hwb-space';
 import RGBASpace from '../rgba/rgba-space';
