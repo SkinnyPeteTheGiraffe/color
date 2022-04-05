@@ -1,6 +1,6 @@
 # Getting Started
 
-The guides below will help you get up and started using **n-color**. If something is unclear or should be expanded upon, [PR's](https://github.com/SkinnyPeteTheGiraffe/n-color/pulls) are always welcome.
+The guides below will help you get up and started using the library. If something is unclear or should be expanded upon, [PR's](https://github.com/SkinnyPeteTheGiraffe/@skinnypete/color/pulls) are always welcome.
 
 ## Guides
 * [Installation](#installation)
@@ -12,17 +12,17 @@ The guides below will help you get up and started using **n-color**. If somethin
 Depending on your package manager (we should all know the drill):
 ```shell
 # NPM
-npm install n-color
+npm install @skinnypete/color
 # PNPM
-pnpm install n-color
+pnpm install @skinnypete/color
 # Yarn
-yarn add n-color
+yarn add @skinnypete/color
 ```
 
-That's it. Below you can see how to import and use **n-color** in the [Usage](#usage) section.
+That's it. Below you can see how to import and use library in the [Usage](#usage) section.
 
 ## Basic Usage
-To improve usability and simplify the usage, **n-color** exposes function providers for each color space instead
+To improve usability and simplify the usage, this library exposes function providers for each color space instead
 of opting for direct access to the class system.
 
 ### Importing
@@ -31,7 +31,7 @@ Each function provider is exported from the root package.
 _It is recommended that nothing else outside the root package is imported as stability will not be guaranteed and
 could break between sub-minor versions._
 ```ts
-import { RGBA, HSL } from 'n-color';
+import { RGBA, HSL } from '@skinnypete/color';
 ```
 
 ### Providers
@@ -44,7 +44,7 @@ For more information about the methods each space provides see the [Color Model]
 ##### RGBA
 The [RGBA](https://en.wikipedia.org/wiki/RGB_color_spaces) (Red, Green, Blue, Alpha) color space provider.
 ```ts
-import { RGBA } from 'n-color';
+import { RGBA } from '@skinnypete/color';
 
 const hex = RGBA.fromHex('#44bfa5');
 const css = RGBA.fromCssColor('LightSeaGreen');
@@ -56,7 +56,7 @@ const space = RGBA.fromRGBAColorSpace({ red: 68, green: 191, blue: 165, alpha: 0
 ##### HSL
 The [HSL](https://en.wikipedia.org/wiki/HSL_and_HSV) (Hue, Saturation, Lightness) color space provider.
 ```ts
-import { HSL } from 'n-color';
+import { HSL } from '@skinnypete/color';
 
 const hex = HSL.fromHex('#44bfa5');
 const css = HSL.fromCssColor('FireBrick');
@@ -67,7 +67,7 @@ const space = HSL.fromHSLColorSpace({ hue: 300, saturation: 20, lightness: 10 })
 ##### HSV
 The [HSV](https://en.wikipedia.org/wiki/HSL_and_HSV) (Hue, Saturation, Value) color space provider.
 ```ts
-import { HSV } from 'n-color';
+import { HSV } from '@skinnypete/color';
 
 const hex = HSV.fromHex('#44bfa5');
 const css = HSV.fromCssColor('LavenderBlush');
@@ -78,7 +78,7 @@ const space = HSV.fromHSVColorSpace({ hue: 300, saturation: 20, value: 10 });
 ##### HWB
 The [HWB](https://en.wikipedia.org/wiki/HWB_color_model) (Hue, Whiteness, Blackness) color space provider.
 ```ts
-import { HWB } from 'n-color';
+import { HWB } from '@skinnypete/color';
 
 const hex = HWB.fromHex('#44bfa5');
 const css = HWB.fromCssColor('LavenderBlush');
