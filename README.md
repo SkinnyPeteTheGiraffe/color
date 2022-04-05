@@ -24,15 +24,13 @@
 A true color manipulation and conversion library. Unlike some other libraries, this provides access directly to each color
 model, instead of relying on a single model to generate outputs. That means this library works within each color model
 to preform operations (some use conversion to make the process easier). This can ensure more accurate colors for sensitive
-projects, preform targeted manipulations on a single space, while giving you more control in which model your color stays
-in.
+projects, preform targeted manipulations on a single space, gives you more control in which model your color stays
+in, and much more.
 
 ## Reasoning
 Having used the [Qix-/color](https://github.com/Qix-/color) for as long as I can remember when it comes to dealing with color libraries, and while
 it's a great library, I wanted to approach it from idea of treating each color model as a separate instance.<br/><br/>Most available color
-libraries rely on a single color model and output values for various spaces. This library differs in the fact each color model is its own
-instance, and each operation is preformed within that color space (some operations require conversion) to ensure accuracy of the color.
-This can be used for color-sensitive operations, isolate certain color models, as well as simple conversations and manipulations.
+libraries rely on a single color model and output values for various color models.
 
 ## Features
 <hr />
