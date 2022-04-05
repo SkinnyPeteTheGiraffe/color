@@ -3,7 +3,7 @@
 A modern, lightweight, color manipulation and conversion library.
 
 ```typescript
-import { RGBA } from 'n-color';
+import { RGBA } from '@noto/color';
 
 const rgba = RGBA.fromHex('#c8804b').lighten(0.42);
 const hsl = rgba.toHSL();
@@ -38,4 +38,4 @@ hsl(25,54%,77%)
 * [HSL](/docs/spaces/hsl)
 * HWB (Coming Soon)
 * HSV (Coming Soon)
-* CYMK (Coming Soon)
+* CMYK (Coming Soon)

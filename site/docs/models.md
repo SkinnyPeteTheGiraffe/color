@@ -31,7 +31,7 @@ While this is a simple example, this demonstrates the ease in which you can move
 
 _Note, using `toSpace()` attempting to convert to a model matching the source of the call will result in null (IE RGBA -> RGBA = null)_
 ```ts
-import { RGBA, RGBASpace, HSLSpace, HWBSpace, HSVSpace } from 'n-color'
+import { RGBA, RGBASpace, HSLSpace, HWBSpace, HSVSpace } from '@noto/color'
 
 const rgba: RGBASpace = RGBA.fromCssColor('RebeccaPurple'); // From any color space instance you are able to convert via toSpace(key)
 const hsl: HSLSpace = rgba.toSpace('hsl'); // Simply provide the space you would like to convert the current instance of

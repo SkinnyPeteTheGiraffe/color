@@ -1,5 +1,5 @@
 {
-  "name": "n-color",
+  "name": "@noto/color",
   "author": "Bobby Plunkett",
   "version": "1.0.0",
   "description": "A modern, fully fledged color toolkit",
@@ -27,7 +27,12 @@
     "color",
     "colour",
     "css",
-    "typescript"
+    "typescript",
+    "rgba",
+    "hsl",
+    "hsv",
+    "hwb",
+    "cmyk"
   ],
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.2",

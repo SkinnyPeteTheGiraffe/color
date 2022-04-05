@@ -53,7 +53,7 @@ This can be used for color-sensitive operations, isolate certain color models, a
 ## Example
 
 ```ts
-import { RGBA } from 'n-color';
+import { RGBA } from '@noto/color';
 
 const cssColor = RGBA.fromCssColor('RebeccaPurple');    // Accepts CSS Color Names
 const shortHandHex = RGBA.fromHex('000');               // Can use shorthand hex values with and without hashtags
@@ -77,9 +77,9 @@ console.log(hslFromRGBA.toString());                     // hsl(270,50%,40%)
 ## Installation <small>(Coming Soon™)</small>
 ```shell
 # NPM
-npm install n-color
+npm install @noto/color
 # PNPM
-pnpm install n-color
+pnpm install @noto/color
 # Yarn
-yarn add n-color
+yarn add @noto/color
 ```
