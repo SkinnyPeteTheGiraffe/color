@@ -1,6 +1,5 @@
 # @skinnypete/color
 [![Build Status](https://github.com/SkinnyPeteTheGiraffe/color/actions/workflows/ci.yml/badge.svg)](https://github.com/SkinnyPeteTheGiraffe/color/actions/workflows/ci.yml?query=branch%3Amain+)
-[![Coverage Status](https://coveralls.io/repos/github/SkinnyPeteTheGiraffe/color/badge.svg?branch=main)](https://coveralls.io/github/SkinnyPeteTheGiraffe/color?branch=main)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/1ea5d484507b4ed8812d44c30cf72c43)](https://www.codacy.com/gh/SkinnyPeteTheGiraffe/color/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SkinnyPeteTheGiraffe/color&amp;utm_campaign=Badge_Grade)
 [![MIT License](http://img.shields.io/badge/license-MIT-green.svg)](LICENSE.md)
 ![Best Badge](https://img.shields.io/badge/another%20js%20library-yes-green)
@@ -9,10 +8,6 @@
 #### _"What even is this? Why are you asking me what I think?"&nbsp;&nbsp;—&nbsp;&nbsp;<small>Very Important, Real Person</small>_
 
 <div>
-    <div style="text-align: center;">
-      <a href="https://skinnypetethegiraffe.github.io/color/" target="blank"><img src="https://github.com/SkinnyPeteTheGiraffe/color/blob/51bc61bb6742dcb5ab43e12ef15d0813fb969566/site/docs/_media/color-logo_180x180.png?raw=true" width="120" alt="color Logo" /></a>
-      <br/>
-    </div>
     <div style="text-align: center;">
         <a href="https://skinnypetethegiraffe.github.io/color/" target="blank">Documentation</a>
         &nbsp;&nbsp;—&nbsp;&nbsp;
