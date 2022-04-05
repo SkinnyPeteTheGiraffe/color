@@ -147,7 +147,9 @@ export default class HSVSpace implements BaseSpace<HSVColorSpace> {
      * @remarks This function converts color space to RGBA to preform operation
      */
     public grayscale(): HSVSpace {
-        const greyscale = applyGreyscaleToRGBASpace(this.toRGBAColorSpace());
+        const greyscale = applyGreyscaleToRGBASpace(
+            hsvConverter.toRGBA(this.space)
+        );
         const hsv = rgbaConverter.toHSV(greyscale);
         return this.applySpace(hsv);
     }
@@ -187,7 +189,7 @@ export default class HSVSpace implements BaseSpace<HSVColorSpace> {
      * @param weight the weight in which the color should be mixed
      */
     public mix(color: HSVColorSpace, weight = 0.5): HSVSpace {
-        const rgba = this.toRGBAColorSpace();
+        const rgba = hsvConverter.toRGBA(this.space);
         const mixed = mixRGBASpaces(rgba, hsvConverter.toRGBA(color), weight);
         const hsv = rgbaConverter.toHSV(mixed);
         return this.applySpace(hsv);
@@ -243,7 +245,10 @@ export default class HSVSpace implements BaseSpace<HSVColorSpace> {
      * @param {boolean} removeHashtag will return the hex value without a hashtag if true, otherwise will return with hashtag
      */
     public toHexString(removeHashtag?: boolean): string {
-        return rgbaSpaceToHexString(this.toRGBAColorSpace(), removeHashtag);
+        return rgbaSpaceToHexString(
+            hsvConverter.toRGBA(this.space),
+            removeHashtag
+        );
     }
 
     /**
@@ -288,16 +293,6 @@ export default class HSVSpace implements BaseSpace<HSVColorSpace> {
         this.applySpace(hsv);
         return this;
     }
-
-    /**
-     * Converts this HSV color space to RGBA with an alpha of 100%.
-     *
-     * @return {RGBAColorSpace} the converted RGBA color space instance
-     */
-    public toRGBAColorSpace(): RGBAColorSpace {
-        return hsvConverter.toRGBA(this.space);
-    }
-
     /* ---------- PRIVATE FUNCTIONS --------- */
 
     private applySpace(space: HSVColorSpace): HSVSpace {

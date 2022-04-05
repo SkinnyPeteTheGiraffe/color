@@ -149,7 +149,9 @@ export default class HWBSpace implements BaseSpace<HWBColorSpace> {
      * @remarks This function converts color space to RGBA to preform operation
      */
     public grayscale(): HWBSpace {
-        const greyscale = applyGreyscaleToRGBASpace(this.toRGBAColorSpace());
+        const greyscale = applyGreyscaleToRGBASpace(
+            hwbConverter.toRGBA(this.space)
+        );
         const hwb = rgbaConverter.toHWB(greyscale);
         return this.applySpace(hwb);
     }
@@ -189,7 +191,7 @@ export default class HWBSpace implements BaseSpace<HWBColorSpace> {
      * @param weight the weight in which the color should be mixed
      */
     public mix(color: HWBColorSpace, weight = 0.5): HWBSpace {
-        const rgba = this.toRGBAColorSpace();
+        const rgba = hwbConverter.toRGBA(this.space);
         const mixed = mixRGBASpaces(rgba, hwbConverter.toRGBA(color), weight);
         const hwb = rgbaConverter.toHWB(mixed);
         return this.applySpace(hwb);
@@ -245,7 +247,10 @@ export default class HWBSpace implements BaseSpace<HWBColorSpace> {
      * @param {boolean} removeHashtag will return the hex value without a hashtag if true, otherwise will return with hashtag
      */
     public toHexString(removeHashtag?: boolean): string {
-        return rgbaSpaceToHexString(this.toRGBAColorSpace(), removeHashtag);
+        return rgbaSpaceToHexString(
+            hwbConverter.toRGBA(this.space),
+            removeHashtag
+        );
     }
 
     /**
@@ -290,15 +295,6 @@ export default class HWBSpace implements BaseSpace<HWBColorSpace> {
             true
         );
         return this.applySpace(whitened);
-    }
-
-    /**
-     * Converts this HWB color space to RGBA with an alpha of 100%.
-     *
-     * @return {RGBAColorSpace} the converted RGBA color space instance
-     */
-    public toRGBAColorSpace(): RGBAColorSpace {
-        return hwbConverter.toRGBA(this.space);
     }
 
     /* ---------- PRIVATE FUNCTIONS --------- */
