@@ -1,4 +1,6 @@
 # @skinnypete/color
+[![NPM](https://nodei.co/npm/@skinnypete/color.png)](https://npmjs.org/package/@skinnypete/color)
+
 [![Build Status](https://github.com/SkinnyPeteTheGiraffe/color/actions/workflows/ci.yml/badge.svg)](https://github.com/SkinnyPeteTheGiraffe/color/actions/workflows/ci.yml?query=branch%3Amain+)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/1ea5d484507b4ed8812d44c30cf72c43)](https://www.codacy.com/gh/SkinnyPeteTheGiraffe/color/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SkinnyPeteTheGiraffe/color&amp;utm_campaign=Badge_Grade)
 [![MIT License](http://img.shields.io/badge/license-MIT-green.svg)](LICENSE.md)
@@ -19,8 +21,13 @@
 </div>
 
 ## Description
-<hr />
+A true color manipulation and conversion library. Unlike some other libraries, this provides access directly to each color
+model, instead of relying on a single model to generate outputs. That means this library works within each color model
+to preform operations (some use conversion to make the process easier). This can ensure more accurate colors for sensitive
+projects, preform targeted manipulations on a single space, while giving you more control in which model your color stays
+in.
 
+## Reasoning
 Having used the [Qix-/color](https://github.com/Qix-/color) for as long as I can remember when it comes to dealing with color libraries, and while
 it's a great library, I wanted to approach it from idea of treating each color model as a separate instance.<br/><br/>Most available color
 libraries rely on a single color model and output values for various spaces. This library differs in the fact each color model is its own
