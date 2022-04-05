@@ -1,7 +1,7 @@
 {
   "name": "@skinnypete/color",
   "author": "Bobby Plunkett",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A modern, fully fledged color toolkit",
   "license": "MIT",
   "main": "dist/n-color.js",
