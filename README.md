@@ -1,4 +1,4 @@
-# n-color
+# @notorious/color - n-color
 [![Build Status](https://github.com/SkinnyPeteTheGiraffe/n-color/actions/workflows/ci.yml/badge.svg)](https://github.com/SkinnyPeteTheGiraffe/n-color/actions/workflows/ci.yml?query=branch%3Amain+)
 [![Coverage Status](https://coveralls.io/repos/github/SkinnyPeteTheGiraffe/n-color/badge.svg?branch=main)](https://coveralls.io/github/SkinnyPeteTheGiraffe/n-color?branch=main)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/1ea5d484507b4ed8812d44c30cf72c43)](https://www.codacy.com/gh/SkinnyPeteTheGiraffe/n-color/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SkinnyPeteTheGiraffe/n-color&amp;utm_campaign=Badge_Grade)
@@ -53,7 +53,7 @@ This can be used for color-sensitive operations, isolate certain color models, a
 ## Example
 
 ```ts
-import { RGBA } from '@noto/color';
+import { RGBA } from '@notorious/color';
 
 const cssColor = RGBA.fromCssColor('RebeccaPurple');    // Accepts CSS Color Names
 const shortHandHex = RGBA.fromHex('000');               // Can use shorthand hex values with and without hashtags
@@ -74,12 +74,12 @@ console.log(rgba.toHexString(true))                      // 663399
 console.log(hslFromRGBA.toString());                     // hsl(270,50%,40%)
 ```
 
-## Installation <small>(Coming Soon™)</small>
+## Installation
 ```shell
 # NPM
-npm install @noto/color
+npm install @notorious/color
 # PNPM
-pnpm install @noto/color
+pnpm install @notorious/color
 # Yarn
-yarn add @noto/color
+yarn add @notorious/color
 ```
