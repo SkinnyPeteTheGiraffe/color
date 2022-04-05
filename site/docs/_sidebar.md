@@ -1,4 +1,4 @@
 * [Home](/)
 * [Getting Started](getting-started.md)
 * [Color Models](models.md)
-* [API Documentation](/api)
+* <a href="./api/index.html">API Documentation</a>

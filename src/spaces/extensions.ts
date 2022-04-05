@@ -6,7 +6,7 @@ import hslConverter from './utils/converter/hsl-converter';
 import hwbConverter from './utils/converter/hwb-converter';
 import rgbaConverter from './utils/converter/rgba-converter';
 import hsvConverter from './utils/converter/hsv-converter';
-import RGBSpace from './rgba/rgba-space';
+import RGBASpace from './rgba/rgba-space';
 import RGBAColorSpace from './rgba/types/rgba-color-space';
 import HSLSpace from './hsl/hsl-space';
 import HSLColorSpace from './hsl/types/hsl-color-space';
@@ -16,7 +16,13 @@ import HWBSpace from './hwb/hwb-space';
 import HWBColorSpace from './hwb/types/hwb-color-space';
 
 /* -------------- RGBA -------------- */
-export class ExtendedRGBASpace extends RGBSpace {
+export class ExtendedRGBASpace extends RGBASpace {
+    /**
+     * Converts the RGBA color space to the model matching the provided key.
+     * @param space The color model to convert the space to
+     *
+     * @returns A new instance of the color space which matches the provided key otherwise `null`
+     */
     public toSpace<T extends ModelType>(
         space: T
     ): KeyedSpace<
@@ -44,6 +50,12 @@ export class ExtendedRGBASpace extends RGBSpace {
 
 /* -------------- HSL -------------- */
 export class ExtendedHSLSpace extends HSLSpace {
+    /**
+     * Converts the HSL color space to the model matching the provided key.
+     * @param space The color model to convert the space to
+     *
+     * @returns A new instance of the color space which matches the provided key otherwise `null`
+     */
     public toSpace<T extends ModelType>(
         space: T
     ): KeyedSpace<
@@ -71,6 +83,12 @@ export class ExtendedHSLSpace extends HSLSpace {
 
 /* -------------- HSV -------------- */
 export class ExtendedHSVSpace extends HSVSpace {
+    /**
+     * Converts the HSV color space to the model matching the provided key.
+     * @param space The color model to convert the space to
+     *
+     * @returns A new instance of the color space which matches the provided key otherwise `null`
+     */
     public toSpace<T extends ModelType>(
         space: T
     ): KeyedSpace<
@@ -98,6 +116,12 @@ export class ExtendedHSVSpace extends HSVSpace {
 
 /* -------------- HWB -------------- */
 export class ExtendedHWBSpace extends HWBSpace {
+    /**
+     * Converts the HWB color space to the model matching the provided key.
+     * @param space The color model to convert the space to
+     *
+     * @returns A new instance of the color space which matches the provided key otherwise `null`
+     */
     public toSpace<T extends ModelType>(
         space: T
     ): KeyedSpace<

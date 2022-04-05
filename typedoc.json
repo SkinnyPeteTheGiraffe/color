@@ -6,6 +6,5 @@
   "excludePrivate": true,
   "media": "media",
   "theme": "default",
-  "darkHighlightTheme": "dark-plus",
-  "customCss": "./docs-style.css"
+  "darkHighlightTheme": "dark-plus"
 }

@@ -10,7 +10,7 @@
 
 <div>
     <div style="text-align: center;">
-      <a href="https://skinnypetethegiraffe.github.io/n-color/" target="blank"><img src="site/docs/_media/n-color-logo.svg" width="120" alt="Nest Logo" /></a>
+      <a href="https://skinnypetethegiraffe.github.io/n-color/" target="blank"><img src="https://github.com/SkinnyPeteTheGiraffe/n-color/blob/51bc61bb6742dcb5ab43e12ef15d0813fb969566/site/docs/_media/n-color-logo_180x180.png?raw=true" width="120" alt="n-color Logo" /></a>
       <br/>
     </div>
     <div style="text-align: center;">
@@ -51,7 +51,8 @@ This can be used for color-sensitive operations, isolate certain color models, a
 * HSL
 * CMYK (Coming Soon)
 ## Example
-```typescript
+
+```ts
 import { RGBA } from 'n-color';
 
 const cssColor = RGBA.fromCssColor('RebeccaPurple');    // Accepts CSS Color Names

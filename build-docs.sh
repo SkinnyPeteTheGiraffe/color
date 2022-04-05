@@ -1,4 +1,4 @@
 #!/bin/bash
-
 npm install --frozen-lockfile
-npm run build
+npm run docs:api
+npm run docs:copy

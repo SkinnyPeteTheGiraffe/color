@@ -315,3 +315,107 @@ const rgba = RGBA.fromRGBA(200, 128, 75, 0.44);
 console.log(rgba.toString()); // rgb(200,128,75)
 console.log(rgba.toString(true)); // rgba(200,128,75,0.44)
 ```
+
+## HSL Space
+The HSL Space provides functions for the [HSL](https://en.wikipedia.org/wiki/HSL_and_HSV) color model. The HSL
+extends from [Base Space](#base-color-space) and provides all of its methods, for more information about those methods,
+see above.
+
+_The information below is directly related to the HSL color space. For information about other methods please see the
+appropriate section._
+
+### hue()
+* Returns: `Number`
+
+Return the HSL color space `hue` channel value
+```ts
+const hsl = HSL.fromHSL(200, 50, 25);
+console.log(rgba.hue()); // 200
+```
+
+### saturation()
+* Returns: `Number`
+
+Return the HSL color space `saturation` channel value
+```ts
+const hsl = HSL.fromHSL(200, 50, 25);
+console.log(rgba.hue()); // 50
+```
+
+### lightness()
+* Returns: `Number`
+
+Return the HSL color space `lightness` channel value
+```ts
+const hsl = HSL.fromHSL(200, 50, 25);
+console.log(rgba.lightness()); // 25
+```
+
+## HSV Space
+The HSV Space provides functions for the [HSV](https://en.wikipedia.org/wiki/HSL_and_HSV) color model. The HSV
+extends from [Base Space](#base-color-space) and provides all of its methods, for more information about those methods,
+see above.
+
+_The information below is directly related to the HSV color space. For information about other methods please see the
+appropriate section._
+
+### hue()
+* Returns: `Number`
+
+Return the HSV color space `hue` channel value
+```ts
+const hsv = HSV.fromHSV(200, 50, 25);
+console.log(hsv.hue()); // 200
+```
+
+### saturation()
+* Returns: `Number`
+
+Return the HSV color space `saturation` channel value
+```ts
+const hsv = HSV.fromHSV(200, 50, 25);
+console.log(hsv.saturation()); // 50
+```
+
+### value()
+* Returns: `Number`
+
+Return the HSV color space `value` channel value
+```ts
+const hsv = HSL.fromHSV(200, 50, 25);
+console.log(hsv.value()); // 25
+```
+## HWB Space
+The HWB Space provides functions for the [HWB](https://en.wikipedia.org/wiki/HWB_color_model) color model. The HWB
+extends from [Base Space](#base-color-space) and provides all of its methods, for more information about those methods,
+see above.
+
+_The information below is directly related to the HWB color space. For information about other methods please see the
+appropriate section._
+
+### hue()
+* Returns: `Number`
+
+Return the HWB color space `hue` channel value
+```ts
+const hsv = HWB.fromHWB(200, 50, 25);
+console.log(hsv.hue()); // 200
+```
+
+### whiteness()
+* Returns: `Number`
+
+Return the HWB color space `whiteness` channel value
+```ts
+const hsv = HWB.fromHWB(200, 50, 25);
+console.log(hsv.saturation()); // 50
+```
+
+### blackness()
+* Returns: `Number`
+
+Return the HWB color space `blackness` channel value
+```ts
+const hsv = HSL.fromHWB(200, 50, 25);
+console.log(hsv.value()); // 25
+```
