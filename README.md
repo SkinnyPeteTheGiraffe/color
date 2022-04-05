@@ -1,7 +1,7 @@
-# @notorious/color - n-color
-[![Build Status](https://github.com/SkinnyPeteTheGiraffe/n-color/actions/workflows/ci.yml/badge.svg)](https://github.com/SkinnyPeteTheGiraffe/n-color/actions/workflows/ci.yml?query=branch%3Amain+)
-[![Coverage Status](https://coveralls.io/repos/github/SkinnyPeteTheGiraffe/n-color/badge.svg?branch=main)](https://coveralls.io/github/SkinnyPeteTheGiraffe/n-color?branch=main)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/1ea5d484507b4ed8812d44c30cf72c43)](https://www.codacy.com/gh/SkinnyPeteTheGiraffe/n-color/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SkinnyPeteTheGiraffe/n-color&amp;utm_campaign=Badge_Grade)
+# @skinnypete/color
+[![Build Status](https://github.com/SkinnyPeteTheGiraffe/color/actions/workflows/ci.yml/badge.svg)](https://github.com/SkinnyPeteTheGiraffe/color/actions/workflows/ci.yml?query=branch%3Amain+)
+[![Coverage Status](https://coveralls.io/repos/github/SkinnyPeteTheGiraffe/color/badge.svg?branch=main)](https://coveralls.io/github/SkinnyPeteTheGiraffe/color?branch=main)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/1ea5d484507b4ed8812d44c30cf72c43)](https://www.codacy.com/gh/SkinnyPeteTheGiraffe/color/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SkinnyPeteTheGiraffe/color&amp;utm_campaign=Badge_Grade)
 [![MIT License](http://img.shields.io/badge/license-MIT-green.svg)](LICENSE.md)
 ![Best Badge](https://img.shields.io/badge/another%20js%20library-yes-green)
 ![Purple](https://img.shields.io/badge/purple-purple)
@@ -10,13 +10,13 @@
 
 <div>
     <div style="text-align: center;">
-      <a href="https://skinnypetethegiraffe.github.io/n-color/" target="blank"><img src="https://github.com/SkinnyPeteTheGiraffe/n-color/blob/51bc61bb6742dcb5ab43e12ef15d0813fb969566/site/docs/_media/n-color-logo_180x180.png?raw=true" width="120" alt="n-color Logo" /></a>
+      <a href="https://skinnypetethegiraffe.github.io/color/" target="blank"><img src="https://github.com/SkinnyPeteTheGiraffe/color/blob/51bc61bb6742dcb5ab43e12ef15d0813fb969566/site/docs/_media/color-logo_180x180.png?raw=true" width="120" alt="color Logo" /></a>
       <br/>
     </div>
     <div style="text-align: center;">
-        <a href="https://skinnypetethegiraffe.github.io/n-color/" target="blank">Documentation</a>
+        <a href="https://skinnypetethegiraffe.github.io/color/" target="blank">Documentation</a>
         &nbsp;&nbsp;—&nbsp;&nbsp;
-        <a href="https://skinnypetethegiraffe.github.io/n-color/api/" target="blank">API</a>
+        <a href="https://skinnypetethegiraffe.github.io/color/api/" target="blank">API</a>
         <div style="text-align: center;">
             Simple yet powerful, lightweight, true color conversion and manipulation library.
         </div>
@@ -53,7 +53,7 @@ This can be used for color-sensitive operations, isolate certain color models, a
 ## Example
 
 ```ts
-import { RGBA } from '@notorious/color';
+import { RGBA } from '@skinnypete/color';
 
 const cssColor = RGBA.fromCssColor('RebeccaPurple');    // Accepts CSS Color Names
 const shortHandHex = RGBA.fromHex('000');               // Can use shorthand hex values with and without hashtags
@@ -77,9 +77,9 @@ console.log(hslFromRGBA.toString());                     // hsl(270,50%,40%)
 ## Installation
 ```shell
 # NPM
-npm install @notorious/color
+npm install @skinnypete/color
 # PNPM
-pnpm install @notorious/color
+pnpm install @skinnypete/color
 # Yarn
-yarn add @notorious/color
+yarn add @skinnypete/color
 ```

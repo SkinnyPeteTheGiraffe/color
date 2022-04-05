@@ -1,9 +1,9 @@
-# n-color
+# @skinnypete/color
 
 A modern, lightweight, color manipulation and conversion library.
 
 ```typescript
-import { RGBA } from '@notorious/color';
+import { RGBA } from '@skinnypete/color';
 
 const rgba = RGBA.fromHex('#c8804b').lighten(0.42);
 const hsl = rgba.toHSL();
@@ -25,7 +25,7 @@ hsl(25,54%,77%)
 * Supports CSS [color-names](https://www.w3schools.com/colors/colors_names.asp)
 * Written in Typescript (this one could be subjective)
 * Easy to use, and well documented
-* Lightweight and dependency free, so no need to worry about unnecessary bloat when installing **n-color** into your project
+* Lightweight and dependency free, so no need to worry about unnecessary bloat when installing this library into your project
 * Stable and consistent results, enforcing strict unit testing to ensure outputs are always the same before any changes are accepted into the library
 
 ## Getting Started
