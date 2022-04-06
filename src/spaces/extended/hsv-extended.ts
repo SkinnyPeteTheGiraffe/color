@@ -1,13 +1,13 @@
-import HSVSpace from '../hsv/hsv-space';
 import { ModelType } from '../types/base';
-import KeyedSpace from '../types/keyed-spaced';
-import { toColorSpace } from '../space-extender';
 import Converter from '../utils/converter/converter';
+import KeyedSpace from '../types/keyed-spaced';
+import HSVSpace from '../hsv/hsv-space';
 import HSVColorSpace from '../hsv/types/hsv-color-space';
-import { ExtendedRGBASpace } from './rgba-extended';
 import hsvConverter from '../utils/converter/hsv-converter';
+import { ExtendedRGBASpace } from './rgba-extended';
 import { ExtendedHSLSpace } from './hsl-extended';
 import { ExtendedHWBSpace } from './hwb-extended';
+import { toColorSpace } from '../space-extender';
 
 export class ExtendedHSVSpace extends HSVSpace {
     /**

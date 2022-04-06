@@ -1,13 +1,13 @@
-import RGBASpace from '../rgba/rgba-space';
 import { ModelType } from '../types/base';
 import KeyedSpace from '../types/keyed-spaced';
-import { toColorSpace } from '../space-extender';
-import RGBAColorSpace from '../rgba/types/rgba-color-space';
 import Converter from '../utils/converter/converter';
+import RGBASpace from '../rgba/rgba-space';
+import RGBAColorSpace from '../rgba/types/rgba-color-space';
 import rgbaConverter from '../utils/converter/rgba-converter';
 import { ExtendedHSLSpace } from './hsl-extended';
 import { ExtendedHSVSpace } from './hsv-extended';
 import { ExtendedHWBSpace } from './hwb-extended';
+import { toColorSpace } from '../space-extender';
 
 export class ExtendedRGBASpace extends RGBASpace {
     /**

@@ -1,4 +1,5 @@
 {
   "extends": "@istanbuljs/nyc-config-typescript",
-  "check-coverage": true
+  "check-coverage": true,
+  "exclude": ["src/spaces/extended/"]
 }

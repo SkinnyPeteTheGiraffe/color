@@ -1,13 +1,13 @@
 import { ModelType } from '../types/base';
 import KeyedSpace from '../types/keyed-spaced';
-import { ExtendedRGBASpace } from './rgba-extended';
-import { toColorSpace } from '../space-extender';
 import Converter from '../utils/converter/converter';
 import HWBSpace from '../hwb/hwb-space';
 import HWBColorSpace from '../hwb/types/hwb-color-space';
 import hwbConverter from '../utils/converter/hwb-converter';
 import { ExtendedHSLSpace } from './hsl-extended';
 import { ExtendedHSVSpace } from './hsv-extended';
+import { ExtendedRGBASpace } from './rgba-extended';
+import { toColorSpace } from '../space-extender';
 
 export class ExtendedHWBSpace extends HWBSpace {
     /**
