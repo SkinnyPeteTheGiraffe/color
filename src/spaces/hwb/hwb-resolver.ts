@@ -2,7 +2,7 @@ import colors from '../../colors';
 import HWBColorSpace from './types/hwb-color-space';
 import rgbaConverter from '../utils/converter/rgba-converter';
 import hexConverter from '../utils/converter/hex-converter';
-import { ExtendedHWBSpace } from '../extensions';
+import { ExtendedHWBSpace } from '../extended/hwb-extended';
 
 export const fromHex = (hex: string): ExtendedHWBSpace =>
     new ExtendedHWBSpace(rgbaConverter.toHWB(hexConverter.toRGBA(hex)));

@@ -2,7 +2,7 @@ import colors from '../../colors';
 import HSLColorSpace from './types/hsl-color-space';
 import rgbaConverter from '../utils/converter/rgba-converter';
 import hexConverter from '../utils/converter/hex-converter';
-import { ExtendedHSLSpace } from '../extensions';
+import { ExtendedHSLSpace } from '../extended/hsl-extended';
 
 export const fromHex = (hex: string): ExtendedHSLSpace =>
     new ExtendedHSLSpace(rgbaConverter.toHSL(hexConverter.toRGBA(hex)));
