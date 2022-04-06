@@ -2,9 +2,10 @@
   "compilerOptions": {
     "lib": ["ESNext", "dom"],
     "module": "ESNext",
+    "moduleResolution": "Node",
     "isolatedModules": true,
     "noImplicitReturns": true,
-    "esModuleInterop": true,
+    "esModuleInterop": false,
     "outDir": "dist",
     "strict": true,
     "sourceMap": true,

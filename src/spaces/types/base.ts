@@ -4,6 +4,7 @@
 export type ModelType = 'rgb' | 'hsv' | 'hsl' | 'hwb';
 
 export interface BaseSpace<T> {
+    type: ModelType;
     lighten(ratio: number): BaseSpace<T>;
     darken(ratio: number): BaseSpace<T>;
     whiten(ratio: number): BaseSpace<T>;

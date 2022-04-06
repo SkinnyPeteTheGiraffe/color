@@ -2,7 +2,7 @@ import colors from '../../colors';
 import HSVColorSpace from './types/hsv-color-space';
 import rgbaConverter from '../utils/converter/rgba-converter';
 import hexConverter from '../utils/converter/hex-converter';
-import { ExtendedHSVSpace } from '../extensions';
+import { ExtendedHSVSpace } from '../extended/hsv-extended';
 
 export const fromHex = (hex: string): ExtendedHSVSpace =>
     new ExtendedHSVSpace(rgbaConverter.toHSV(hexConverter.toRGBA(hex)));

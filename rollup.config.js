@@ -12,7 +12,7 @@ const bundle = (config) => ({
 
 const config = [
     bundle({
-        input: 'build/compiled/index.js',
+        input: 'src/index.ts', // our source file
         output: [
             {
                 file: `${name}.js`,

@@ -1,20 +1,28 @@
 {
   "name": "@skinnypete/color",
   "author": "Bobby Plunkett",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A modern, fully fledged color toolkit",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SkinnyPeteTheGiraffe/color.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SkinnyPeteTheGiraffe/color/issues"
+  },
+  "homepage": "https://github.com/SkinnyPeteTheGiraffe/color#readme",
   "main": "dist/n-color.js",
   "module": "dist/n-color.mjs",
   "typings": "dist/n-color.d.ts",
   "files": [
-    "*.{js,mjs,ts,map}"
+    "dist"
   ],
   "scripts": {
     "start": "ts-node-dev --respawn --transpile-only src/example.ts",
     "build": "tsc -p tsconfig.prod.json",
     "build:rollup": "rollup -c",
-    "lint": "eslint --help \"src/**/*.ts\" \"src/**/*.test.ts\"",
+    "lint": "eslint \"src/**/*.ts\" \"src/**/*.test.ts\"",
     "lint:fix": "eslint --fix \"src/**/*.ts\" \"src/**/*.test.ts\"",
     "test": "ts-mocha -p tsconfig.test.json src/**/*.test.ts",
     "test:coverage": "nyc --reporter=text-summary --reporter=text --reporter=lcovonly npm run test",

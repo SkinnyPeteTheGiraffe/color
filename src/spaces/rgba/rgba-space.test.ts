@@ -64,17 +64,17 @@ describe('rgba color space', function () {
         });
 
         it('should whiten rgba with value 0 - 1', function () {
-            expect(rgba.whiten(0.75).toString()).to.eq(`rgb(199,158,129)`);
+            expect(rgba.whiten(0.75).toString()).to.eq(`rgb(199,159,130)`);
         });
         it('should whiten rgba with value 1 - 100', function () {
             expect(rgba.whiten(62).toString()).to.eq(`rgb(199,153,120)`);
         });
 
         it('should blacken rgba with value 0 - 1', function () {
-            expect(rgba.blacken(0.75).toString()).to.eq(`rgb(157,108,74)`);
+            expect(rgba.blacken(0.75).toString()).to.eq(`rgb(156,108,74)`);
         });
         it('should blacken rgba with value 1 - 100', function () {
-            expect(rgba.blacken(62).toString()).to.eq(`rgb(164,111,74)`);
+            expect(rgba.blacken(62).toString()).to.eq(`rgb(163,111,74)`);
         });
 
         it('should mix rgba colors', function () {

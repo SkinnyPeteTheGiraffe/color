@@ -1,6 +1,4 @@
-import { BaseSpace, ModelType } from '../types/base';
 import { normalizePercent } from '../../common/utils/number-tools';
-import RGBAColorSpace from '../rgba/types/rgba-color-space';
 import HSVColorSpace from './types/hsv-color-space';
 import hslConverter from '../utils/converter/hsl-converter';
 import hwbConverter from '../utils/converter/hwb-converter';
@@ -16,6 +14,7 @@ import {
     mixRGBASpaces,
     rgbaSpaceToHexString,
 } from '../rgba/rgba-utils';
+import AbstractSpace from '../abstract-space';
 
 /**
  * HSV wrapper which provides mutations and accessor functions for
@@ -23,14 +22,9 @@ import {
  *
  * @public
  */
-export default class HSVSpace implements BaseSpace<HSVColorSpace> {
-    public type: ModelType;
-
-    protected readonly space: HSVColorSpace;
-
-    constructor(space: HSVColorSpace) {
-        this.type = 'hsv';
-        this.space = space;
+export default class HSVSpace extends AbstractSpace<'hsv', HSVColorSpace> {
+    constructor(model: HSVColorSpace) {
+        super('hsv', model, hsvConverter);
     }
 
     /**
@@ -39,7 +33,7 @@ export default class HSVSpace implements BaseSpace<HSVColorSpace> {
      * @returns {number} the hue channel value of this color space
      */
     public hue(): number {
-        return this.space.hue;
+        return this.model.hue;
     }
 
     /**
@@ -48,7 +42,7 @@ export default class HSVSpace implements BaseSpace<HSVColorSpace> {
      * @returns {number} the saturation channel value of this color space
      */
     public saturation(): number {
-        return this.space.saturation;
+        return this.model.saturation;
     }
 
     /**
@@ -57,7 +51,7 @@ export default class HSVSpace implements BaseSpace<HSVColorSpace> {
      * @returns {number} the lightness channel value of this color space
      */
     public value(): number {
-        return this.space.value;
+        return this.model.value;
     }
 
     /**
@@ -69,10 +63,10 @@ export default class HSVSpace implements BaseSpace<HSVColorSpace> {
      */
     public blacken(ratio: number): HSVSpace {
         const normalized = normalizePercent(ratio);
-        const hwb = hsvConverter.toHWB(this.space);
+        const hwb = hsvConverter.toHWB(this.model);
         hwb.blackness += hwb.blackness * normalized;
         const hsv = hwbConverter.toHSV(hwb);
-        return this.applySpace(hsv);
+        return this.applyModel(hsv);
     }
 
     /**
@@ -81,7 +75,7 @@ export default class HSVSpace implements BaseSpace<HSVColorSpace> {
      * @return a new cloned instance of the original color space
      */
     public clone(): HSVSpace {
-        return new HSVSpace({ ...this.space });
+        return new HSVSpace({ ...this.model });
     }
 
     /**
@@ -98,7 +92,7 @@ export default class HSVSpace implements BaseSpace<HSVColorSpace> {
      * @returns the value of the channel matching the provided key
      */
     public color(color: keyof HSVColorSpace): number {
-        return this.space[color];
+        return this.model[color];
     }
 
     /**
@@ -120,10 +114,10 @@ export default class HSVSpace implements BaseSpace<HSVColorSpace> {
      * @param {number} ratio percentage to darken the color by as a value between [0,1], or (1,100]
      */
     public darken(ratio: number): HSVSpace {
-        const hsl = hsvConverter.toHSL(this.space);
+        const hsl = hsvConverter.toHSL(this.model);
         const darkened = adjustHueRelativeValue(hsl, 'lightness', ratio, false);
         const hsv = hslConverter.toHSV(darkened);
-        return this.applySpace(hsv);
+        return this.applyModel(hsv);
     }
 
     /**
@@ -133,12 +127,12 @@ export default class HSVSpace implements BaseSpace<HSVColorSpace> {
      */
     public desaturate(ratio: number): HSVSpace {
         const desaturated = adjustHueRelativeValue(
-            this.space,
+            this.model,
             'saturation',
             ratio,
             false
         );
-        return this.applySpace(desaturated);
+        return this.applyModel(desaturated);
     }
 
     /**
@@ -148,10 +142,10 @@ export default class HSVSpace implements BaseSpace<HSVColorSpace> {
      */
     public grayscale(): HSVSpace {
         const greyscale = applyGreyscaleToRGBASpace(
-            hsvConverter.toRGBA(this.space)
+            hsvConverter.toRGBA(this.model)
         );
         const hsv = rgbaConverter.toHSV(greyscale);
-        return this.applySpace(hsv);
+        return this.applyModel(hsv);
     }
 
     /**
@@ -173,10 +167,10 @@ export default class HSVSpace implements BaseSpace<HSVColorSpace> {
      * @param {number} ratio a value between [0,1] or (1,100] as the ratio to adjust the lightness of the color space
      */
     public lighten(ratio: number): HSVSpace {
-        const hsl = hsvConverter.toHSL(this.space);
+        const hsl = hsvConverter.toHSL(this.model);
         const lightened = adjustHueRelativeValue(hsl, 'lightness', ratio, true);
         const hsv = hslConverter.toHSV(lightened);
-        return this.applySpace(hsv);
+        return this.applyModel(hsv);
     }
 
     /**
@@ -189,10 +183,10 @@ export default class HSVSpace implements BaseSpace<HSVColorSpace> {
      * @param weight the weight in which the color should be mixed
      */
     public mix(color: HSVColorSpace, weight = 0.5): HSVSpace {
-        const rgba = hsvConverter.toRGBA(this.space);
+        const rgba = hsvConverter.toRGBA(this.model);
         const mixed = mixRGBASpaces(rgba, hsvConverter.toRGBA(color), weight);
         const hsv = rgbaConverter.toHSV(mixed);
-        return this.applySpace(hsv);
+        return this.applyModel(hsv);
     }
 
     /**
@@ -201,7 +195,7 @@ export default class HSVSpace implements BaseSpace<HSVColorSpace> {
      * @param {number} degrees the number of degrees to rotate the hue channel
      */
     public rotate(degrees: number): HSVSpace {
-        this.space.hue = rotateHue(this.space.hue, degrees);
+        this.model.hue = rotateHue(this.model.hue, degrees);
         return this;
     }
 
@@ -211,15 +205,15 @@ export default class HSVSpace implements BaseSpace<HSVColorSpace> {
      * @param {number} ratio the ratio to saturate color
      */
     public saturate(ratio: number): HSVSpace {
-        const hsl = hsvConverter.toHSL(this.space);
+        const hsl = hsvConverter.toHSL(this.model);
         const adjusted = adjustHueRelativeValue(hsl, 'saturation', ratio, true);
         const hsv = hslConverter.toHSV(adjusted);
-        return this.applySpace(hsv);
+        return this.applyModel(hsv);
     }
 
     public setColor(color: keyof HSVColorSpace, value: number): HSVSpace {
-        const adjusted = setHueColorSpaceValue(this.space, color, value);
-        return this.applySpace(adjusted);
+        const adjusted = setHueColorSpaceValue(this.model, color, value);
+        return this.applyModel(adjusted);
     }
 
     /**
@@ -230,7 +224,7 @@ export default class HSVSpace implements BaseSpace<HSVColorSpace> {
      * @return {[number, number, number]} the HSV color space values as an array
      */
     public toArray(): [number, number, number] {
-        return [this.space.hue, this.space.saturation, this.space.value];
+        return [this.model.hue, this.model.saturation, this.model.value];
     }
 
     /**
@@ -246,7 +240,7 @@ export default class HSVSpace implements BaseSpace<HSVColorSpace> {
      */
     public toHexString(removeHashtag?: boolean): string {
         return rgbaSpaceToHexString(
-            hsvConverter.toRGBA(this.space),
+            hsvConverter.toRGBA(this.model),
             removeHashtag
         );
     }
@@ -258,7 +252,7 @@ export default class HSVSpace implements BaseSpace<HSVColorSpace> {
      * @return {HSVColorSpace} the HSV color space values
      */
     public toObject(): HSVColorSpace {
-        return { ...this.space };
+        return { ...this.model };
     }
 
     /**
@@ -273,9 +267,9 @@ export default class HSVSpace implements BaseSpace<HSVColorSpace> {
      * @return {string} valid CSS color value.
      */
     public toString(): string {
-        return `hsv(${parseFloat(this.space.hue.toFixed(1))},${parseFloat(
-            this.space.saturation.toFixed(1)
-        )}%,${parseFloat(this.space.value.toFixed(1))}%)`;
+        return `hsv(${parseFloat(this.model.hue.toFixed(1))},${parseFloat(
+            this.model.saturation.toFixed(1)
+        )}%,${parseFloat(this.model.value.toFixed(1))}%)`;
     }
 
     /**
@@ -287,21 +281,21 @@ export default class HSVSpace implements BaseSpace<HSVColorSpace> {
      */
     public whiten(ratio: number): HSVSpace {
         const normalized = normalizePercent(ratio);
-        const hwb = hsvConverter.toHWB(this.space);
+        const hwb = hsvConverter.toHWB(this.model);
         hwb.whiteness += hwb.whiteness * normalized;
         const hsv = hwbConverter.toHSV(hwb);
-        this.applySpace(hsv);
+        this.applyModel(hsv);
         return this;
     }
     /* ---------- PRIVATE FUNCTIONS --------- */
 
-    private applySpace(space: HSVColorSpace): HSVSpace {
-        this.space.hue = Math.min(Math.max(Math.floor(space.hue), 0), 360);
-        this.space.saturation = Math.min(
+    public applyModel(space: HSVColorSpace): HSVSpace {
+        this.model.hue = Math.min(Math.max(Math.floor(space.hue), 0), 360);
+        this.model.saturation = Math.min(
             Math.max(Math.floor(space.saturation), 0),
             100
         );
-        this.space.value = Math.min(Math.max(Math.floor(space.value), 0), 100);
+        this.model.value = Math.min(Math.max(Math.floor(space.value), 0), 100);
         return this;
     }
 }
