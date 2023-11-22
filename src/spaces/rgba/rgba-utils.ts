@@ -39,13 +39,17 @@ export const mixRGBASpaces = (
     };
 };
 
+function twoDigitHex(value: number) {
+    return value.toString(16).padStart(2, '0');
+}
+
 export const rgbaSpaceToHexString = (
     space: RGBAColorSpace,
     removeHashtag?: boolean
 ): string =>
-    `${!removeHashtag ? '#' : ''}${space.red.toString(
-        16
-    )}${space.green.toString(16)}${space.blue.toString(16)}`;
+    `${!removeHashtag ? '#' : ''}${twoDigitHex(space.red)}${twoDigitHex(
+        space.green
+    )}${twoDigitHex(space.blue)}`;
 
 export const applyGreyscaleToRGBASpace = (
     space: RGBAColorSpace
