@@ -124,6 +124,17 @@ describe('rgba color space', function () {
         it('should return hex string with hashtag', function () {
             expect(rgba.toHexString()).to.eq('#c8804b');
         });
+        it('should return hex string with leading zeros', function () {
+            const val = new RGBASpace({
+                red: 13,
+                green: 14,
+                blue: 15,
+                alpha: 0.05,
+            });
+            expect(val.toHexString()).to.eq('#0d0e0f');
+            expect(val.toHexString(false)).to.eq('#0d0e0f');
+            expect(val.toHexString(true)).to.eq('0d0e0f');
+        });
         it('should return hex string without hashtag', function () {
             expect(rgba.toHexString(true)).to.eq('c8804b');
         });
